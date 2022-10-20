@@ -1,11 +1,12 @@
 import { fetchJobs } from "./api/index";
+import NavBar from "./components/navbar";
 
 fetchJobs();
 
 function App() {
 	return (
 		<div className="App">
-			<h1 style={{ textAlign: "center", color: "white", backgroundColor: "black", height: "100vh" }}>My app</h1>
+			<NavBar />
 		</div>
 	);
 }
