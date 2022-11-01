@@ -1,29 +1,45 @@
 import React from "react";
-import { Box, Container } from "@chakra-ui/react";
-import { PlusSquareIcon, ExternalLinkIcon } from "@chakra-ui/icons";
+import { FormControl, FormLabel, Input, Container, Checkbox, Divider, Heading, Box, Text } from "@chakra-ui/react";
+import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 
 const NavBar = () => {
 	return (
-		<Container
-			maxW="container.xl"
-			boxShadow="dark-lg"
-			rounded="lg"
-			display="flex"
-			justifyContent="space-between"
-			bg="black"
-		>
-			<Box p={8} color="white">
-				JOB TRACKER
-			</Box>
-
-			<Box display="flex">
-				<Box color="white" cursor="pointer" as="button" mr={10}>
-					<PlusSquareIcon boxSize={7} />
+		<Container maxW="container.xl" boxShadow="dark-lg" rounded="lg">
+			<Container display="flex" justifyContent="space-between" alignItems="center" maxW="container.lg" p={4}>
+				<Box background="blue.300" borderRadius="md" px={4} py={2}>
+					<ArrowBackIcon as="button" boxSize={6} />
+					<Text ml={2} as="b">
+						Back
+					</Text>
 				</Box>
-				<Box color="white" as="button">
-					<ExternalLinkIcon boxSize={7} cursor="pointer" m={4} />
+				<Heading>Job Site Form</Heading>
+				<Box background="blue.300" borderRadius="md" px={4} py={2}>
+					<ExternalLinkIcon as="button" boxSize={6} />
+					<Text ml={2} as="b" pos="relative" top="2px">
+						Print
+					</Text>
 				</Box>
-			</Box>
+			</Container>
+			<Divider />
+			<FormControl mb={6}>
+				<FormLabel>Name</FormLabel>
+				<Input type="name" placeholder="Location Name" variant="filled" />
+			</FormControl>
+			<FormControl mb={6}>
+				<FormLabel display="flex" justifyContent="space-between">
+					Location<Checkbox>Use current Location</Checkbox>
+				</FormLabel>
+				<Input type="location" placeholder="Location Name" variant="filled" />
+			</FormControl>
+			<FormControl mb={6}>
+				<FormLabel>Company</FormLabel>
+				<Input type="company" placeholder="Location Name" variant="filled" />
+			</FormControl>
+			<FormControl mb={6}>
+				<FormLabel>Date</FormLabel>
+				<Input type="date" placeholder="Location Name" variant="filled" />
+			</FormControl>
+			<Divider />
 		</Container>
 	);
 };
