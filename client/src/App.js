@@ -1,12 +1,12 @@
 import { fetchJobs } from "./api/index";
-import NavBar from "./components/navbar";
+import JobForm from "./components/jobForm/jobForm";
 
 fetchJobs();
 
 function App() {
 	return (
 		<div className="App">
-			<NavBar />
+			<JobForm />
 		</div>
 	);
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -12,9 +12,13 @@ import {
 	Button,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ExternalLinkIcon, PlusSquareIcon } from "@chakra-ui/icons";
-import MaterialSection from "../materialSection/materialSection";
+import Section from "../section/section";
 
 const JobForm = () => {
+	const [sections, setSections] = useState([]);
+
+	// useEffect(() => {}, []);
+
 	return (
 		<Container maxW="container.xl" maxHeight="-moz-fit-content" boxShadow="dark-lg" rounded="lg">
 			<Container display="flex" justifyContent="space-between" alignItems="center" maxW="container.lg" p={4}>
@@ -52,23 +56,21 @@ const JobForm = () => {
 				<Input type="date" placeholder="Location Name" variant="filled" />
 			</FormControl>
 			<Text fontSize="3xl" fontWeight="bold" textAlign="center">
-				Materials
+				Job Section
 			</Text>
 			<Divider mb={6} />
-			<FormControl mb={6}>
-				<FormLabel>Section Name</FormLabel>
-				<Input type="sectionName" placeholder="Section Name" variant="filled" />
-			</FormControl>
-			<MaterialSection />
-			<Box maxW="container.xl" display="flex" justifyContent="center" mb={10}>
-				<Button background="blue.300" onClick={() => {}}>
-					<PlusSquareIcon h={6} w={6} />
-					<Text ml={3}>Add Material</Text>
-				</Button>
-			</Box>
+			{sections.map(() => {
+				return <Section />;
+			})}
+
 			<Divider />
 			<Box display="flex" justifyContent="center" mt={10} paddingBottom={10}>
-				<Button background="blue.300">
+				<Button
+					background="blue.300"
+					onClick={() => {
+						setSections([...sections, <Section />]);
+					}}
+				>
 					<PlusSquareIcon h={6} w={6} />
 					<Text ml={3}>Add Section</Text>
 				</Button>
