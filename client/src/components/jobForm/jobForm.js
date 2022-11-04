@@ -11,14 +11,19 @@ import {
 	Text,
 	Button,
 } from "@chakra-ui/react";
-import { ArrowBackIcon, ExternalLinkIcon, PlusSquareIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ExternalLinkIcon, PlusSquareIcon, SmallCloseIcon } from "@chakra-ui/icons";
 import Section from "../section/section";
 
 const JobForm = () => {
 	const [sections, setSections] = useState([]);
 
-	// useEffect(() => {}, []);
+	const handleClick = () => {
+		return addSection();
+	};
 
+	const addSection = () => {
+		setSections([...sections, <Section />]);
+	};
 	return (
 		<Container maxW="container.xl" maxHeight="-moz-fit-content" boxShadow="dark-lg" rounded="lg">
 			<Container display="flex" justifyContent="space-between" alignItems="center" maxW="container.lg" p={4}>
@@ -59,20 +64,20 @@ const JobForm = () => {
 				Job Section
 			</Text>
 			<Divider mb={6} />
-			{sections.map(() => {
-				return <Section />;
+			{sections.map((section) => {
+				let index = sections.indexOf(section);
+				return <Section key={index} />;
 			})}
 
 			<Divider />
-			<Box display="flex" justifyContent="center" mt={10} paddingBottom={10}>
-				<Button
-					background="blue.300"
-					onClick={() => {
-						setSections([...sections, <Section />]);
-					}}
-				>
+			<Box display="flex" justifyContent="space-evenly" mt={10} paddingBottom={10}>
+				<Button id="add" background="blue.300" onClick={handleClick}>
 					<PlusSquareIcon h={6} w={6} />
 					<Text ml={3}>Add Section</Text>
+				</Button>
+				<Button id="remove" background="red.300" onClick={handleClick}>
+					<SmallCloseIcon h={6} w={6} />
+					<Text ml={3}>Remove</Text>
 				</Button>
 			</Box>
 			<Divider />
