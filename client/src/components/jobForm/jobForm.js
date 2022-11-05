@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -17,13 +17,32 @@ import Section from "../section/section";
 const JobForm = () => {
 	const [sections, setSections] = useState([]);
 
-	const handleClick = () => {
-		return addSection();
+	const handleClick = (event) => {
+		if (event.target.id === "add") {
+			return addSection();
+		}
+		if (event.target.id === "remove") {
+			return removeSection();
+		}
+
+		return console.log("try again buddy");
 	};
 
 	const addSection = () => {
 		setSections([...sections, <Section />]);
 	};
+
+	const removeSection = () => {
+		console.log(sections.length);
+		let last = sections[sections.length - 1];
+
+		setSections(
+			sections.filter((section) => {
+				return section !== last;
+			}),
+		);
+	};
+
 	return (
 		<Container maxW="container.xl" maxHeight="-moz-fit-content" boxShadow="dark-lg" rounded="lg">
 			<Container display="flex" justifyContent="space-between" alignItems="center" maxW="container.lg" p={4}>
@@ -72,12 +91,16 @@ const JobForm = () => {
 			<Divider />
 			<Box display="flex" justifyContent="space-evenly" mt={10} paddingBottom={10}>
 				<Button id="add" background="blue.300" onClick={handleClick}>
-					<PlusSquareIcon h={6} w={6} />
-					<Text ml={3}>Add Section</Text>
+					<PlusSquareIcon id="add" h={6} w={6} />
+					<Text id="add" ml={3}>
+						Add Section
+					</Text>
 				</Button>
 				<Button id="remove" background="red.300" onClick={handleClick}>
-					<SmallCloseIcon h={6} w={6} />
-					<Text ml={3}>Remove</Text>
+					<SmallCloseIcon id="remove" h={6} w={6} />
+					<Text id="remove" ml={3}>
+						Remove
+					</Text>
 				</Button>
 			</Box>
 			<Divider />
