@@ -11,6 +11,17 @@ export const getJobs = async (request, response) => {
 	}
 };
 
+export const createJob = async (req, res) => {
+	const job = req.body;
+	const newJob = new JobSite(job);
+	try {
+		await newJob.save();
+		res.status(201).json(newJob);
+	} catch (error) {
+		res.status(409).json({ message: error.message });
+	}
+};
+
 // app.get("/", function (req, res) {
 // 	res.send("Hello World");
 // });

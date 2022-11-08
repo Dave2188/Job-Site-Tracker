@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -11,21 +11,44 @@ import {
 	Text,
 	Button,
 } from "@chakra-ui/react";
-import { ArrowBackIcon, ExternalLinkIcon, PlusSquareIcon, SmallCloseIcon } from "@chakra-ui/icons";
+import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "../section/section";
+import { useDispatch } from "react-redux";
+import { createJob } from "../../actions/jobactions";
 
 const JobForm = () => {
 	const [sections, setSections] = useState([]);
+	const [jobData, setJobData] = useState({
+		jobSiteName: "",
+		location: "",
+		companyName: "",
+		directions: "",
+		isReady: "",
+		createdBy: "",
+		siteSection: {
+			sectionName: "",
+			materials: [{ material: "", amount: "" }],
+			equipment: "",
+			comments: "",
+		},
+	});
+
+	const dispatch = useDispatch();
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		dispatch(createJob(jobData));
+	};
 
 	const handleClick = (event) => {
+		console.log(event.target);
 		if (event.target.id === "add") {
 			return addSection();
 		}
 		if (event.target.id === "remove") {
 			return removeSection();
 		}
-
-		return console.log("try again buddy");
 	};
 
 	const addSection = () => {
@@ -33,7 +56,6 @@ const JobForm = () => {
 	};
 
 	const removeSection = () => {
-		console.log(sections.length);
 		let last = sections[sections.length - 1];
 
 		setSections(
@@ -63,21 +85,43 @@ const JobForm = () => {
 			<Divider mb={6} />
 			<FormControl mb={6}>
 				<FormLabel>Name</FormLabel>
-				<Input type="name" placeholder="Location Name" variant="filled" />
+				<Input
+					name="createdBy"
+					type="text"
+					placeholder="Location Name"
+					variant="filled"
+					onChange={(event) => setJobData({ ...jobData, createdBy: event.target.value })}
+				/>
 			</FormControl>
 			<FormControl mb={6}>
 				<FormLabel display="flex" justifyContent="space-between">
 					Location<Checkbox>Use Current Location</Checkbox>
 				</FormLabel>
-				<Input type="location" placeholder="Location Name" variant="filled" />
+				<Input
+					name="jobSiteName"
+					type="text"
+					placeholder="Location Name"
+					variant="filled"
+					onChange={(event) => setJobData({ ...jobData, jobSiteName: event.target.value })}
+				/>
 			</FormControl>
 			<FormControl mb={6}>
 				<FormLabel>Company</FormLabel>
-				<Input type="company" placeholder="Location Name" variant="filled" />
+				<Input
+					name="companyName"
+					type="text"
+					placeholder="Company Name"
+					variant="filled"
+					onChange={(event) => setJobData({ ...jobData, companyName: event.target.value })}
+				/>
 			</FormControl>
 			<FormControl mb={14}>
 				<FormLabel>Date</FormLabel>
-				<Input type="date" placeholder="Location Name" variant="filled" />
+				<Input
+					type="date"
+					variant="filled"
+					onChange={(event) => setJobData({ ...jobData, date: event.target.value })}
+				/>
 			</FormControl>
 			<Text fontSize="3xl" fontWeight="bold" textAlign="center">
 				Job Section
@@ -85,27 +129,35 @@ const JobForm = () => {
 			<Divider mb={6} />
 			{sections.map((section) => {
 				let index = sections.indexOf(section);
-				return <Section key={index} />;
+				return <Section setJobData={setJobData} jobData={jobData} key={index} />;
 			})}
 
 			<Divider />
 			<Box display="flex" justifyContent="space-evenly" mt={10} paddingBottom={10}>
 				<Button id="add" background="blue.300" onClick={handleClick}>
-					<PlusSquareIcon id="add" h={6} w={6} />
-					<Text id="add" ml={3}>
+					{/* <PlusSquareIcon id="add" h={6} w={6} /> */}
+					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
+						+
+					</Text>
+					<Text id="add" ml={2}>
 						Add Section
 					</Text>
 				</Button>
 				<Button id="remove" background="red.300" onClick={handleClick}>
-					<SmallCloseIcon id="remove" h={6} w={6} />
-					<Text id="remove" ml={3}>
+					{/* <SmallCloseIcon id="remove" h={6} w={6} /> */}
+					<Box id="remove" fontSize={18} position="relative" bottom="1px" fontWeight="bold">
+						x
+					</Box>
+					<Text id="remove" ml={2}>
 						Remove
 					</Text>
 				</Button>
 			</Box>
 			<Divider />
 			<Box display="flex" justifyContent="center" mt={14}>
-				<Button background="green.400">Submit</Button>
+				<Button onClick={handleSubmit} background="green.400">
+					Submit
+				</Button>
 			</Box>
 		</Container>
 	);

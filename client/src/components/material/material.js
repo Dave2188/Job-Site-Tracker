@@ -11,13 +11,18 @@ import {
 	NumberDecrementStepper,
 } from "@chakra-ui/react";
 
-const Material = () => {
+const Material = (setJobData, jobData) => {
 	return (
 		<>
 			<Box display="flex" justifyContent="space-between" mb={10}>
 				<FormControl w="45%">
 					<FormLabel>Material</FormLabel>
-					<Select placeholder="Select option" variant="filled">
+					<Select
+						name="siteSection.materials"
+						placeholder="Select option"
+						variant="filled"
+						onChange={(event) => setJobData({ ...jobData, section: { materials: [{ material: event.target.value }] } })}
+					>
 						<option></option>
 						<option></option>
 						<option></option>
@@ -26,7 +31,15 @@ const Material = () => {
 				</FormControl>
 				<FormControl w="30%">
 					<FormLabel>Amount</FormLabel>
-					<NumberInput defaultValue={0} min={0} max={10000} variant="filled">
+					<NumberInput
+						name="siteSection.materialsAmount"
+						// defaultValue={0}
+						type="number"
+						min={0}
+						max={10000}
+						variant="filled"
+						onChange={(event) => setJobData({ ...jobData, section: { materials: [{ amount: event.target.amount }] } })}
+					>
 						<NumberInputField />
 						<NumberInputStepper>
 							<NumberIncrementStepper />
