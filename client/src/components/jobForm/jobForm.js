@@ -37,8 +37,8 @@ const JobForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-
-		dispatch(createJob(jobData));
+		console.log(jobData);
+		// dispatch(createJob(jobData));
 	};
 
 	const handleClick = (event) => {
@@ -88,15 +88,13 @@ const JobForm = () => {
 				<Input
 					name="createdBy"
 					type="text"
-					placeholder="Location Name"
+					placeholder="Your Name"
 					variant="filled"
 					onChange={(event) => setJobData({ ...jobData, createdBy: event.target.value })}
 				/>
 			</FormControl>
 			<FormControl mb={6}>
-				<FormLabel display="flex" justifyContent="space-between">
-					Location<Checkbox>Use Current Location</Checkbox>
-				</FormLabel>
+				<FormLabel>Location</FormLabel>
 				<Input
 					name="jobSiteName"
 					type="text"
@@ -121,6 +119,17 @@ const JobForm = () => {
 					type="date"
 					variant="filled"
 					onChange={(event) => setJobData({ ...jobData, date: event.target.value })}
+				/>
+			</FormControl>
+			<FormControl mb={14}>
+				<FormLabel display="flex" justifyContent="space-between">
+					Directions<Checkbox>Use Current Location</Checkbox>
+				</FormLabel>
+				<Input
+					type="text"
+					variant="filled"
+					placeholder="Directions"
+					onChange={(event) => setJobData({ ...jobData, directions: event.target.value })}
 				/>
 			</FormControl>
 			<Text fontSize="3xl" fontWeight="bold" textAlign="center">

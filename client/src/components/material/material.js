@@ -9,38 +9,35 @@ import {
 	NumberInputStepper,
 	NumberIncrementStepper,
 	NumberDecrementStepper,
+	Input,
 } from "@chakra-ui/react";
 
-const Material = (setJobData, jobData) => {
+const Material = ({ jobData, setJobData }) => {
 	return (
 		<>
 			<Box display="flex" justifyContent="space-between" mb={10}>
 				<FormControl w="45%">
 					<FormLabel>Material</FormLabel>
 					<Select
-						name="siteSection.materials"
+						name="material"
 						placeholder="Select option"
 						variant="filled"
-						onChange={(event) => setJobData({ ...jobData, section: { materials: [{ material: event.target.value }] } })}
+						onSelect={(event) => setJobData({ ...jobData, section: { materials: [{ material: event.target.value }] } })}
 					>
-						<option></option>
-						<option></option>
-						<option></option>
-						<option></option>
+						<option>1.25x1.5</option>
+						<option>2x1.5</option>
+						<option>3.1.5</option>
+						<option>4x1.5</option>
 					</Select>
 				</FormControl>
 				<FormControl w="30%">
 					<FormLabel>Amount</FormLabel>
-					<NumberInput
-						name="siteSection.materialsAmount"
-						// defaultValue={0}
-						type="number"
-						min={0}
-						max={10000}
-						variant="filled"
-						onChange={(event) => setJobData({ ...jobData, section: { materials: [{ amount: event.target.amount }] } })}
-					>
-						<NumberInputField />
+					<NumberInput id="numberInput" name="Amount" defaultValue={0} min={0} max={10000} variant="filled">
+						<NumberInputField
+							onChange={(event) => {
+								setJobData({ ...jobData, section: { materials: [{ amount: event.target.value }] } });
+							}}
+						/>
 						<NumberInputStepper>
 							<NumberIncrementStepper />
 							<NumberDecrementStepper />
