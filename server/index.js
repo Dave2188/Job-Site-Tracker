@@ -7,7 +7,7 @@ const app = express();
 
 app.use(cors());
 
-app.use("/Jobs", jobSiteRoutes);
+app.use("/jobs", jobSiteRoutes);
 
 const PORT = process.env.PORT || 4000;
 

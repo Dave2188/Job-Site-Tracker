@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FormControl, FormLabel, Input, useEditable } from "@chakra-ui/react";
 import MaterialSection from "../materialSection/materialSection";
 
-const Section = ({ setJobData, jobData }) => {
-	const [materialss, setMaterialss] = useState({});
+const Section = ({ setJobData, jobData, materialss, setMatrialss }) => {
 	const [siteSections, setSiteSections] = useState({
 		sectionName: "",
 		materials: [],
@@ -24,7 +23,12 @@ const Section = ({ setJobData, jobData }) => {
 				<FormLabel>Section Name</FormLabel>
 				<Input name="sectionName" type="text" placeholder="Section Name" variant="filled" onChange={sectionChange} />
 			</FormControl>
-			<MaterialSection setSiteSections={setSiteSections} siteSections={siteSections} setMaterialss />
+			<MaterialSection
+				setJobData={setJobData}
+				jobData={jobData}
+				setSiteSections={setSiteSections}
+				siteSections={siteSections}
+			/>
 		</>
 	);
 };

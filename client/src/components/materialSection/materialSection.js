@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Button, Text } from "@chakra-ui/react";
 import Material from "../material/material";
 
-const MaterialSection = ({ setJobData, jobData }) => {
+const MaterialSection = () => {
 	const [materialInput, setMaterialInput] = useState([<Material />]);
 
 	const handleClick = (event) => {
@@ -34,7 +34,7 @@ const MaterialSection = ({ setJobData, jobData }) => {
 		<>
 			{materialInput.map(() => {
 				let key = Math.random();
-				return <Material key={key} setJobData={setJobData} jobData={jobData} />;
+				return <Material key={key} materialInput={materialInput} setMaterialInput={setMaterialInput} />;
 			})}
 
 			<Box maxW="container.xl" display="flex" justifyContent="space-evenly" mb={10}>

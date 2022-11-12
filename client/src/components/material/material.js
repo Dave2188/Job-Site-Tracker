@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
 	Box,
 	FormControl,
@@ -12,18 +12,30 @@ import {
 	Input,
 } from "@chakra-ui/react";
 
-const Material = ({ jobData, setJobData }) => {
+const Material = ({ materialInput, setMaterialInput }) => {
+	const [materials, setMaterials] = useState({
+		material: "",
+		amount: "",
+	});
+
+	const materialHandleChange = (event) => {
+		setMaterials({ ...materials, material: event.target.value + 1 });
+
+		console.log(materialInput);
+	};
+
+	const amountHandleChange = () => {
+		const amountInput = document.getElementById("number");
+		const newValue = Number(amountInput.value);
+		setMaterials({ ...materials, amount: newValue + 1 });
+	};
+
 	return (
 		<>
 			<Box display="flex" justifyContent="space-between" mb={10}>
 				<FormControl w="45%">
 					<FormLabel>Material</FormLabel>
-					<Select
-						name="material"
-						placeholder="Select option"
-						variant="filled"
-						onSelect={(event) => setJobData({ ...jobData, section: { materials: [{ material: event.target.value }] } })}
-					>
+					<Select id="material" placeholder="Select option" variant="filled" onChange={materialHandleChange}>
 						<option>1.25x1.5</option>
 						<option>2x1.5</option>
 						<option>3.1.5</option>
@@ -32,12 +44,15 @@ const Material = ({ jobData, setJobData }) => {
 				</FormControl>
 				<FormControl w="30%">
 					<FormLabel>Amount</FormLabel>
-					<NumberInput id="numberInput" name="Amount" defaultValue={0} min={0} max={10000} variant="filled">
-						<NumberInputField
-							onChange={(event) => {
-								setJobData({ ...jobData, section: { materials: [{ amount: event.target.value }] } });
-							}}
-						/>
+					<NumberInput
+						id="numberInput"
+						defaultValue={0}
+						min={0}
+						max={10000}
+						variant="filled"
+						onChange={amountHandleChange}
+					>
+						<NumberInputField id="number" />
 						<NumberInputStepper>
 							<NumberIncrementStepper />
 							<NumberDecrementStepper />
@@ -45,6 +60,7 @@ const Material = ({ jobData, setJobData }) => {
 					</NumberInput>
 				</FormControl>
 			</Box>
+			{console.log(materials)}
 		</>
 	);
 };
