@@ -18,7 +18,6 @@ import { createJob } from "../../actions/jobactions";
 
 const JobForm = () => {
 	const [sections, setSections] = useState([]);
-
 	const [jobData, setJobData] = useState({
 		jobSiteName: "",
 		location: "",
@@ -40,6 +39,7 @@ const JobForm = () => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
 		console.log();
 		console.log(jobData);
 		// dispatch(createJob(jobData));
