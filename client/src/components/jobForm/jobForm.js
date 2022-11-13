@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import { createJob } from "../../actions/jobactions";
 
 const JobForm = () => {
-	const [sections, setSections] = useState([]);
+	const [jobSections, setJobSections] = useState([]);
 	const [jobData, setJobData] = useState({
 		jobSiteName: "",
 		location: "",
@@ -28,12 +28,15 @@ const JobForm = () => {
 		siteSection: [
 			{
 				sectionName: "",
-				materials: [{ material: "", amount: "" }],
-				equipment: "",
-				comments: "",
+				materials: [],
 			},
 		],
 	});
+
+	const sectionChange = (event) => {
+		setJobSections(...jobSections, event.target.value);
+		console.log(jobSections);
+	};
 
 	const dispatch = useDispatch();
 
@@ -56,14 +59,14 @@ const JobForm = () => {
 	};
 
 	const addSection = () => {
-		setSections([...sections, <Section />]);
+		setJobSections([...jobSections, <Section />]);
 	};
 
 	const removeSection = () => {
-		let last = sections[sections.length - 1];
+		let last = jobSections[jobSections.length - 1];
 
-		setSections(
-			sections.filter((section) => {
+		setJobSections(
+			jobSections.filter((section) => {
 				return section !== last;
 			}),
 		);
@@ -140,9 +143,9 @@ const JobForm = () => {
 				Job Section
 			</Text>
 			<Divider mb={6} />
-			{sections.map((section) => {
-				let index = sections.indexOf(section);
-				return <Section setJobData={setJobData} jobData={jobData} key={index} />;
+			{jobSections.map((section) => {
+				let index = jobSections.indexOf(section);
+				return <Section setJobData={setJobData} jobData={jobData} onChange={sectionChange} key={index} />;
 			})}
 
 			<Divider />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
 	Box,
 	FormControl,
@@ -9,25 +9,17 @@ import {
 	NumberInputStepper,
 	NumberIncrementStepper,
 	NumberDecrementStepper,
-	Input,
 } from "@chakra-ui/react";
 
-const Material = ({ materialInput, setMaterialInput }) => {
-	const [materials, setMaterials] = useState({
-		material: "",
-		amount: "",
-	});
-
+const Material = (props) => {
 	const materialHandleChange = (event) => {
-		setMaterials({ ...materials, material: event.target.value + 1 });
-
-		console.log(materialInput);
+		props.setData({ ...props.data, material: event.target.value });
 	};
 
 	const amountHandleChange = () => {
 		const amountInput = document.getElementById("number");
 		const newValue = Number(amountInput.value);
-		setMaterials({ ...materials, amount: newValue + 1 });
+		props.setData({ ...props.data, amount: newValue + 1 });
 	};
 
 	return (
@@ -60,7 +52,6 @@ const Material = ({ materialInput, setMaterialInput }) => {
 					</NumberInput>
 				</FormControl>
 			</Box>
-			{console.log(materials)}
 		</>
 	);
 };
