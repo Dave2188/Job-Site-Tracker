@@ -17,7 +17,6 @@ import { useDispatch } from "react-redux";
 import { createJob } from "../../actions/jobactions";
 
 const JobForm = () => {
-	const [jobSections, setJobSections] = useState([]);
 	const [jobData, setJobData] = useState({
 		jobSiteName: "",
 		location: "",
@@ -25,51 +24,32 @@ const JobForm = () => {
 		directions: "",
 		isReady: "",
 		createdBy: "",
-		siteSection: [
-			{
-				sectionName: "",
-				materials: [],
-			},
-		],
+		siteSections: [],
 	});
 
-	const sectionChange = (event) => {
-		setJobSections(...jobSections, event.target.value);
-		console.log(jobSections);
+	const tempJobData = {
+		jobSiteName: "",
+		location: "",
+		companyName: "",
+		directions: "",
+		isReady: "",
+		createdBy: "",
+		siteSections: [],
+	};
+
+	const [jobSections, setJobSections] = useState([]);
+
+	const setTempJobData = (e) => {
+		tempJobData[e.target.name] = e.target.value;
 	};
 
 	const dispatch = useDispatch();
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		// setJobData({ ...jobData, siteSections: jobSections });
 
-		console.log();
-		console.log(jobData);
+		console.log(tempJobData);
 		// dispatch(createJob(jobData));
-	};
-
-	const handleClick = (event) => {
-		console.log(event.target);
-		if (event.target.id === "add") {
-			return addSection();
-		}
-		if (event.target.id === "remove") {
-			return removeSection();
-		}
-	};
-
-	const addSection = () => {
-		setJobSections([...jobSections, <Section />]);
-	};
-
-	const removeSection = () => {
-		let last = jobSections[jobSections.length - 1];
-
-		setJobSections(
-			jobSections.filter((section) => {
-				return section !== last;
-			}),
-		);
 	};
 
 	return (
@@ -92,65 +72,52 @@ const JobForm = () => {
 			<Divider mb={6} />
 			<FormControl mb={6}>
 				<FormLabel>Name</FormLabel>
-				<Input
-					name="createdBy"
-					type="text"
-					placeholder="Your Name"
-					variant="filled"
-					onChange={(event) => setJobData({ ...jobData, createdBy: event.target.value })}
-				/>
+				<Input name="createdBy" type="text" placeholder="Your Name" variant="filled" onChange={setTempJobData} />
 			</FormControl>
 			<FormControl mb={6}>
-				<FormLabel>Location</FormLabel>
-				<Input
-					name="jobSiteName"
-					type="text"
-					placeholder="Location Name"
-					variant="filled"
-					onChange={(event) => setJobData({ ...jobData, jobSiteName: event.target.value })}
-				/>
+				<FormLabel>Job Site Name</FormLabel>
+				<Input name="jobSiteName" type="text" placeholder="Location Name" variant="filled" onChange={setTempJobData} />
 			</FormControl>
 			<FormControl mb={6}>
 				<FormLabel>Company</FormLabel>
-				<Input
-					name="companyName"
-					type="text"
-					placeholder="Company Name"
-					variant="filled"
-					onChange={(event) => setJobData({ ...jobData, companyName: event.target.value })}
-				/>
+				<Input name="companyName" type="text" placeholder="Company Name" variant="filled" onChange={setTempJobData} />
 			</FormControl>
 			<FormControl mb={14}>
 				<FormLabel>Date</FormLabel>
-				<Input
-					type="date"
-					variant="filled"
-					onChange={(event) => setJobData({ ...jobData, date: event.target.value })}
-				/>
+				<Input type="date" variant="filled" onChange={setTempJobData} />
 			</FormControl>
 			<FormControl mb={14}>
 				<FormLabel display="flex" justifyContent="space-between">
 					Directions<Checkbox>Use Current Location</Checkbox>
 				</FormLabel>
-				<Input
-					type="text"
-					variant="filled"
-					placeholder="Directions"
-					onChange={(event) => setJobData({ ...jobData, directions: event.target.value })}
-				/>
+				<Input type="text" name="directions" variant="filled" placeholder="Directions" onChange={setTempJobData} />
 			</FormControl>
 			<Text fontSize="3xl" fontWeight="bold" textAlign="center">
 				Job Section
 			</Text>
 			<Divider mb={6} />
-			{jobSections.map((section) => {
-				let index = jobSections.indexOf(section);
-				return <Section setJobData={setJobData} jobData={jobData} onChange={sectionChange} key={index} />;
+			<Section
+				tempJobData={tempJobData}
+				setTempSectionData={(obj) => {
+					tempJobData.siteSections.push(obj);
+				}}
+			/>
+			{/* get the sections to temp save!!!!! */}
+			{jobSections.map((section, i) => {
+				return (
+					<Section
+						setTempSectionData={(obj) => {
+							tempJobData.siteSections.push(obj);
+						}}
+						key={i}
+						name="siteSections"
+					/>
+				);
 			})}
 
 			<Divider />
 			<Box display="flex" justifyContent="space-evenly" mt={10} paddingBottom={10}>
-				<Button id="add" background="blue.300" onClick={handleClick}>
+				<Button id="add" background="blue.300" onClick={() => setJobSections([...jobSections, 0])}>
 					{/* <PlusSquareIcon id="add" h={6} w={6} /> */}
 					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
 						+
@@ -159,7 +126,13 @@ const JobForm = () => {
 						Add Section
 					</Text>
 				</Button>
-				<Button id="remove" background="red.300" onClick={handleClick}>
+				<Button
+					id="remove"
+					background="red.300"
+					onClick={() => {
+						setJobData([...jobSections, jobSections.pop()]);
+					}}
+				>
 					{/* <SmallCloseIcon id="remove" h={6} w={6} /> */}
 					<Box id="remove" fontSize={18} position="relative" bottom="1px" fontWeight="bold">
 						x
