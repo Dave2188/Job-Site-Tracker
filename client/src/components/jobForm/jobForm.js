@@ -97,17 +97,16 @@ const JobForm = () => {
 			</Text>
 			<Divider mb={6} />
 			<Section
-				tempJobData={tempJobData}
 				setTempSectionData={(obj) => {
-					tempJobData.siteSections.push(obj);
+					tempJobData.siteSections = [...tempJobData.siteSections, obj];
 				}}
 			/>
-			{/* get the sections to temp save!!!!! */}
+
 			{jobSections.map((section, i) => {
 				return (
 					<Section
 						setTempSectionData={(obj) => {
-							tempJobData.siteSections.push(obj);
+							tempJobData.siteSections = [...tempJobData.siteSections, obj];
 						}}
 						key={i}
 						name="siteSections"
