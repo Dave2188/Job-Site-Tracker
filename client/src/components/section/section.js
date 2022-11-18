@@ -1,37 +1,50 @@
 import React, { useState } from "react";
-import { FormControl, FormLabel, Box, Button, Text, Input } from "@chakra-ui/react";
+import { FormControl, FormLabel, Box, Button, Text, Input, Container } from "@chakra-ui/react";
 import Material from "../material/material";
 
-const Section = ({ setJobData, jobData }) => {
-	const [siteSections, setSiteSections] = useState([]);
-	const [materialList, setMaterialList] = useState([]);
-	const [materials, setMaterials] = useState({
-		material: "",
-		amount: "",
-	});
-
-	const sectionChange = (event) => {
-		setSiteSections([{ ...siteSections, sectionName: event.target.value }]);
+const Section = (props) => {
+	const [materialNumber, setMaterialNumber] = useState([{}]);
+	const [nameValue, setNameValue] = useState("");
+	const tempSection = {
+		sectionName: nameValue,
+		materials: [],
 	};
 
-	const handleClick = (event) => {
-		if (event.target.id === "add") {
-			setMaterialList([...materialList, materials]);
+	const handleClick = (e) => {
+		if (e.target.id === "add") {
+			setMaterialNumber([...materialNumber, {}]);
 		}
-		if (event.target.id === "remove") {
-			return;
+		if (e.target.id === "remove") {
+			setMaterialNumber(materialNumber.slice(0, materialNumber.length - 1));
 		}
 	};
 
 	return (
 		<>
-			<FormControl mb={6}>
+			<FormControl mb={6} id="sectionName">
 				<FormLabel>Section Name</FormLabel>
-				<Input name="sectionName" type="text" placeholder="Section Name" variant="filled" onChange={sectionChange} />
+				<Input
+					name="sectionName"
+					type="text"
+					placeholder="Section Name"
+					variant="filled"
+					onChange={(e) => {
+						setNameValue(e.target.value);
+						tempSection[e.target.name] = nameValue;
+					}}
+					onSubmit={props.setTempSectionData(tempSection)}
+					maxWidth="100%"
+				/>
 			</FormControl>
-			<Material setData={setMaterials} data={materials} />
-			{materialList.map((itemSet, i) => {
-				return <Material key={i} setData={setMaterials} data={materials} value={itemSet} />;
+			{materialNumber.map((num, i) => {
+				return (
+					<Material
+						key={i}
+						handleData={(obj) => {
+							tempSection.materials[i] = obj;
+						}}
+					/>
+				);
 			})}
 			<Box maxW="container.xl" display="flex" justifyContent="space-evenly" mb={10}>
 				<Button id="add" background="blue.300" onClick={handleClick}>
@@ -51,8 +64,6 @@ const Section = ({ setJobData, jobData }) => {
 					</Text>
 				</Button>
 			</Box>
-			{console.log(materialList)}
-			{console.log(materials)}
 		</>
 	);
 };

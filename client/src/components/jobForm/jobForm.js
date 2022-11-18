@@ -17,15 +17,7 @@ import { useDispatch } from "react-redux";
 import { createJob } from "../../actions/jobactions";
 
 const JobForm = () => {
-	const [jobData, setJobData] = useState({
-		jobSiteName: "",
-		location: "",
-		companyName: "",
-		directions: "",
-		isReady: "",
-		createdBy: "",
-		siteSections: [],
-	});
+	const [jobData, setJobData] = useState({});
 
 	const tempJobData = {
 		jobSiteName: "",
@@ -37,7 +29,7 @@ const JobForm = () => {
 		siteSections: [],
 	};
 
-	const [jobSections, setJobSections] = useState([]);
+	const [jobSections, setJobSections] = useState([{}]);
 
 	const setTempJobData = (e) => {
 		tempJobData[e.target.name] = e.target.value;
@@ -46,9 +38,8 @@ const JobForm = () => {
 	const dispatch = useDispatch();
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// setJobData({ ...jobData, siteSections: jobSections });
+		setJobData(tempJobData);
 
-		console.log(tempJobData);
 		// dispatch(createJob(jobData));
 	};
 
@@ -96,17 +87,18 @@ const JobForm = () => {
 				Job Section
 			</Text>
 			<Divider mb={6} />
-			<Section
+			{/* <Section
 				setTempSectionData={(obj) => {
 					tempJobData.siteSections = [...tempJobData.siteSections, obj];
 				}}
-			/>
+			/> */}
 
 			{jobSections.map((section, i) => {
 				return (
 					<Section
 						setTempSectionData={(obj) => {
-							tempJobData.siteSections = [...tempJobData.siteSections, obj];
+							// tempJobData.siteSections = [...tempJobData.siteSections, obj];
+							tempJobData.siteSections[i] = obj;
 						}}
 						key={i}
 						name="siteSections"
@@ -147,6 +139,7 @@ const JobForm = () => {
 					Submit
 				</Button>
 			</Box>
+			{console.log(jobData)}
 		</Container>
 	);
 };
