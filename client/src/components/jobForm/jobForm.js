@@ -39,8 +39,8 @@ const JobForm = () => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		setJobData(tempJobData);
-
-		// dispatch(createJob(jobData));
+		console.log(jobData);
+		return dispatch(createJob(jobData));
 	};
 
 	return (
@@ -87,17 +87,11 @@ const JobForm = () => {
 				Job Section
 			</Text>
 			<Divider mb={6} />
-			{/* <Section
-				setTempSectionData={(obj) => {
-					tempJobData.siteSections = [...tempJobData.siteSections, obj];
-				}}
-			/> */}
 
 			{jobSections.map((section, i) => {
 				return (
 					<Section
 						setTempSectionData={(obj) => {
-							// tempJobData.siteSections = [...tempJobData.siteSections, obj];
 							tempJobData.siteSections[i] = obj;
 						}}
 						key={i}
@@ -109,7 +103,6 @@ const JobForm = () => {
 			<Divider />
 			<Box display="flex" justifyContent="space-evenly" mt={10} paddingBottom={10}>
 				<Button id="add" background="blue.300" onClick={() => setJobSections([...jobSections, 0])}>
-					{/* <PlusSquareIcon id="add" h={6} w={6} /> */}
 					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
 						+
 					</Text>
