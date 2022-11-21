@@ -7,15 +7,16 @@ export const getJobs = () => async (dispatch) => {
 
 		dispatch({ type: "", payload: data });
 	} catch (error) {
-		console.log(error.mesage);
+		console.log(error.message);
 	}
 };
 
-export const createJob = (jobData) => async (dispatch) => {
+export const createJob = (job) => async (dispatch) => {
 	try {
-		console.log("jobactions.js");
-		const { data } = await api.createJob(jobData);
-		console.log();
+		console.log("jobActions.js");
+		console.log(job);
+		const { data } = await api.createJob(job);
+
 		dispatch({ type: "CREATE", payload: data });
 	} catch (error) {
 		console.log(error.message, "action");

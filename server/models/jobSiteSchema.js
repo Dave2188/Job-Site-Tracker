@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
+const { Schema } = mongoose;
 
-const jobSiteSchema = new mongoose.Schema(
+const jobSiteSchema = new Schema(
 	{
 		jobSiteName: String,
 		location: String,
@@ -8,14 +9,8 @@ const jobSiteSchema = new mongoose.Schema(
 		directions: String,
 		isReady: Boolean,
 		createdBy: String,
-		createdAt: Date,
-		updatedAt: Date,
-		siteSection: {
-			sectionName: String,
-			materials: Array,
-			equipment: String,
-			comments: String,
-		},
+		date: Date,
+		siteSections: Array,
 	},
 	{ timestamps: true },
 );

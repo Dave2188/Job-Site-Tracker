@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -17,30 +17,45 @@ import { useDispatch } from "react-redux";
 import { createJob } from "../../actions/jobactions";
 
 const JobForm = () => {
-	const [jobData, setJobData] = useState({});
-
+	const [jobData, setJobData] = useState({
+		// jobSiteName: "",
+		// location: "",
+		// companyName: "",
+		// directions: "",
+		// isReady: "",
+		// createdBy: "",
+		// siteSections: [],
+	});
+	const [jobSections, setJobSections] = useState([{}]);
 	const tempJobData = {
 		jobSiteName: "",
 		location: "",
 		companyName: "",
 		directions: "",
-		isReady: "",
+		isReady: true,
 		createdBy: "",
+		createdOn: "",
 		siteSections: [],
 	};
+	// useEffect(() => {
+	// 	if (jobData.jobSiteName === " ") {
+	// 		return;
+	// 	}
+	// 	console.log("sent");
 
-	const [jobSections, setJobSections] = useState([{}]);
+	// 	dispatch(createJob(jobData));
+	// }, [jobData]);
 
 	const setTempJobData = (e) => {
-		tempJobData[e.target.name] = e.target.value;
+		// tempJobData[e.target.name] = e.target.value;
+		setJobData({ ...jobData, [e.target.name]: e.target.value });
 	};
 
 	const dispatch = useDispatch();
-	const handleSubmit = (e) => {
+	const handleSubmit = (e) => (jobData) => {
 		e.preventDefault();
-		setJobData(tempJobData);
-		console.log(jobData);
-		return dispatch(createJob(jobData));
+		setJobData({ ...jobData, ...tempJobData });
+		dispatch(createJob(jobData));
 	};
 
 	return (
@@ -75,7 +90,7 @@ const JobForm = () => {
 			</FormControl>
 			<FormControl mb={14}>
 				<FormLabel>Date</FormLabel>
-				<Input type="date" variant="filled" onChange={setTempJobData} />
+				<Input type="date" name="createdOn" variant="filled" onChange={setTempJobData} />
 			</FormControl>
 			<FormControl mb={14}>
 				<FormLabel display="flex" justifyContent="space-between">
@@ -93,8 +108,13 @@ const JobForm = () => {
 					<Section
 						setTempSectionData={(obj) => {
 							tempJobData.siteSections[i] = obj;
+							setJobData({ ...jobData, sitSections: tempJobData.siteSections });
 						}}
+						//  the sections are still setting one render behind
 						key={i}
+						// sectionOnChange={(data) => {
+						// 	setJobData({ ...jobData, siteSections: data });
+						// }}
 						name="siteSections"
 					/>
 				);
@@ -132,6 +152,7 @@ const JobForm = () => {
 					Submit
 				</Button>
 			</Box>
+
 			{console.log(jobData)}
 		</Container>
 	);

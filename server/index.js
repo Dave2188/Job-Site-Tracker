@@ -2,9 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import jobSiteRoutes from "./routes/routes.js";
+import bodyParser from "body-parser";
 
 const app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use("/jobs", jobSiteRoutes);

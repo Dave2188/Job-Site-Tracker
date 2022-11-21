@@ -24,7 +24,7 @@ const Material = (props) => {
 
 	return (
 		<>
-			<Box display="flex" justifyContent="space-between" mb={10} onSubmit={props.handleData(material)}>
+			<Box display="flex" justifyContent="space-between" mb={10} onChange={props.handleData(material)}>
 				<FormControl w="60%">
 					<FormLabel>Material</FormLabel>
 					<Select id="material" placeholder="Select option" variant="filled" onChange={materialHandleChange}>

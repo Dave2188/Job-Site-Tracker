@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormControl, FormLabel, Box, Button, Text, Input, Container } from "@chakra-ui/react";
 import Material from "../material/material";
 
@@ -9,6 +9,12 @@ const Section = (props) => {
 		sectionName: nameValue,
 		materials: [],
 	};
+
+	// useEffect(() => {
+	// 	if (tempSection) {
+	// 		return props.sectionOnChange(tempSection);
+	// 	}
+	// }, [nameValue, materialNumber]);
 
 	const handleClick = (e) => {
 		if (e.target.id === "add") {
@@ -31,8 +37,9 @@ const Section = (props) => {
 					onChange={(e) => {
 						setNameValue(e.target.value);
 						tempSection[e.target.name] = nameValue;
+						props.setTempSectionData(tempSection);
+						// return props.sectionOnChange(tempSection);
 					}}
-					onSubmit={props.setTempSectionData(tempSection)}
 					maxWidth="100%"
 				/>
 			</FormControl>
