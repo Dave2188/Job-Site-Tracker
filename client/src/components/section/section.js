@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { FormControl, FormLabel, Box, Button, Text, Input, Container } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { FormControl, FormLabel, Box, Button, Text, Input } from "@chakra-ui/react";
 import Material from "../material/material";
 
 const Section = (props) => {
@@ -9,12 +9,6 @@ const Section = (props) => {
 		sectionName: nameValue,
 		materials: [],
 	};
-
-	// useEffect(() => {
-	// 	if (tempSection) {
-	// 		return props.sectionOnChange(tempSection);
-	// 	}
-	// }, [nameValue, materialNumber]);
 
 	const handleClick = (e) => {
 		if (e.target.id === "add") {
@@ -27,32 +21,36 @@ const Section = (props) => {
 
 	return (
 		<>
-			<FormControl mb={6} id="sectionName">
-				<FormLabel>Section Name</FormLabel>
-				<Input
-					name="sectionName"
-					type="text"
-					placeholder="Section Name"
-					variant="filled"
-					onChange={(e) => {
-						setNameValue(e.target.value);
-						tempSection[e.target.name] = nameValue;
-						props.setTempSectionData(tempSection);
-						// return props.sectionOnChange(tempSection);
-					}}
-					maxWidth="100%"
-				/>
-			</FormControl>
-			{materialNumber.map((num, i) => {
-				return (
-					<Material
-						key={i}
-						handleData={(obj) => {
-							tempSection.materials[i] = obj;
+			<Box
+				onBlur={() => {
+					return props.setTempSectionData(tempSection);
+				}}
+			>
+				<FormControl mb={6} id="sectionName">
+					<FormLabel>Section Name</FormLabel>
+					<Input
+						name="sectionName"
+						type="text"
+						placeholder="Section Name"
+						variant="filled"
+						onChange={(e) => {
+							setNameValue(e.target.value);
+							tempSection[e.target.name] = e.target.value;
 						}}
+						maxWidth="100%"
 					/>
-				);
-			})}
+				</FormControl>
+				{materialNumber.map((num, i) => {
+					return (
+						<Material
+							key={i}
+							handleData={(obj) => {
+								tempSection.materials[i] = obj;
+							}}
+						/>
+					);
+				})}
+			</Box>
 			<Box maxW="container.xl" display="flex" justifyContent="space-evenly" mb={10}>
 				<Button id="add" background="blue.300" onClick={handleClick}>
 					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
@@ -76,4 +74,3 @@ const Section = (props) => {
 };
 
 export default Section;
-// set up this part in one file

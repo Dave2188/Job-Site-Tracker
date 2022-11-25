@@ -17,44 +17,35 @@ import { useDispatch } from "react-redux";
 import { createJob } from "../../actions/jobactions";
 
 const JobForm = () => {
-	const [jobData, setJobData] = useState({
-		// jobSiteName: "",
-		// location: "",
-		// companyName: "",
-		// directions: "",
-		// isReady: "",
-		// createdBy: "",
-		// siteSections: [],
-	});
+	const [jobData, setJobData] = useState({ siteSections: [] });
 	const [jobSections, setJobSections] = useState([{}]);
-	const tempJobData = {
-		jobSiteName: "",
-		location: "",
-		companyName: "",
-		directions: "",
-		isReady: true,
-		createdBy: "",
-		createdOn: "",
-		siteSections: [],
+
+	const joinData = (prevData, dataAdd) => {
+		const newObj = { ...jobData };
+		newObj.siteSections = jobSections;
+		return newObj;
 	};
-	// useEffect(() => {
-	// 	if (jobData.jobSiteName === " ") {
-	// 		return;
-	// 	}
-	// 	console.log("sent");
+	const tempJobData = (index, obj) => {
+		const newArr = [...jobSections];
+		newArr[index] = obj;
+		return newArr;
+	};
 
-	// 	dispatch(createJob(jobData));
-	// }, [jobData]);
-
-	const setTempJobData = (e) => {
-		// tempJobData[e.target.name] = e.target.value;
+	const setData = (e) => {
 		setJobData({ ...jobData, [e.target.name]: e.target.value });
 	};
 
+	useEffect(() => {
+		if (jobData.siteSections !== jobSections) {
+			setJobData(joinData(jobData, jobSections));
+			console.log("1");
+		}
+	}, [jobSections]);
+
 	const dispatch = useDispatch();
-	const handleSubmit = (e) => (jobData) => {
+	const useHandleSubmit = (e) => {
 		e.preventDefault();
-		setJobData({ ...jobData, ...tempJobData });
+
 		dispatch(createJob(jobData));
 	};
 
@@ -78,51 +69,48 @@ const JobForm = () => {
 			<Divider mb={6} />
 			<FormControl mb={6}>
 				<FormLabel>Name</FormLabel>
-				<Input name="createdBy" type="text" placeholder="Your Name" variant="filled" onChange={setTempJobData} />
+				<Input name="createdBy" type="text" placeholder="Your Name" variant="filled" onBlur={setData} />
 			</FormControl>
 			<FormControl mb={6}>
 				<FormLabel>Job Site Name</FormLabel>
-				<Input name="jobSiteName" type="text" placeholder="Location Name" variant="filled" onChange={setTempJobData} />
+				<Input name="jobSiteName" type="text" placeholder="Location Name" variant="filled" onBlur={setData} />
 			</FormControl>
 			<FormControl mb={6}>
 				<FormLabel>Company</FormLabel>
-				<Input name="companyName" type="text" placeholder="Company Name" variant="filled" onChange={setTempJobData} />
+				<Input name="companyName" type="text" placeholder="Company Name" variant="filled" onBlur={setData} />
 			</FormControl>
 			<FormControl mb={14}>
 				<FormLabel>Date</FormLabel>
-				<Input type="date" name="createdOn" variant="filled" onChange={setTempJobData} />
+				<Input type="date" name="createdOn" variant="filled" onBlur={setData} />
 			</FormControl>
 			<FormControl mb={14}>
 				<FormLabel display="flex" justifyContent="space-between">
 					Directions<Checkbox>Use Current Location</Checkbox>
 				</FormLabel>
-				<Input type="text" name="directions" variant="filled" placeholder="Directions" onChange={setTempJobData} />
+				<Input type="text" name="directions" variant="filled" placeholder="Directions" onBlur={setData} />
 			</FormControl>
 			<Text fontSize="3xl" fontWeight="bold" textAlign="center">
 				Job Section
 			</Text>
 			<Divider mb={6} />
 
-			{jobSections.map((section, i) => {
-				return (
-					<Section
-						setTempSectionData={(obj) => {
-							tempJobData.siteSections[i] = obj;
-							setJobData({ ...jobData, sitSections: tempJobData.siteSections });
-						}}
-						//  the sections are still setting one render behind
-						key={i}
-						// sectionOnChange={(data) => {
-						// 	setJobData({ ...jobData, siteSections: data });
-						// }}
-						name="siteSections"
-					/>
-				);
-			})}
+			<Box>
+				{jobSections.map((section, i) => {
+					return (
+						<Section
+							setTempSectionData={(obj) => {
+								setJobSections(tempJobData(i, obj));
+							}}
+							key={i}
+							name="siteSections"
+						/>
+					);
+				})}
+			</Box>
 
 			<Divider />
 			<Box display="flex" justifyContent="space-evenly" mt={10} paddingBottom={10}>
-				<Button id="add" background="blue.300" onClick={() => setJobSections([...jobSections, 0])}>
+				<Button id="add" background="blue.300" onClick={() => setJobSections([...jobSections, {}])}>
 					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
 						+
 					</Text>
@@ -134,10 +122,9 @@ const JobForm = () => {
 					id="remove"
 					background="red.300"
 					onClick={() => {
-						setJobData([...jobSections, jobSections.pop()]);
+						setJobSections(jobSections.slice(0, jobSections.length - 1));
 					}}
 				>
-					{/* <SmallCloseIcon id="remove" h={6} w={6} /> */}
 					<Box id="remove" fontSize={18} position="relative" bottom="1px" fontWeight="bold">
 						x
 					</Box>
@@ -147,13 +134,11 @@ const JobForm = () => {
 				</Button>
 			</Box>
 			<Divider />
-			<Box display="flex" justifyContent="center" mt={14}>
-				<Button onClick={handleSubmit} background="green.400">
+			<Box display="flex" justifyContent="center" mt={14} padding={8}>
+				<Button onClick={useHandleSubmit} background="green.400">
 					Submit
 				</Button>
 			</Box>
-
-			{console.log(jobData)}
 		</Container>
 	);
 };

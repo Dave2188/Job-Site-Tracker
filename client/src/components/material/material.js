@@ -1,25 +1,14 @@
 import React, { useState } from "react";
-import {
-	Box,
-	FormControl,
-	FormLabel,
-	Select,
-	NumberInput,
-	NumberInputField,
-	NumberInputStepper,
-	NumberIncrementStepper,
-	NumberDecrementStepper,
-} from "@chakra-ui/react";
+import { Box, FormControl, FormLabel, Select, Input } from "@chakra-ui/react";
 
 const Material = (props) => {
 	const [material, setMaterial] = useState({ material: "", amount: 0 });
 
 	const materialHandleChange = (event) => {
-		setMaterial({ ...material, material: event.target.value });
-	};
-
-	const amountHandleChange = () => {
-		setMaterial({ ...material, amount: 0 });
+		if (event.target.id === "material") {
+			return setMaterial({ ...material, material: event.target.value });
+		}
+		return setMaterial({ ...material, amount: event.target.value });
 	};
 
 	return (
@@ -36,24 +25,7 @@ const Material = (props) => {
 				</FormControl>
 				<FormControl w="30%">
 					<FormLabel>Amount</FormLabel>
-					<NumberInput id="numberInput" defaultValue={0} min={0} max={10000} variant="filled">
-						<NumberInputField />
-						<NumberInputStepper>
-							<NumberIncrementStepper
-								onClick={() => {
-									let value = material.amount;
-									setMaterial({ ...material, amount: value + 1 });
-								}}
-							/>
-							<NumberDecrementStepper
-								onClick={() => {
-									let value = material.amount;
-									if (value <= 0) return;
-									setMaterial({ ...material, amount: value - 1 });
-								}}
-							/>
-						</NumberInputStepper>
-					</NumberInput>
+					<Input type="number" id="amount" variant="filled" placeholder="0" onChange={materialHandleChange} />
 				</FormControl>
 			</Box>
 		</>
