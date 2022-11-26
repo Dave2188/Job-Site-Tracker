@@ -29,7 +29,7 @@ export const jobsSlice = createSlice({
 	},
 });
 
-console.log(jobsSlice);
+// console.log(jobsSlice);
 
 export const { FETCH_ALL, CREATE } = jobsSlice.actions;
 

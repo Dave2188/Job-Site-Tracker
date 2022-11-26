@@ -2,16 +2,19 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import jobSiteRoutes from "./routes/routes.js";
+import bodyParser from "body-parser";
 
 const app = express();
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
-app.use("/Jobs", jobSiteRoutes);
+app.use("/jobs", jobSiteRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-const URI = "mongodb+srv://davidfox:jobsitetracker123@cluster0.pclssj1.mongodb.net/?retryWrites=true&w=majority";
+const URI = "mongodb+srv://davidfox:foxtrot@cluster0.pclssj1.mongodb.net/?retryWrites=true&w=majority";
 
 const connection = async () => {
 	try {

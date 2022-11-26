@@ -5,8 +5,20 @@ export const getJobs = () => async (dispatch) => {
 		const { data } = await api.fetchJobs();
 		console.log(data);
 
-		dispatch({ type: "", payload: data });
+		dispatch({ type: "FETCH_ALL", payload: data });
 	} catch (error) {
-		console.log(error.mesage);
+		console.log(error.message);
+	}
+};
+
+export const createJob = (job) => async (dispatch) => {
+	try {
+		console.log("jobActions.js");
+		console.log(job);
+		const { data } = await api.createJob(job);
+
+		dispatch({ type: "CREATE", payload: data });
+	} catch (error) {
+		console.log(error.message, "action");
 	}
 };

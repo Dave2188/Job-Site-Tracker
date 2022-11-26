@@ -1,12 +1,16 @@
-import { fetchJobs } from "./api/index";
-import NavBar from "./components/navbar";
+import { useDispatch } from "react-redux";
+import { getJobs } from "./actions/jobactions";
 
-fetchJobs();
+import JobForm from "./components/jobForm/jobForm";
 
 function App() {
+	const dispatch = useDispatch();
+
+	// dispatch(getJobs());
+
 	return (
 		<div className="App">
-			<NavBar />
+			<JobForm />
 		</div>
 	);
 }
