@@ -1,9 +1,13 @@
-import { fetchJobs } from "./api/index";
+import { useDispatch } from "react-redux";
+import { getJobs } from "./actions/jobactions";
+
 import JobForm from "./components/jobForm/jobForm";
 
-fetchJobs();
-
 function App() {
+	const dispatch = useDispatch();
+
+	// dispatch(getJobs());
+
 	return (
 		<div className="App">
 			<JobForm />
