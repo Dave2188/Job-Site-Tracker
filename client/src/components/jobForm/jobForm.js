@@ -12,9 +12,9 @@ import {
 	Button,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import Section from "../section/section";
+import Section from "./section/section";
 import { useDispatch } from "react-redux";
-import { createJob } from "../../actions/jobactions";
+import { createJob } from "../../actions/jobActions";
 
 const JobForm = () => {
 	const [jobData, setJobData] = useState({ siteSections: [] });
@@ -38,7 +38,6 @@ const JobForm = () => {
 	useEffect(() => {
 		if (jobData.siteSections !== jobSections) {
 			setJobData(joinData(jobData, jobSections));
-			console.log("1");
 		}
 	}, [jobSections]);
 
