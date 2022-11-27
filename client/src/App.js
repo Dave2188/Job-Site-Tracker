@@ -18,7 +18,7 @@ function App() {
 			errorElement: <BrowserError />,
 		},
 		{
-			Path: "/JobForm",
+			path: "/JobForm",
 			element: <JobForm />,
 		},
 		{
