@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { fetchAllJobs } from "../redux/features/jobslice";
+import { fetchAllJobs } from "../redux/features/jobsSlice";
 
 export const getJobs = () => async (dispatch) => {
 	try {
