@@ -1,29 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
-	{
-		jobSiteName: "",
-		location: "",
-		directions: "",
-		isReady: false,
-		createdBy: "",
-		createdAt: "",
-		updatedAt: "",
-		siteSection: {},
-		isLoading: true,
-	},
-];
+// const initialState = [
+// 	{
+// 		jobSiteName: "",
+// 		location: "",
+// 		directions: "",
+// 		isReady: false,
+// 		createdBy: "",
+// 		createdAt: "",
+// 		updatedAt: "",
+// 		siteSection: {},
+// 		isLoading: true,
+// 	},
+// ];
 
 export const jobsSlice = createSlice({
 	name: "jobs",
-	initialState,
+	initialState: [],
 	reducers: {
-		FETCH_ALL: (state, action) => {
-			console.log(action.payload);
+		fetchAllJobs(state, action) {
 			return action.payload;
 		},
 
-		CREATE: (state, action) => {
+		createJob(state, action) {
 			return [...state, action.payload];
 		},
 	},
@@ -31,6 +30,6 @@ export const jobsSlice = createSlice({
 
 // console.log(jobsSlice);
 
-export const { FETCH_ALL, CREATE } = jobsSlice.actions;
+export const { fetchAllJobs, createJob } = jobsSlice.actions;
 
 export default jobsSlice.reducer;

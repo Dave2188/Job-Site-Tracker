@@ -4,12 +4,12 @@ import { Container } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import BrowserError from "./components/browserError/browserError";
 import Jobs from "./components/jobs/jobs";
-// import { useDispatch } from "react-redux";
-// import { getJobs } from "./actions/jobActions";
+import { useDispatch } from "react-redux";
+import { getJobs } from "./actions/jobActions";
 
 function App() {
-	// const dispatch = useDispatch();
-	// dispatch(getJobs());
+	const dispatch = useDispatch();
+	dispatch(getJobs());
 
 	const router = createBrowserRouter([
 		{
