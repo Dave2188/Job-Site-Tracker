@@ -12,9 +12,10 @@ import {
 	Button,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
-import Section from "../section/section";
+import Section from "./section/section";
 import { useDispatch } from "react-redux";
-import { createJob } from "../../actions/jobactions";
+import { createJob } from "../../actions/jobActions";
+import { NavLink } from "react-router-dom";
 
 const JobForm = () => {
 	const [jobData, setJobData] = useState({ siteSections: [] });
@@ -38,7 +39,6 @@ const JobForm = () => {
 	useEffect(() => {
 		if (jobData.siteSections !== jobSections) {
 			setJobData(joinData(jobData, jobSections));
-			console.log("1");
 		}
 	}, [jobSections]);
 
@@ -50,13 +50,15 @@ const JobForm = () => {
 	};
 
 	return (
-		<Container maxW="container.xl" maxHeight="-moz-fit-content" boxShadow="dark-lg" rounded="lg">
+		<Container maxW="container.xl" maxHeight="-moz-fit-content" boxShadow="dark-lg" rounded="lg" marginTop={2}>
 			<Container display="flex" justifyContent="space-between" alignItems="center" maxW="container.lg" p={4}>
 				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>
-					<ArrowBackIcon boxSize={6} />
-					<Text ml={2} as="b">
-						Back
-					</Text>
+					<NavLink to="/">
+						<ArrowBackIcon boxSize={6} />
+						<Text ml={2} as="b">
+							Back
+						</Text>
+					</NavLink>
 				</Box>
 				<Heading>Job Site Form</Heading>
 				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>

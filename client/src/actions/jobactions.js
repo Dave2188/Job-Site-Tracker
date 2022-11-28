@@ -1,11 +1,13 @@
 import * as api from "../api";
+import { fetchAllJobs } from "../redux/features/jobslice";
 
 export const getJobs = () => async (dispatch) => {
 	try {
 		const { data } = await api.fetchJobs();
 		console.log(data);
 
-		dispatch({ type: "FETCH_ALL", payload: data });
+		dispatch(fetchAllJobs(data));
+		console.log("after");
 	} catch (error) {
 		console.log(error.message);
 	}

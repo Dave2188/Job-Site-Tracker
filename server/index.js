@@ -14,7 +14,7 @@ app.use("/jobs", jobSiteRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-const URI = "mongodb+srv://davidfox:foxtrot@cluster0.pclssj1.mongodb.net/?retryWrites=true&w=majority";
+const URI = "mongodb+srv://johndoe:johndoe123@cluster0.pclssj1.mongodb.net/?retryWrites=true&w=majority";
 
 const connection = async () => {
 	try {
