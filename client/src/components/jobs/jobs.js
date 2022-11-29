@@ -13,8 +13,8 @@ const Jobs = () => {
 			</Heading>
 
 			<SimpleGrid minChildWidth="130px" spacing="40px">
-				{jobs.map((job, i) => {
-					return <FileTiles company={job.companyName} jobSiteName={job.jobSiteName} key={i} />;
+				{jobs.map((job) => {
+					return <FileTiles company={job.companyName} jobSiteName={job.jobSiteName} key={job._id} id={job._id} />;
 				})}
 			</SimpleGrid>
 		</Container>

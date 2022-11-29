@@ -13,13 +13,15 @@ import {
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createJob } from "../../actions/jobActions";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 
 const JobForm = () => {
 	const [jobData, setJobData] = useState({ siteSections: [] });
 	const [jobSections, setJobSections] = useState([{}]);
+	const { _id } = useParams();
+	const jobs = useSelector((state) => state.jobs);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -35,6 +37,18 @@ const JobForm = () => {
 	const setData = (e) => {
 		setJobData({ ...jobData, [e.target.name]: e.target.value });
 	};
+
+	// useEffect(() => {
+	// 	if (_id) {
+	// 		const job = jobs.find((item) => item._id === _id);
+
+	// 		setJobData(jobData, job);
+	// 		console.log(jobs);
+	// 		console.log(_id);
+	// 		console.log(job);
+	// 		console.log(jobData);
+	// 	}
+	// }, [jobData]);
 
 	useEffect(() => {
 		if (jobData.siteSections !== jobSections) {
@@ -71,7 +85,14 @@ const JobForm = () => {
 			<Divider mb={6} />
 			<FormControl mb={6}>
 				<FormLabel>Name</FormLabel>
-				<Input name="createdBy" type="text" placeholder="Your Name" variant="filled" onBlur={setData} />
+				<Input
+					name="createdBy"
+					type="text"
+					placeholder="Your Name"
+					variant="filled"
+					onBlur={setData}
+					value={jobData.createdBy}
+				/>
 			</FormControl>
 			<FormControl mb={6}>
 				<FormLabel>Job Site Name</FormLabel>

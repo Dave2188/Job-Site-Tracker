@@ -25,6 +25,10 @@ function App() {
 			path: "/jobs",
 			element: <Jobs />,
 		},
+		{
+			path: "/jobs/:_id",
+			element: <JobForm />,
+		},
 	]);
 
 	return (
