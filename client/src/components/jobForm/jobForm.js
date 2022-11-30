@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -10,6 +10,8 @@ import {
 	Box,
 	Text,
 	Button,
+	EditableInput,
+	Editable,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
@@ -23,15 +25,6 @@ const JobForm = () => {
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
-
-	// useEffect(() => {
-	// 	if (_id) {
-	// 		setJobData(job);
-	// 		console.log("hi");
-	// 		console.log(_id);
-	// 		console.log(job);
-	// 	}
-	// }, [jobData]);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -49,7 +42,6 @@ const JobForm = () => {
 	};
 
 	useEffect(() => {
-		// setJobData(joinData(jobData, jobSections));
 		if (jobData.siteSections !== jobSections) {
 			setJobData(joinData(jobData, jobSections));
 		}
@@ -81,29 +73,70 @@ const JobForm = () => {
 					</Text>
 				</Box>
 			</Container>
+
 			<Divider mb={6} />
+
 			<FormControl mb={6}>
 				<FormLabel>Name</FormLabel>
-				<Input name="createdBy" type="text" placeholder="Your Name" variant="filled" onBlur={setData} />
+				<Input
+					defaultValue={_id ? job.createdBy : null}
+					name="createdBy"
+					type="text"
+					placeholder="Your Name"
+					variant="filled"
+					onBlur={setData}
+				/>
 			</FormControl>
+
 			<FormControl mb={6}>
 				<FormLabel>Job Site Name</FormLabel>
-				<Input name="jobSiteName" type="text" placeholder="Location Name" variant="filled" onBlur={setData} />
+				<Input
+					defaultValue={_id ? job.jobSiteName : null}
+					name="jobSiteName"
+					type="text"
+					placeholder="Location Name"
+					variant="filled"
+					onBlur={setData}
+				/>
 			</FormControl>
+
 			<FormControl mb={6}>
 				<FormLabel>Company</FormLabel>
-				<Input name="companyName" type="text" placeholder="Company Name" variant="filled" onBlur={setData} />
+				<Input
+					defaultValue={_id ? job.companyName : null}
+					name="companyName"
+					type="text"
+					placeholder="Company Name"
+					variant="filled"
+					onBlur={setData}
+				/>
 			</FormControl>
+
 			<FormControl mb={14}>
 				<FormLabel>Date</FormLabel>
-				<Input type="date" name="createdOn" variant="filled" onBlur={setData} />
+				<Input
+					defaultValue={_id ? new Date(job.date).toLocaleDateString("en-ca") : null}
+					type="date"
+					name="createdOn"
+					variant="filled"
+					onBlur={setData}
+				/>
 			</FormControl>
+
 			<FormControl mb={14}>
 				<FormLabel display="flex" justifyContent="space-between">
 					Directions<Checkbox>Use Current Location</Checkbox>
 				</FormLabel>
-				<Input type="text" name="directions" variant="filled" placeholder="Directions" onBlur={setData} />
+				<Input
+					defaultValue={_id ? job.directions : null}
+					type="text"
+					name="directions"
+					variant="filled"
+					placeholder="Directions"
+					onBlur={setData}
+				/>
 			</FormControl>
+
 			<Text fontSize="3xl" fontWeight="bold" textAlign="center">
 				Job Section
 			</Text>
