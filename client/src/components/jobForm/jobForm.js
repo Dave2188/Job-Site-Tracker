@@ -18,10 +18,20 @@ import { createJob } from "../../actions/jobActions";
 import { NavLink, useParams } from "react-router-dom";
 
 const JobForm = () => {
-	const [jobData, setJobData] = useState({ siteSections: [] });
+	const [jobData, setJobData] = useState({});
 	const [jobSections, setJobSections] = useState([{}]);
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
+	const job = jobs.find((item) => item._id === _id);
+
+	// useEffect(() => {
+	// 	if (_id) {
+	// 		setJobData(job);
+	// 		console.log("hi");
+	// 		console.log(_id);
+	// 		console.log(job);
+	// 	}
+	// }, [jobData]);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -38,19 +48,8 @@ const JobForm = () => {
 		setJobData({ ...jobData, [e.target.name]: e.target.value });
 	};
 
-	// useEffect(() => {
-	// 	if (_id) {
-	// 		const job = jobs.find((item) => item._id === _id);
-
-	// 		setJobData(jobData, job);
-	// 		console.log(jobs);
-	// 		console.log(_id);
-	// 		console.log(job);
-	// 		console.log(jobData);
-	// 	}
-	// }, [jobData]);
-
 	useEffect(() => {
+		// setJobData(joinData(jobData, jobSections));
 		if (jobData.siteSections !== jobSections) {
 			setJobData(joinData(jobData, jobSections));
 		}
@@ -85,14 +84,7 @@ const JobForm = () => {
 			<Divider mb={6} />
 			<FormControl mb={6}>
 				<FormLabel>Name</FormLabel>
-				<Input
-					name="createdBy"
-					type="text"
-					placeholder="Your Name"
-					variant="filled"
-					onBlur={setData}
-					value={jobData.createdBy}
-				/>
+				<Input name="createdBy" type="text" placeholder="Your Name" variant="filled" onBlur={setData} />
 			</FormControl>
 			<FormControl mb={6}>
 				<FormLabel>Job Site Name</FormLabel>
@@ -162,6 +154,7 @@ const JobForm = () => {
 					Submit
 				</Button>
 			</Box>
+			{console.log(jobData)}
 		</Container>
 	);
 };
