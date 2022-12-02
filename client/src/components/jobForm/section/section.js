@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormControl, FormLabel, Box, Button, Text, Input } from "@chakra-ui/react";
 import Material from "../material/material";
 
 const Section = (props) => {
-	const [materialNumber, setMaterialNumber] = useState([{}]);
+	const [materialNumber, setMaterialNumber] = useState(
+		// props.job ? props.job.siteSections[props.index].materials : [{}],
+		props.section ? props.section.materials : [{}],
+	);
 	const [nameValue, setNameValue] = useState("");
 	const tempSection = {
 		sectionName: nameValue,
@@ -29,6 +32,7 @@ const Section = (props) => {
 				<FormControl mb={6} id="sectionName">
 					<FormLabel>Section Name</FormLabel>
 					<Input
+						defaultValue={props.section ? props.section.sectionName : null}
 						name="sectionName"
 						type="text"
 						placeholder="Section Name"
@@ -44,6 +48,7 @@ const Section = (props) => {
 					return (
 						<Material
 							key={i}
+							materialSection={props.section ? props.section.materials[i] : null}
 							handleData={(obj) => {
 								tempSection.materials[i] = obj;
 							}}

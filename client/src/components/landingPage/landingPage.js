@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 
 const LandingPage = () => {
 	return (
-		<Container maxWidth="container.xl" boxShadow="dark-lg" rounded="lg" height="98vh" marginTop={2}>
+		<Container maxWidth="container.xl" boxShadow="dark-lg" rounded="lg" height="auto" margin={"auto"}>
 			<Center flexDirection="column">
 				<Heading padding={8}>Job Tracker</Heading>
 

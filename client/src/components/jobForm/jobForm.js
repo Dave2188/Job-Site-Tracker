@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -20,11 +20,12 @@ import { createJob } from "../../actions/jobActions";
 import { NavLink, useParams } from "react-router-dom";
 
 const JobForm = () => {
-	const [jobData, setJobData] = useState({});
-	const [jobSections, setJobSections] = useState([{}]);
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
+
+	const [jobData, setJobData] = useState({});
+	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -55,7 +56,7 @@ const JobForm = () => {
 	};
 
 	return (
-		<Container maxW="container.xl" maxHeight="-moz-fit-content" boxShadow="dark-lg" rounded="lg" marginTop={2}>
+		<Container maxW="container.xl" maxHeight="max-content" boxShadow="dark-lg" rounded="lg" margin={"auto"}>
 			<Container display="flex" justifyContent="space-between" alignItems="center" maxW="container.lg" p={4}>
 				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>
 					<NavLink to="/">
@@ -65,7 +66,7 @@ const JobForm = () => {
 						</Text>
 					</NavLink>
 				</Box>
-				<Heading>Job Site Form</Heading>
+				<Heading textAlign="center">Job Site Form</Heading>
 				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>
 					<ExternalLinkIcon as="button" boxSize={6} />
 					<Text ml={2} as="b" pos="relative" top="2px">
@@ -149,7 +150,9 @@ const JobForm = () => {
 							setTempSectionData={(obj) => {
 								setJobSections(tempJobData(i, obj));
 							}}
+							section={_id ? job.siteSections[i] : null}
 							key={i}
+							index={i}
 							name="siteSections"
 						/>
 					);
