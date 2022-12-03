@@ -16,6 +16,7 @@ const FileTiles = (props) => {
 			flexDir="column"
 			maxH="28"
 			onClick={() => navigate(`/jobs/${props.id}`)}
+			cursor="pointer"
 		>
 			<Text fontSize="md" textAlign="center" as="b">
 				{props.company}

@@ -16,7 +16,7 @@ import {
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
 import { useDispatch, useSelector } from "react-redux";
-import { createJob } from "../../actions/jobActions";
+import { createJob, updateJob } from "../../actions/jobActions";
 import { NavLink, useParams } from "react-router-dom";
 
 const JobForm = () => {
@@ -24,7 +24,7 @@ const JobForm = () => {
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
 
-	const [jobData, setJobData] = useState({});
+	const [jobData, setJobData] = useState(_id ? job : {});
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
 
 	const joinData = (prevData, dataAdd) => {
@@ -51,7 +51,9 @@ const JobForm = () => {
 	const dispatch = useDispatch();
 	const useHandleSubmit = (e) => {
 		e.preventDefault();
-
+		if (_id) {
+			return dispatch(updateJob(_id, jobData));
+		}
 		dispatch(createJob(jobData));
 	};
 

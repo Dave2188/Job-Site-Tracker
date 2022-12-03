@@ -25,11 +25,15 @@ export const jobsSlice = createSlice({
 		createJob(state, action) {
 			return [...state, action.payload];
 		},
+
+		updateJob(state, action) {
+			return state.map((job) => (job.id === action.payload ? action.payload : job));
+		},
 	},
 });
 
 // console.log(jobsSlice);
 
-export const { fetchAllJobs, createJob } = jobsSlice.actions;
+export const { fetchAllJobs, createJob, updateJob } = jobsSlice.actions;
 
 export default jobsSlice.reducer;
