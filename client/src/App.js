@@ -4,13 +4,8 @@ import { Container } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import BrowserError from "./components/browserError/browserError";
 import Jobs from "./components/jobs/jobs";
-import { useDispatch } from "react-redux";
-import { getJobs } from "./actions/jobActions";
 
 function App() {
-	const dispatch = useDispatch();
-	dispatch(getJobs());
-
 	const router = createBrowserRouter([
 		{
 			path: "/",
@@ -20,16 +15,23 @@ function App() {
 		{
 			path: "/JobForm",
 			element: <JobForm />,
+			errorElement: <BrowserError />,
 		},
 		{
 			path: "/jobs",
 			element: <Jobs />,
+			errorElement: <BrowserError />,
+		},
+		{
+			path: "/jobs/:_id",
+			element: <JobForm />,
+			errorElement: <BrowserError />,
 		},
 	]);
 
 	return (
 		<Container maxWidth="100vw" padding={0}>
-			<RouterProvider router={router} />
+			<RouterProvider router={router} baseName="/" />
 		</Container>
 	);
 }

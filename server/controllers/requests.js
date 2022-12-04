@@ -35,3 +35,16 @@ export const createJob = async (req, res) => {
 		res.status(409).json({ message: error.message });
 	}
 };
+
+export const updateJob = async (req, res) => {
+	console.log("servUpdate");
+	const job = req.body;
+	const { id: _id } = req.params;
+
+	try {
+		const updatedJob = await JobSite.findByIdAndUpdate(_id, { ...job, _id });
+		res.json(updatedJob);
+	} catch (error) {
+		console.log(error.message);
+	}
+};

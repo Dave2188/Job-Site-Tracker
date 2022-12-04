@@ -16,7 +16,13 @@ const Material = (props) => {
 			<Box display="flex" justifyContent="space-between" mb={10} onChange={props.handleData(material)}>
 				<FormControl w="60%">
 					<FormLabel>Material</FormLabel>
-					<Select id="material" placeholder="Select option" variant="filled" onChange={materialHandleChange}>
+					<Select
+						id="material"
+						placeholder="Select option"
+						variant="filled"
+						defaultValue={props.materialSection ? props.materialSection.material : null}
+						onChange={materialHandleChange}
+					>
 						<option>1.25x1.5</option>
 						<option>2x1.5</option>
 						<option>3.1.5</option>
@@ -25,7 +31,14 @@ const Material = (props) => {
 				</FormControl>
 				<FormControl w="30%">
 					<FormLabel>Amount</FormLabel>
-					<Input type="number" id="amount" variant="filled" placeholder="0" onChange={materialHandleChange} />
+					<Input
+						defaultValue={props.materialSection ? props.materialSection.amount : null}
+						type="number"
+						id="amount"
+						variant="filled"
+						placeholder="0"
+						onChange={materialHandleChange}
+					/>
 				</FormControl>
 			</Box>
 		</>
