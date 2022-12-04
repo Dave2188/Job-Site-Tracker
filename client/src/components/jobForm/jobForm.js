@@ -17,12 +17,13 @@ import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob, updateJob } from "../../actions/jobActions";
-import { NavLink, useParams } from "react-router-dom";
+import { useNavigate, NavLink, useParams } from "react-router-dom";
 
 const JobForm = () => {
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
+	const navigate = useNavigate();
 
 	const [jobData, setJobData] = useState(_id ? job : {});
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
@@ -71,7 +72,7 @@ const JobForm = () => {
 				<Heading textAlign="center">Job Site Form</Heading>
 				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>
 					<ExternalLinkIcon as="button" boxSize={6} />
-					<Text ml={2} as="b" pos="relative" top="2px">
+					<Text ml={2} as="b" pos="relative" top="2px" id={_id} onClick={() => navigate(`/JobForm/${_id}`)}>
 						Print
 					</Text>
 				</Box>

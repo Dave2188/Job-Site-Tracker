@@ -1,3 +1,5 @@
 {
-	"cSpell.words": ["chakra", "reduxjs"]
+	"cSpell.words": ["chakra", "reduxjs"],
+	"editor.fontFamily": "cascadia code",
+	"editor.fontLigatures": true
 }

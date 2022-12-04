@@ -4,6 +4,7 @@ import { Container } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import BrowserError from "./components/browserError/browserError";
 import Jobs from "./components/jobs/jobs";
+import PrintJob from "./components/displayJob/displayJob";
 
 function App() {
 	const router = createBrowserRouter([
@@ -15,6 +16,11 @@ function App() {
 		{
 			path: "/JobForm",
 			element: <JobForm />,
+			errorElement: <BrowserError />,
+		},
+		{
+			path: "/jobForm/:_id",
+			element: <PrintJob />,
 			errorElement: <BrowserError />,
 		},
 		{
