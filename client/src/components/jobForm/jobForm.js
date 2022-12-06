@@ -27,6 +27,7 @@ const JobForm = () => {
 
 	const [jobData, setJobData] = useState(_id ? job : {});
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
+	const [isChecked, setIsChecked] = useState(false);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -49,6 +50,12 @@ const JobForm = () => {
 		}
 	}, [jobSections]);
 
+	useEffect(() => {
+		if (isChecked === true) {
+			navigator.geolocation.getCurrentPosition(success);
+		}
+	}, [isChecked]);
+
 	const dispatch = useDispatch();
 	const useHandleSubmit = (e) => {
 		e.preventDefault();
@@ -56,6 +63,14 @@ const JobForm = () => {
 			return dispatch(updateJob(_id, jobData));
 		}
 		dispatch(createJob(jobData));
+	};
+
+	const success = (position) => {
+		console.log(position);
+		const lat = position.coords.latitude;
+		const long = position.coords.longitude;
+		document.getElementById("location").value = `${lat}, ${long}`;
+		setJobData({ ...jobData, directions: `${lat}, ${long}` });
 	};
 
 	return (
@@ -129,10 +144,19 @@ const JobForm = () => {
 
 			<FormControl mb={14}>
 				<FormLabel display="flex" justifyContent="space-between">
-					Directions<Checkbox>Use Current Location</Checkbox>
+					Directions
+					<Checkbox
+						isChecked={isChecked}
+						onChange={() => {
+							isChecked === false ? setIsChecked(true) : setIsChecked(false);
+						}}
+					>
+						Use Current Location
+					</Checkbox>
 				</FormLabel>
 				<Input
 					defaultValue={_id ? job.directions : null}
+					id="location"
 					type="text"
 					name="directions"
 					variant="filled"

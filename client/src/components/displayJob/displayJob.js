@@ -22,23 +22,29 @@ const PrintJob = () => {
 				{currentJob.companyName}
 			</Heading>
 			<Divider orientation={"horizontal"} />
-			<Box marginY={7} display={"flex"}>
+			<Box marginY={6} display={"flex"}>
 				<Text as={"b"} marginEnd={3}>
 					Job Site Name:
 				</Text>
 				<Text>{currentJob.jobSiteName}</Text>
 			</Box>
-			<Box mb={7} display={"flex"}>
+			<Box mb={6} display={"flex"}>
 				<Text as={"b"} marginEnd={3}>
 					Created By:
 				</Text>
 				<Text>{currentJob.createdBy}</Text>
 			</Box>
-			<Box mb={7} display={"flex"}>
+			<Box mb={6} display={"flex"}>
 				<Text as={"b"} marginEnd={3}>
 					Date:
 				</Text>
 				<Text>{new Date(currentJob.date).toLocaleDateString("en-ca")}</Text>
+			</Box>
+			<Box mb={6} display={"flex"}>
+				<Text as={"b"} marginEnd={3}>
+					Directions:
+				</Text>
+				<Text>{currentJob.directions}</Text>
 			</Box>
 			<Heading as={"h2"} size={"lg"} textAlign={"center"}>
 				Sections
