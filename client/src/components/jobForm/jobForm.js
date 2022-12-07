@@ -10,8 +10,7 @@ import {
 	Box,
 	Text,
 	Button,
-	EditableInput,
-	Editable,
+	Spinner,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
@@ -27,7 +26,7 @@ const JobForm = () => {
 
 	const [jobData, setJobData] = useState(_id ? job : {});
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
-	const [isChecked, setIsChecked] = useState(false);
+	const [isChecked, setIsChecked] = useState(_id ? job.gpsLocation : false);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -51,7 +50,8 @@ const JobForm = () => {
 	}, [jobSections]);
 
 	useEffect(() => {
-		if (isChecked === true) {
+		if (isChecked === true && !_id) {
+			document.getElementById("location").value = "Finding your location...";
 			navigator.geolocation.getCurrentPosition(success);
 		}
 	}, [isChecked]);
@@ -66,11 +66,10 @@ const JobForm = () => {
 	};
 
 	const success = (position) => {
-		console.log(position);
 		const lat = position.coords.latitude;
 		const long = position.coords.longitude;
 		document.getElementById("location").value = `${lat}, ${long}`;
-		setJobData({ ...jobData, directions: `${lat}, ${long}` });
+		setJobData({ ...jobData, directions: `${lat}, ${long}`, gpsLocation: isChecked });
 	};
 
 	return (

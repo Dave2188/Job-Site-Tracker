@@ -3,6 +3,7 @@ import { Container, Heading, Text, Box, Divider } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import PrintSection from "./printSection";
+import { QRCodeSVG } from "qrcode.react";
 
 const PrintJob = () => {
 	const { _id } = useParams();
@@ -40,11 +41,12 @@ const PrintJob = () => {
 				</Text>
 				<Text>{new Date(currentJob.date).toLocaleDateString("en-ca")}</Text>
 			</Box>
-			<Box mb={6} display={"flex"}>
+			<Box mb={6} display={"flex"} alignItems={"center"}>
 				<Text as={"b"} marginEnd={3}>
 					Directions:
 				</Text>
-				<Text>{currentJob.directions}</Text>
+				{_id ? <QRCodeSVG value={currentJob.directions} /> : <Text>{currentJob.directions}</Text>}
+				{/* <Text>{currentJob.directions}</Text> */}
 			</Box>
 			<Heading as={"h2"} size={"lg"} textAlign={"center"}>
 				Sections
