@@ -1,18 +1,17 @@
 import React, { useEffect, useMemo } from "react";
 import { Container, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
-import FileTiles from "./fileTiles";
+import FileTiles from "../jobs/fileTiles";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getJobs } from "../../actions/jobActions";
 
-const Jobs = () => {
+const JobsComplete = () => {
 	const [loading, setLoading] = useState(true);
-
 	const dispatch = useDispatch();
 	let jobs = useSelector((state) => state.jobs);
 	jobs = jobs.filter((job) => {
-		return job.jobComplete !== true;
+		return job.jobComplete === true;
 	});
 
 	useEffect(() => {
@@ -30,7 +29,7 @@ const Jobs = () => {
 			flexDir={"column"}
 		>
 			<Heading marginBottom={8} marginTop={2} paddingTop={5} textAlign="center">
-				Jobs
+				Completed Jobs
 			</Heading>
 			{loading === true ? (
 				<Spinner thickness="5px" speed="0.5s" emptyColor="blue.100" color="blue.500" size="xl" alignSelf={"center"} />
@@ -45,4 +44,4 @@ const Jobs = () => {
 	);
 };
 
-export default Jobs;
+export default JobsComplete;

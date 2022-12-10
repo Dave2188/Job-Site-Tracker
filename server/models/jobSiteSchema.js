@@ -11,7 +11,8 @@ const jobSiteSchema = new Schema(
 		createdBy: String,
 		date: Date,
 		siteSections: Array,
-		gpsLocation: { type: Boolean, default: "false" },
+		gpsLocation: { type: Boolean, default: false },
+		jobComplete: { type: Boolean, default: false },
 	},
 	{ timestamps: true },
 );

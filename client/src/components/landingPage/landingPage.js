@@ -21,7 +21,9 @@ const LandingPage = () => {
 				</Box>
 
 				<Box bg="blue.400" w="100%" p={5} margin={6} borderRadius={10} maxWidth="3xl">
-					<Text textAlign="center">COMPLETED JOBS</Text>
+					<NavLink to="JobsComplete">
+						<Text textAlign="center">COMPLETED JOBS</Text>
+					</NavLink>
 				</Box>
 
 				<Box bg="blue.400" w="100%" p={5} margin={6} borderRadius={10} maxWidth="3xl">

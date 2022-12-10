@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -10,13 +10,13 @@ import {
 	Box,
 	Text,
 	Button,
-	Spinner,
+	Switch,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob, updateJob } from "../../actions/jobActions";
-import { useNavigate, NavLink, useParams } from "react-router-dom";
+import { Navigate, NavLink, useParams, useNavigate } from "react-router-dom";
 
 const JobForm = () => {
 	const { _id } = useParams();
@@ -27,6 +27,7 @@ const JobForm = () => {
 	const [jobData, setJobData] = useState(_id ? job : {});
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
 	const [isChecked, setIsChecked] = useState(_id ? job.gpsLocation : false);
+	const [isSelected, setIsSelected] = useState(_id ? job.jobComplete : false);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -56,13 +57,21 @@ const JobForm = () => {
 		}
 	}, [isChecked]);
 
+	useMemo(() => {
+		setJobData({ ...jobData, jobComplete: isSelected });
+	}, [isSelected]);
+
 	const dispatch = useDispatch();
 	const useHandleSubmit = (e) => {
 		e.preventDefault();
 		if (_id) {
-			return dispatch(updateJob(_id, jobData));
+			dispatch(updateJob(_id, jobData));
+			return navigate("/");
 		}
+
 		dispatch(createJob(jobData));
+
+		return navigate("/");
 	};
 
 	const success = (position) => {
@@ -70,6 +79,14 @@ const JobForm = () => {
 		const long = position.coords.longitude;
 		document.getElementById("location").value = `${lat}, ${long}`;
 		setJobData({ ...jobData, directions: `${lat}, ${long}`, gpsLocation: isChecked });
+	};
+
+	const handleSwitch = () => {
+		if (isSelected === false) {
+			setIsSelected(true);
+		} else {
+			setIsSelected(false);
+		}
 	};
 
 	return (
@@ -163,6 +180,10 @@ const JobForm = () => {
 					onBlur={setData}
 				/>
 			</FormControl>
+			<FormControl display="flex" alignItems="center">
+				<FormLabel mb="0">Job site complete:</FormLabel>
+				<Switch id="jobComplete" size={"lg"} onChange={handleSwitch} isChecked={isSelected} />
+			</FormControl>
 
 			<Text fontSize="3xl" fontWeight="bold" textAlign="center">
 				Job Section
@@ -213,10 +234,12 @@ const JobForm = () => {
 			<Divider />
 			<Box display="flex" justifyContent="center" mt={14} padding={8}>
 				<Button onClick={useHandleSubmit} background="green.400">
-					Submit
+					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>
+
 			{console.log(jobData)}
+			{console.log(isSelected)}
 		</Container>
 	);
 };
