@@ -49,3 +49,17 @@ export const updateJob = async (req, res) => {
 		console.log(error.message);
 	}
 };
+
+export const deleteJob = async (req, res) => {
+	console.log("serverDelete");
+	// const job = req.body; ????
+	const { id: _id } = req.params;
+
+	try {
+		const deletedJob = await JobSite.findByIdAndDelete(_id);
+		console.log(res.json);
+		console.log(deletedJob);
+	} catch (error) {
+		console.log(error.message);
+	}
+};

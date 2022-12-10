@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo } from "react";
-import { Container, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Container, Heading, SimpleGrid, Spinner, Button } from "@chakra-ui/react";
 import FileTiles from "../jobs/fileTiles";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getJobs } from "../../actions/jobActions";
+import { getJobs, deleteJob } from "../../actions/jobActions";
 
 const JobsComplete = () => {
 	const [loading, setLoading] = useState(true);
+	const [deleteMode, setDeleteMode] = useState(false);
 	const dispatch = useDispatch();
 	let jobs = useSelector((state) => state.jobs);
 	jobs = jobs.filter((job) => {
@@ -18,6 +19,10 @@ const JobsComplete = () => {
 		dispatch(getJobs());
 		if (jobs.length) setLoading(false);
 	}, [jobs.length]);
+
+	// const handleClick = () => {
+	// 	dispatch(deleteJob("id"));
+	// };
 
 	return (
 		<Container
@@ -36,10 +41,30 @@ const JobsComplete = () => {
 			) : (
 				<SimpleGrid minChildWidth="130px" spacing="40px">
 					{jobs.map((job) => {
-						return <FileTiles company={job.companyName} jobSiteName={job.jobSiteName} key={job._id} id={job._id} />;
+						return (
+							<FileTiles
+								company={job.companyName}
+								jobSiteName={job.jobSiteName}
+								key={job._id}
+								id={job._id}
+								deleteMode={deleteMode}
+								// handleClick={handleClick}
+							/>
+						);
 					})}
 				</SimpleGrid>
 			)}
+			<Button
+				maxW={"fit-content"}
+				background={deleteMode === false ? "red.400" : "green.400"}
+				alignSelf={"center"}
+				mt={"60"}
+				onClick={() => {
+					deleteMode === false ? setDeleteMode(true) : setDeleteMode(false);
+				}}
+			>
+				{deleteMode === false ? "Delete Jobs" : "done"}
+			</Button>
 		</Container>
 	);
 };

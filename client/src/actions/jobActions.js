@@ -34,3 +34,16 @@ export const updateJob = (id, job) => async (dispatch) => {
 		console.log(error.message, "action");
 	}
 };
+
+export const deleteJob = (id) => async (dispatch) => {
+	try {
+		console.log("delete");
+		console.log("id");
+
+		await api.deleteJob(id);
+
+		getJobs();
+	} catch (error) {
+		console.log(error.message);
+	}
+};

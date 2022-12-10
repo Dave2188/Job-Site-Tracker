@@ -1,33 +1,50 @@
 import { FaFolderOpen } from "react-icons/fa";
+import { IoCloseCircle } from "react-icons/io5";
 import { Box, Text } from "@chakra-ui/react";
-import { redirect, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteJob } from "../../actions/jobActions";
 
 const FileTiles = (props) => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
+	const handleClick = (id) => {
+		dispatch(deleteJob(props.id));
+	};
 
 	return (
-		<Box
-			boxShadow="dark-lg"
-			rounded="lg"
-			display="flex"
-			justifyContent="center"
-			alignItems="center"
-			bg="whitesmoke"
-			flexDir="column"
-			maxH="28"
-			onClick={() => navigate(`/jobs/${props.id}`)}
-			cursor="pointer"
-		>
-			<Text fontSize="md" textAlign="center" as="b">
-				{props.company}
-			</Text>
+		<div>
+			{props.deleteMode === true ? (
+				<IoCloseCircle
+					size={32}
+					color={"Red"}
+					style={{ position: "relative", top: 15, left: -10 }}
+					onClick={handleClick}
+				/>
+			) : null}
 
-			<FaFolderOpen size="5em" color="burlyWood" />
-
-			<Text fontSize="sm" textAlign="center" as="b">
-				{props.jobSiteName}
-			</Text>
-		</Box>
+			<Box
+				boxShadow="dark-lg"
+				rounded="lg"
+				display="flex"
+				justifyContent="center"
+				alignItems="center"
+				bg="whitesmoke"
+				flexDir="column"
+				maxH="28"
+				onClick={() => navigate(`/jobs/${props.id}`)}
+				cursor="pointer"
+			>
+				<Text fontSize="md" textAlign="center" as="b">
+					{props.company}
+				</Text>
+				<FaFolderOpen size="5em" color="burlyWood" />
+				<Text fontSize="sm" textAlign="center" as="b">
+					{props.jobSiteName}
+				</Text>
+			</Box>
+		</div>
 	);
 };
 
