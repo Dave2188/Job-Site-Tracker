@@ -55,8 +55,7 @@ export const deleteJob = async (req, res) => {
 
 	try {
 		const deletedJob = await JobSite.findByIdAndDelete(_id);
-		console.log(res.json);
-		console.log(deletedJob);
+		res.json(deletedJob);
 	} catch (error) {
 		console.log(error.message);
 	}

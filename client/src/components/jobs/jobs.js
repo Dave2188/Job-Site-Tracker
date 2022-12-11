@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from "react";
-import { Container, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Container, Heading, SimpleGrid, Spinner, Divider } from "@chakra-ui/react";
 import FileTiles from "./fileTiles";
 import { useState } from "react";
 import { useSelector } from "react-redux";
@@ -32,9 +32,10 @@ const Jobs = () => {
 			margin={"auto"}
 			mt={"5"}
 		>
-			<Heading marginBottom={8} marginTop={2} paddingTop={5} textAlign="center">
+			<Heading marginBottom={6} marginTop={2} paddingTop={5} textAlign="center">
 				Jobs
 			</Heading>
+			<Divider shadow={"dark-lg"} mb={6} />
 			{loading === true ? (
 				<Spinner thickness="5px" speed="0.5s" emptyColor="blue.100" color="blue.500" size="xl" alignSelf={"center"} />
 			) : (

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -16,18 +16,18 @@ import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob, updateJob } from "../../actions/jobActions";
-import { Navigate, NavLink, useParams, useNavigate } from "react-router-dom";
+import { NavLink, useParams, useNavigate } from "react-router-dom";
 
 const JobForm = () => {
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
-	const navigate = useNavigate();
-
 	const [jobData, setJobData] = useState(_id ? job : {});
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
 	const [isChecked, setIsChecked] = useState(_id ? job.gpsLocation : false);
 	const [isSelected, setIsSelected] = useState(_id ? job.jobComplete : false);
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -61,13 +61,17 @@ const JobForm = () => {
 		setJobData({ ...jobData, jobComplete: isSelected });
 	}, [isSelected]);
 
-	const dispatch = useDispatch();
 	const useHandleSubmit = (e) => {
 		e.preventDefault();
+
 		if (_id) {
 			dispatch(updateJob(_id, jobData));
 			return navigate("/");
 		}
+
+		if (!jobData.siteSections.sectionName) return alert("REQUIRED: Please fill out site section");
+		if (!jobData.createdBy) return alert("REQUIRED: Please fill in name");
+		if (!jobData.jobSiteName) return alert("REQUIRED: Please fill in Job Site Name");
 
 		dispatch(createJob(jobData));
 
@@ -109,9 +113,16 @@ const JobForm = () => {
 					</NavLink>
 				</Button>
 				<Heading textAlign="center">Job Site Form</Heading>
-				<Button background="blue.300" borderRadius="md" as={Button} shadow={"dark-lg"} disabled={!_id ? true : false}>
+				<Button
+					background="blue.300"
+					borderRadius="md"
+					as={Button}
+					shadow={"dark-lg"}
+					disabled={!_id ? true : false}
+					onClick={() => navigate(`/JobForm/${_id}`)}
+				>
 					<ExternalLinkIcon as="button" boxSize={6} />
-					<Text ml={2} as="b" pos="relative" top="2px" id={_id} onClick={() => navigate(`/JobForm/${_id}`)}>
+					<Text ml={2} as="b" pos="relative" top="2px" id={_id}>
 						Export
 					</Text>
 				</Button>
@@ -119,7 +130,7 @@ const JobForm = () => {
 
 			<Divider mb={6} />
 
-			<FormControl mb={6}>
+			<FormControl mb={6} isRequired>
 				<FormLabel>Name</FormLabel>
 				<Input
 					defaultValue={_id ? job.createdBy : null}

@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo } from "react";
-import { Container, Heading, SimpleGrid, Spinner, Button } from "@chakra-ui/react";
+import { Container, Heading, SimpleGrid, Spinner, Button, Divider } from "@chakra-ui/react";
 import FileTiles from "../jobs/fileTiles";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getJobs, deleteJob } from "../../actions/jobActions";
+import { getJobs } from "../../actions/jobActions";
 
 const JobsComplete = () => {
 	const [loading, setLoading] = useState(true);
@@ -41,6 +41,7 @@ const JobsComplete = () => {
 			<Heading marginBottom={8} marginTop={2} paddingTop={5} textAlign="center">
 				Completed Jobs
 			</Heading>
+			<Divider shadow={"dark-lg"} mb={6} />
 			{loading === true ? (
 				<Spinner thickness="5px" speed="0.5s" emptyColor="blue.100" color="blue.500" size="xl" alignSelf={"center"} />
 			) : (
