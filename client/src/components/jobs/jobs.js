@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Container, Heading, SimpleGrid, Spinner } from "@chakra-ui/react";
 import FileTiles from "./fileTiles";
 import { useState } from "react";
@@ -8,24 +8,29 @@ import { getJobs } from "../../actions/jobActions";
 
 const Jobs = () => {
 	const [loading, setLoading] = useState(true);
+
 	const dispatch = useDispatch();
-	const jobs = useSelector((state) => state.jobs);
+	let jobs = useSelector((state) => state.jobs);
+	jobs = jobs.filter((job) => {
+		return job.jobComplete !== true;
+	});
 
 	useEffect(() => {
-		if (!jobs.length) {
-			dispatch(getJobs());
-		}
+		dispatch(getJobs());
 		if (jobs.length) setLoading(false);
-	});
+	}, [jobs.length]);
 
 	return (
 		<Container
-			maxWidth="container.xl"
+			maxWidth="full"
+			width={"95vw"}
 			boxShadow="dark-lg"
 			rounded="lg"
-			height="98vh"
+			height={"fit-content"}
 			display={"flex"}
 			flexDir={"column"}
+			margin={"auto"}
+			mt={"5"}
 		>
 			<Heading marginBottom={8} marginTop={2} paddingTop={5} textAlign="center">
 				Jobs
@@ -33,7 +38,7 @@ const Jobs = () => {
 			{loading === true ? (
 				<Spinner thickness="5px" speed="0.5s" emptyColor="blue.100" color="blue.500" size="xl" alignSelf={"center"} />
 			) : (
-				<SimpleGrid minChildWidth="130px" spacing="40px">
+				<SimpleGrid minChildWidth="130px" spacing="40px" mb={"5"}>
 					{jobs.map((job) => {
 						return <FileTiles company={job.companyName} jobSiteName={job.jobSiteName} key={job._id} id={job._id} />;
 					})}

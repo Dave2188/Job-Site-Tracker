@@ -57,19 +57,19 @@ const Section = (props) => {
 				})}
 			</Box>
 			<Box maxW="container.xl" display="flex" justifyContent="space-evenly" mb={10}>
-				<Button id="add" background="blue.300" onClick={handleClick}>
+				<Button id="add" background="blue.300" onClick={handleClick} shadow={"dark-lg"}>
 					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
 						+
 					</Text>
-					<Text id="add" ml={2}>
+					<Text id="add" ml={2} fontWeight={"medium"}>
 						Add Material
 					</Text>
 				</Button>
-				<Button id="remove" background="red.300" onClick={handleClick}>
+				<Button id="remove" background="red.300" onClick={handleClick} shadow={"dark-lg"}>
 					<Text id="remove" fontSize={18} fontWeight="bold" position="relative" bottom="1px">
 						x
 					</Text>
-					<Text id="remove" ml={2}>
+					<Text id="remove" ml={2} fontWeight={"medium"}>
 						Remove
 					</Text>
 				</Button>

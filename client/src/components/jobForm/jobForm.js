@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -10,22 +10,24 @@ import {
 	Box,
 	Text,
 	Button,
-	EditableInput,
-	Editable,
+	Switch,
 } from "@chakra-ui/react";
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
 import { useDispatch, useSelector } from "react-redux";
 import { createJob, updateJob } from "../../actions/jobActions";
-import { NavLink, useParams } from "react-router-dom";
+import { Navigate, NavLink, useParams, useNavigate } from "react-router-dom";
 
 const JobForm = () => {
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
+	const navigate = useNavigate();
 
 	const [jobData, setJobData] = useState(_id ? job : {});
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
+	const [isChecked, setIsChecked] = useState(_id ? job.gpsLocation : false);
+	const [isSelected, setIsSelected] = useState(_id ? job.jobComplete : false);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -48,33 +50,71 @@ const JobForm = () => {
 		}
 	}, [jobSections]);
 
+	useEffect(() => {
+		if (isChecked === true && !_id) {
+			document.getElementById("location").value = "Finding your location...";
+			navigator.geolocation.getCurrentPosition(success);
+		}
+	}, [isChecked]);
+
+	useMemo(() => {
+		setJobData({ ...jobData, jobComplete: isSelected });
+	}, [isSelected]);
+
 	const dispatch = useDispatch();
 	const useHandleSubmit = (e) => {
 		e.preventDefault();
 		if (_id) {
-			return dispatch(updateJob(_id, jobData));
+			dispatch(updateJob(_id, jobData));
+			return navigate("/");
 		}
+
 		dispatch(createJob(jobData));
+
+		return navigate("/");
+	};
+
+	const success = (position) => {
+		const lat = position.coords.latitude;
+		const long = position.coords.longitude;
+		document.getElementById("location").value = `${lat}, ${long}`;
+		setJobData({ ...jobData, directions: `${lat}, ${long}`, gpsLocation: isChecked });
+	};
+
+	const handleSwitch = () => {
+		if (isSelected === false) {
+			setIsSelected(true);
+		} else {
+			setIsSelected(false);
+		}
 	};
 
 	return (
-		<Container maxW="container.xl" maxHeight="max-content" boxShadow="dark-lg" rounded="lg" margin={"auto"}>
-			<Container display="flex" justifyContent="space-between" alignItems="center" maxW="container.lg" p={4}>
-				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>
+		<Container maxW="container.xl" h={"fit-content"} boxShadow="dark-lg" rounded="lg" margin={"auto"} mb={5}>
+			<Container
+				mt={5}
+				mb={5}
+				display="flex"
+				justifyContent="space-between"
+				alignItems="center"
+				maxW="container.lg"
+				p={4}
+			>
+				<Button background="blue.300" borderRadius="md" shadow={"dark-lg"}>
 					<NavLink to="/">
 						<ArrowBackIcon boxSize={6} />
-						<Text ml={2} as="b">
+						<Text ml={2} as={"b"}>
 							Back
 						</Text>
 					</NavLink>
-				</Box>
+				</Button>
 				<Heading textAlign="center">Job Site Form</Heading>
-				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>
+				<Button background="blue.300" borderRadius="md" as={Button} shadow={"dark-lg"} disabled={!_id ? true : false}>
 					<ExternalLinkIcon as="button" boxSize={6} />
-					<Text ml={2} as="b" pos="relative" top="2px">
-						Print
+					<Text ml={2} as="b" pos="relative" top="2px" id={_id} onClick={() => navigate(`/JobForm/${_id}`)}>
+						Export
 					</Text>
-				</Box>
+				</Button>
 			</Container>
 
 			<Divider mb={6} />
@@ -128,16 +168,29 @@ const JobForm = () => {
 
 			<FormControl mb={14}>
 				<FormLabel display="flex" justifyContent="space-between">
-					Directions<Checkbox>Use Current Location</Checkbox>
+					Directions
+					<Checkbox
+						isChecked={isChecked}
+						onChange={() => {
+							isChecked === false ? setIsChecked(true) : setIsChecked(false);
+						}}
+					>
+						Use Current Location
+					</Checkbox>
 				</FormLabel>
 				<Input
 					defaultValue={_id ? job.directions : null}
+					id="location"
 					type="text"
 					name="directions"
 					variant="filled"
 					placeholder="Directions"
 					onBlur={setData}
 				/>
+			</FormControl>
+			<FormControl display="flex" alignItems="center">
+				<FormLabel mb="0">Job site complete:</FormLabel>
+				<Switch id="jobComplete" size={"lg"} onChange={handleSwitch} isChecked={isSelected} />
 			</FormControl>
 
 			<Text fontSize="3xl" fontWeight="bold" textAlign="center">
@@ -162,18 +215,19 @@ const JobForm = () => {
 			</Box>
 
 			<Divider />
-			<Box display="flex" justifyContent="space-evenly" mt={10} paddingBottom={10}>
-				<Button id="add" background="blue.300" onClick={() => setJobSections([...jobSections, {}])}>
+			<Box display="flex" justifyContent="space-around" mt={10} paddingBottom={10}>
+				<Button id="add" background="blue.400" shadow={"dark-lg"} onClick={() => setJobSections([...jobSections, {}])}>
 					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
 						+
 					</Text>
-					<Text id="add" ml={2}>
+					<Text id="add" ml={2} fontWeight={"medium"}>
 						Add Section
 					</Text>
 				</Button>
 				<Button
 					id="remove"
-					background="red.300"
+					shadow={"dark-lg"}
+					background="red.400"
 					onClick={() => {
 						setJobSections(jobSections.slice(0, jobSections.length - 1));
 					}}
@@ -181,18 +235,20 @@ const JobForm = () => {
 					<Box id="remove" fontSize={18} position="relative" bottom="1px" fontWeight="bold">
 						x
 					</Box>
-					<Text id="remove" ml={2}>
+					<Text id="remove" ml={2} fontWeight={"medium"}>
 						Remove
 					</Text>
 				</Button>
 			</Box>
 			<Divider />
 			<Box display="flex" justifyContent="center" mt={14} padding={8}>
-				<Button onClick={useHandleSubmit} background="green.400">
-					Submit
+				<Button onClick={useHandleSubmit} background="green.400" shadow={"dark-lg"}>
+					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>
+
 			{console.log(jobData)}
+			{console.log(isSelected)}
 		</Container>
 	);
 };

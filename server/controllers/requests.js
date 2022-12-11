@@ -15,7 +15,6 @@ export const createJob = async (req, res) => {
 	console.log("request");
 	const job = req.body;
 
-	console.log(job);
 	const newJob = new JobSite({
 		jobSiteName: job.jobSiteName,
 		location: job.location,
@@ -26,7 +25,6 @@ export const createJob = async (req, res) => {
 		date: job.createdOn,
 		siteSections: job.siteSections,
 	});
-	console.log(job);
 
 	try {
 		await newJob.save();
@@ -42,8 +40,23 @@ export const updateJob = async (req, res) => {
 	const { id: _id } = req.params;
 
 	try {
-		const updatedJob = await JobSite.findByIdAndUpdate(_id, { ...job, _id });
+		const updatedJob = await JobSite.findByIdAndUpdate(_id, { ..._id, ...job });
+		console.log(updatedJob);
 		res.json(updatedJob);
+	} catch (error) {
+		console.log(error.message);
+	}
+};
+
+export const deleteJob = async (req, res) => {
+	console.log("serverDelete");
+
+	const { id: _id } = req.params;
+
+	try {
+		const deletedJob = await JobSite.findByIdAndDelete(_id);
+		console.log(res.json);
+		console.log(deletedJob);
 	} catch (error) {
 		console.log(error.message);
 	}
