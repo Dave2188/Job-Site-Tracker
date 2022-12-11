@@ -11,6 +11,7 @@ const FileTiles = (props) => {
 
 	const handleClick = (id) => {
 		dispatch(deleteJob(props.id));
+		props.handleDeleteMode(false);
 	};
 
 	return (
@@ -21,6 +22,7 @@ const FileTiles = (props) => {
 					color={"Red"}
 					style={{ position: "relative", top: 15, left: -10 }}
 					onClick={handleClick}
+					cursor="pointer"
 				/>
 			) : null}
 
@@ -30,7 +32,7 @@ const FileTiles = (props) => {
 				display="flex"
 				justifyContent="center"
 				alignItems="center"
-				bg="whitesmoke"
+				bg="#fcfafa"
 				flexDir="column"
 				maxH="28"
 				onClick={() => navigate(`/jobs/${props.id}`)}

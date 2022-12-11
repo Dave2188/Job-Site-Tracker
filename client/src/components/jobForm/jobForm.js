@@ -90,23 +90,31 @@ const JobForm = () => {
 	};
 
 	return (
-		<Container maxW="container.xl" maxHeight="max-content" boxShadow="dark-lg" rounded="lg" margin={"auto"}>
-			<Container display="flex" justifyContent="space-between" alignItems="center" maxW="container.lg" p={4}>
-				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>
+		<Container maxW="container.xl" h={"fit-content"} boxShadow="dark-lg" rounded="lg" margin={"auto"} mb={5}>
+			<Container
+				mt={5}
+				mb={5}
+				display="flex"
+				justifyContent="space-between"
+				alignItems="center"
+				maxW="container.lg"
+				p={4}
+			>
+				<Button background="blue.300" borderRadius="md" shadow={"dark-lg"}>
 					<NavLink to="/">
 						<ArrowBackIcon boxSize={6} />
-						<Text ml={2} as="b">
+						<Text ml={2} as={"b"}>
 							Back
 						</Text>
 					</NavLink>
-				</Box>
+				</Button>
 				<Heading textAlign="center">Job Site Form</Heading>
-				<Box background="blue.300" borderRadius="md" px={4} py={2} as={Button}>
+				<Button background="blue.300" borderRadius="md" as={Button} shadow={"dark-lg"} disabled={!_id ? true : false}>
 					<ExternalLinkIcon as="button" boxSize={6} />
 					<Text ml={2} as="b" pos="relative" top="2px" id={_id} onClick={() => navigate(`/JobForm/${_id}`)}>
-						Print
+						Export
 					</Text>
-				</Box>
+				</Button>
 			</Container>
 
 			<Divider mb={6} />
@@ -207,18 +215,19 @@ const JobForm = () => {
 			</Box>
 
 			<Divider />
-			<Box display="flex" justifyContent="space-evenly" mt={10} paddingBottom={10}>
-				<Button id="add" background="blue.300" onClick={() => setJobSections([...jobSections, {}])}>
+			<Box display="flex" justifyContent="space-around" mt={10} paddingBottom={10}>
+				<Button id="add" background="blue.400" shadow={"dark-lg"} onClick={() => setJobSections([...jobSections, {}])}>
 					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
 						+
 					</Text>
-					<Text id="add" ml={2}>
+					<Text id="add" ml={2} fontWeight={"medium"}>
 						Add Section
 					</Text>
 				</Button>
 				<Button
 					id="remove"
-					background="red.300"
+					shadow={"dark-lg"}
+					background="red.400"
 					onClick={() => {
 						setJobSections(jobSections.slice(0, jobSections.length - 1));
 					}}
@@ -226,14 +235,14 @@ const JobForm = () => {
 					<Box id="remove" fontSize={18} position="relative" bottom="1px" fontWeight="bold">
 						x
 					</Box>
-					<Text id="remove" ml={2}>
+					<Text id="remove" ml={2} fontWeight={"medium"}>
 						Remove
 					</Text>
 				</Button>
 			</Box>
 			<Divider />
 			<Box display="flex" justifyContent="center" mt={14} padding={8}>
-				<Button onClick={useHandleSubmit} background="green.400">
+				<Button onClick={useHandleSubmit} background="green.400" shadow={"dark-lg"}>
 					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>

@@ -15,7 +15,6 @@ export const createJob = async (req, res) => {
 	console.log("request");
 	const job = req.body;
 
-	console.log(job);
 	const newJob = new JobSite({
 		jobSiteName: job.jobSiteName,
 		location: job.location,
@@ -26,7 +25,6 @@ export const createJob = async (req, res) => {
 		date: job.createdOn,
 		siteSections: job.siteSections,
 	});
-	console.log(job);
 
 	try {
 		await newJob.save();
@@ -52,7 +50,7 @@ export const updateJob = async (req, res) => {
 
 export const deleteJob = async (req, res) => {
 	console.log("serverDelete");
-	// const job = req.body; ????
+
 	const { id: _id } = req.params;
 
 	try {

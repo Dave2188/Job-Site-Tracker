@@ -4,7 +4,7 @@ import bodyParser from "body-parser";
 
 const router = express.Router();
 
-const jsonParser = bodyParser.json();
+// const jsonParser = bodyParser.json();
 
 router.get("/", getJobs);
 router.post("/", createJob);

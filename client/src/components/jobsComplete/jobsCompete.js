@@ -11,27 +11,32 @@ const JobsComplete = () => {
 	const [deleteMode, setDeleteMode] = useState(false);
 	const dispatch = useDispatch();
 	let jobs = useSelector((state) => state.jobs);
+
 	jobs = jobs.filter((job) => {
 		return job.jobComplete === true;
 	});
 
 	useEffect(() => {
 		dispatch(getJobs());
-		if (jobs.length) setLoading(false);
-	}, [jobs.length]);
 
-	// const handleClick = () => {
-	// 	dispatch(deleteJob("id"));
-	// };
+		if (jobs.length) setLoading(false);
+	}, [jobs.length, deleteMode]);
+
+	const handleClick = (Boolean) => {
+		setDeleteMode(Boolean);
+	};
 
 	return (
 		<Container
-			maxWidth="container.xl"
+			maxWidth="full"
+			width={"95vw"}
 			boxShadow="dark-lg"
 			rounded="lg"
-			height="98vh"
+			height={"fit-content"}
 			display={"flex"}
 			flexDir={"column"}
+			margin={"auto"}
+			mt={"5"}
 		>
 			<Heading marginBottom={8} marginTop={2} paddingTop={5} textAlign="center">
 				Completed Jobs
@@ -48,7 +53,7 @@ const JobsComplete = () => {
 								key={job._id}
 								id={job._id}
 								deleteMode={deleteMode}
-								// handleClick={handleClick}
+								handleDeleteMode={handleClick}
 							/>
 						);
 					})}
@@ -59,6 +64,7 @@ const JobsComplete = () => {
 				background={deleteMode === false ? "red.400" : "green.400"}
 				alignSelf={"center"}
 				mt={"60"}
+				mb={"5"}
 				onClick={() => {
 					deleteMode === false ? setDeleteMode(true) : setDeleteMode(false);
 				}}

@@ -26,8 +26,4 @@ const connection = async () => {
 };
 connection();
 
-// app.get("/", function (req, res) {
-// 	res.send({ jobs });
-// });
-
 app.listen(PORT, () => console.log(`server running on port ${PORT}`));
