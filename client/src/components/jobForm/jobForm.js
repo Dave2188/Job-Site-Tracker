@@ -199,7 +199,7 @@ const JobForm = () => {
 					onBlur={setData}
 				/>
 			</FormControl>
-			<FormControl display="flex" alignItems="center">
+			<FormControl display="flex" alignItems="center" mb={14}>
 				<FormLabel mb="0">Job site complete:</FormLabel>
 				<Switch id="jobComplete" size={"lg"} onChange={handleSwitch} isChecked={isSelected} />
 			</FormControl>
