@@ -6,12 +6,8 @@ import BrowserError from "./components/browserError/browserError";
 import Jobs from "./components/jobs/jobs";
 import PrintJob from "./components/displayJob/displayJob";
 import JobsComplete from "./components/jobsComplete/jobsCompete";
-import { useDispatch } from "react-redux";
-import { getJobs } from "./actions/jobActions";
 
 function App() {
-	// const dispatch = useDispatch();
-	// dispatch(getJobs());
 	const router = createBrowserRouter([
 		{
 			path: "/",

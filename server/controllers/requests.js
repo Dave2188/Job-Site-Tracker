@@ -24,6 +24,8 @@ export const createJob = async (req, res) => {
 		createdBy: job.createdBy,
 		date: job.createdOn,
 		siteSections: job.siteSections,
+		gpsLocation: job.gpsLocation,
+		jobComplete: job.jobComplete,
 	});
 
 	try {

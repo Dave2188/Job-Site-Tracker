@@ -23,7 +23,7 @@ const JobForm = () => {
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
 	console.log(job);
-	const [jobData, setJobData] = useState(_id ? job : {});
+	const [jobData, setJobData] = useState(_id ? job : { jobComplete: false });
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
 	const [isChecked, setIsChecked] = useState(_id ? job.gpsLocation : false);
 	const [isSelected, setIsSelected] = useState(_id ? job.jobComplete : false);
@@ -143,7 +143,7 @@ const JobForm = () => {
 				/>
 			</FormControl>
 
-			<FormControl mb={6}>
+			<FormControl mb={6} isRequired>
 				<FormLabel>Job Site Name</FormLabel>
 				<Input
 					defaultValue={_id ? job.jobSiteName : null}
@@ -253,6 +253,7 @@ const JobForm = () => {
 					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>
+			{console.log(jobData)}
 		</Container>
 	);
 };

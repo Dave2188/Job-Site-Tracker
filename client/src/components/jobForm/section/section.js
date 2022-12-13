@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FormControl, FormLabel, Box, Button, Text, Input } from "@chakra-ui/react";
 import Material from "../material/material";
 
 const Section = (props) => {
 	const [materialNumber, setMaterialNumber] = useState(props.section ? props.section.materials : [{}]);
+	const [nameValue, setNameValue] = useState(props.section ? props.section.sectionName : "");
 
-	const [nameValue, setNameValue] = useState("");
 	const tempSection = {
 		sectionName: nameValue,
-		materials: [],
+		materials: [...materialNumber],
 	};
-	console.log(tempSection.materials);
+
 	const handleClick = (e) => {
 		if (e.target.id === "add") {
 			setMaterialNumber([...materialNumber, {}]);
@@ -27,7 +27,7 @@ const Section = (props) => {
 					return props.setTempSectionData(tempSection);
 				}}
 			>
-				<FormControl mb={6} id="sectionName">
+				<FormControl mb={6} id="sectionName" isRequired>
 					<FormLabel>Section Name</FormLabel>
 					<Input
 						defaultValue={props.section ? props.section.sectionName : null}
