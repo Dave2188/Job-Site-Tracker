@@ -15,6 +15,7 @@ const jobSiteSchema = new Schema(
 		jobComplete: Boolean,
 	},
 	{ timestamps: true },
+	{ strict: false },
 );
 
 const JobSite = mongoose.model("JobSite", jobSiteSchema);

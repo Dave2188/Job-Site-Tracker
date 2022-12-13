@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { Container, Heading, SimpleGrid, Spinner, Divider } from "@chakra-ui/react";
 import FileTiles from "./fileTiles";
 import { useState } from "react";
@@ -18,7 +18,7 @@ const Jobs = () => {
 	useEffect(() => {
 		dispatch(getJobs());
 		if (jobs.length) setLoading(false);
-	}, [jobs.length]);
+	}, [jobs.length, dispatch]);
 
 	return (
 		<Container
@@ -37,7 +37,15 @@ const Jobs = () => {
 			</Heading>
 			<Divider shadow={"dark-lg"} mb={6} />
 			{loading === true ? (
-				<Spinner thickness="5px" speed="0.5s" emptyColor="blue.100" color="blue.500" size="xl" alignSelf={"center"} />
+				<Spinner
+					thickness="5px"
+					speed="0.5s"
+					emptyColor="blue.100"
+					color="blue.500"
+					size="xl"
+					alignSelf={"center"}
+					mb={6}
+				/>
 			) : (
 				<SimpleGrid minChildWidth="130px" spacing="40px" mb={"5"}>
 					{jobs.map((job) => {

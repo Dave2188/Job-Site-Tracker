@@ -2,7 +2,9 @@ import React, { useMemo, useState } from "react";
 import { Box, FormControl, FormLabel, Select, Input } from "@chakra-ui/react";
 
 const Material = (props) => {
-	const [material, setMaterial] = useState({ material: "", amount: "" });
+	const [material, setMaterial] = useState(
+		props.materialSection ? props.materialSection : { material: "", amount: "" },
+	);
 
 	const materialHandleChange = (event) => {
 		if (event.target.id === "material") {
@@ -14,6 +16,7 @@ const Material = (props) => {
 
 	useMemo(() => {
 		props.handleData(material);
+		// eslint-disable-next-line
 	}, [material]);
 
 	return (
@@ -25,7 +28,7 @@ const Material = (props) => {
 						id="material"
 						placeholder="Select option"
 						variant="filled"
-						defaultValue={props.materialSection ? props.materialSection.material : material.material}
+						defaultValue={material.material}
 						onChange={materialHandleChange}
 					>
 						<option>Insulation: 1 x 1</option>
@@ -94,12 +97,13 @@ const Material = (props) => {
 						<option>#12 45º</option>
 						<option>#13 45º</option>
 						<option>#14 45º</option>
+						<option>pads</option>
 					</Select>
 				</FormControl>
 				<FormControl w="30%">
 					<FormLabel>Amount</FormLabel>
 					<Input
-						defaultValue={props.materialSection ? props.materialSection.amount : material.amount}
+						defaultValue={material.amount}
 						type="number"
 						id="amount"
 						variant="filled"
