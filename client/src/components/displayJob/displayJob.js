@@ -58,12 +58,14 @@ const PrintJob = () => {
 				})}
 			</Container>
 
-			<Container display={"flex"} justifyContent={"space-evenly"} mt={5}>
+			<Container display={"flex"} justifyContent={"space-evenly"} mt={5} id="buttons">
 				<Button
 					paddingInline={"5"}
 					background={"green.400"}
 					onClick={() => {
+						document.getElementById("buttons").style.display = "none";
 						window.print();
+						document.getElementById("buttons").style.display = "";
 					}}
 				>
 					Print
