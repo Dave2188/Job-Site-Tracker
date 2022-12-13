@@ -3,16 +3,14 @@ import { FormControl, FormLabel, Box, Button, Text, Input } from "@chakra-ui/rea
 import Material from "../material/material";
 
 const Section = (props) => {
-	const [materialNumber, setMaterialNumber] = useState(
-		// props.job ? props.job.siteSections[props.index].materials : [{}],
-		props.section ? props.section.materials : [{}],
-	);
+	const [materialNumber, setMaterialNumber] = useState(props.section ? props.section.materials : [{}]);
+
 	const [nameValue, setNameValue] = useState("");
 	const tempSection = {
 		sectionName: nameValue,
 		materials: [],
 	};
-
+	console.log(tempSection.materials);
 	const handleClick = (e) => {
 		if (e.target.id === "add") {
 			setMaterialNumber([...materialNumber, {}]);
