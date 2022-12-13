@@ -22,12 +22,15 @@ const JobForm = () => {
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
+	console.log(job);
 	const [jobData, setJobData] = useState(_id ? job : {});
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
 	const [isChecked, setIsChecked] = useState(_id ? job.gpsLocation : false);
 	const [isSelected, setIsSelected] = useState(_id ? job.jobComplete : false);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	console.log(jobData);
 
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
@@ -57,10 +60,6 @@ const JobForm = () => {
 		}
 	}, [isChecked]);
 
-	useMemo(() => {
-		setJobData({ ...jobData, jobComplete: isSelected });
-	}, [isSelected]);
-
 	const useHandleSubmit = (e) => {
 		e.preventDefault();
 
@@ -69,7 +68,7 @@ const JobForm = () => {
 			return navigate("/");
 		}
 
-		if (!jobData.siteSections.sectionName) return alert("REQUIRED: Please fill out site section");
+		if (!jobData.siteSections[0].sectionName) return alert("REQUIRED: Please fill out site section");
 		if (!jobData.createdBy) return alert("REQUIRED: Please fill in name");
 		if (!jobData.jobSiteName) return alert("REQUIRED: Please fill in Job Site Name");
 
@@ -82,15 +81,17 @@ const JobForm = () => {
 		const lat = position.coords.latitude;
 		const long = position.coords.longitude;
 		document.getElementById("location").value = `${lat}, ${long}`;
-		setJobData({ ...jobData, directions: `${lat}, ${long}`, gpsLocation: isChecked });
+		setJobData({ ...jobData, directions: `${lat}, ${long}` });
 	};
 
 	const handleSwitch = () => {
-		if (isSelected === false) {
-			setIsSelected(true);
-		} else {
-			setIsSelected(false);
-		}
+		if (isSelected === false) return setIsSelected(true), setJobData({ ...jobData, jobComplete: true });
+		if (isSelected === true) return setIsSelected(false), setJobData({ ...jobData, jobComplete: false });
+	};
+
+	const handleCheckBox = () => {
+		if (isChecked === false) return setIsChecked(true), setJobData({ ...jobData, gpsLocation: true });
+		if (isChecked === true) return setIsChecked(false), setJobData({ ...jobData, gpsLocation: false });
 	};
 
 	return (
@@ -180,12 +181,7 @@ const JobForm = () => {
 			<FormControl mb={14}>
 				<FormLabel display="flex" justifyContent="space-between">
 					Directions
-					<Checkbox
-						isChecked={isChecked}
-						onChange={() => {
-							isChecked === false ? setIsChecked(true) : setIsChecked(false);
-						}}
-					>
+					<Checkbox isChecked={isChecked} onChange={handleCheckBox}>
 						Use Current Location
 					</Checkbox>
 				</FormLabel>
@@ -216,7 +212,7 @@ const JobForm = () => {
 							setTempSectionData={(obj) => {
 								setJobSections(tempJobData(i, obj));
 							}}
-							section={_id ? job.siteSections[i] : null}
+							section={_id ? jobData.siteSections[i] : null}
 							key={i}
 							index={i}
 							name="siteSections"
@@ -253,13 +249,10 @@ const JobForm = () => {
 			</Box>
 			<Divider />
 			<Box display="flex" justifyContent="center" mt={14} padding={8}>
-				<Button onClick={useHandleSubmit} background="green.400" shadow={"dark-lg"}>
+				<Button type="submit" onClick={useHandleSubmit} background="green.400" shadow={"dark-lg"}>
 					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>
-
-			{console.log(jobData)}
-			{console.log(isSelected)}
 		</Container>
 	);
 };

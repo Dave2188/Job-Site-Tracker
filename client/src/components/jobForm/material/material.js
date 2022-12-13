@@ -1,26 +1,31 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Box, FormControl, FormLabel, Select, Input } from "@chakra-ui/react";
 
 const Material = (props) => {
-	const [material, setMaterial] = useState({ material: "", amount: 0 });
+	const [material, setMaterial] = useState({ material: "", amount: "" });
 
 	const materialHandleChange = (event) => {
 		if (event.target.id === "material") {
 			return setMaterial({ ...material, material: event.target.value });
+		} else {
+			setMaterial({ ...material, amount: event.target.value });
 		}
-		return setMaterial({ ...material, amount: event.target.value });
 	};
+
+	useMemo(() => {
+		props.handleData(material);
+	}, [material]);
 
 	return (
 		<>
-			<Box display="flex" justifyContent="space-between" mb={10} onChange={props.handleData(material)}>
+			<Box display="flex" justifyContent="space-between" mb={10}>
 				<FormControl w="60%">
 					<FormLabel>Material</FormLabel>
 					<Select
 						id="material"
 						placeholder="Select option"
 						variant="filled"
-						defaultValue={props.materialSection ? props.materialSection.material : null}
+						defaultValue={props.materialSection ? props.materialSection.material : material.material}
 						onChange={materialHandleChange}
 					>
 						<option>Insulation: 1 x 1</option>
@@ -94,7 +99,7 @@ const Material = (props) => {
 				<FormControl w="30%">
 					<FormLabel>Amount</FormLabel>
 					<Input
-						defaultValue={props.materialSection ? props.materialSection.amount : null}
+						defaultValue={props.materialSection ? props.materialSection.amount : material.amount}
 						type="number"
 						id="amount"
 						variant="filled"
