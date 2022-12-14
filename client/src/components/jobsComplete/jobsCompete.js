@@ -5,11 +5,13 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getJobs } from "../../actions/jobActions";
+import { useNavigate } from "react-router-dom";
 
 const JobsComplete = () => {
 	const [loading, setLoading] = useState(true);
 	const [deleteMode, setDeleteMode] = useState(false);
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	let jobs = useSelector((state) => state.jobs);
 
 	jobs = jobs.filter((job) => {
@@ -20,7 +22,7 @@ const JobsComplete = () => {
 		dispatch(getJobs());
 
 		if (jobs.length) setLoading(false);
-	}, [jobs.length, deleteMode]);
+	}, [dispatch, jobs]);
 
 	const handleClick = (Boolean) => {
 		setDeleteMode(Boolean);
@@ -60,18 +62,27 @@ const JobsComplete = () => {
 					})}
 				</SimpleGrid>
 			)}
-			<Button
-				maxW={"fit-content"}
-				background={deleteMode === false ? "red.400" : "green.400"}
-				alignSelf={"center"}
-				mt={"60"}
-				mb={"5"}
-				onClick={() => {
-					deleteMode === false ? setDeleteMode(true) : setDeleteMode(false);
-				}}
-			>
-				{deleteMode === false ? "Delete Jobs" : "done"}
-			</Button>
+			<Container display={"flex"} flexDir={"row"} mt={"60"} justifyContent={"space-evenly"}>
+				<Button
+					maxW={"fit-content"}
+					background={deleteMode === false ? "red.400" : "green.400"}
+					alignSelf={"center"}
+					mb={"5"}
+					onClick={() => {
+						deleteMode === false ? setDeleteMode(true) : setDeleteMode(false);
+					}}
+				>
+					{deleteMode === false ? "Delete Jobs" : "done"}
+				</Button>
+				<Button
+					background={"blue.300"}
+					onClick={() => {
+						return navigate("/");
+					}}
+				>
+					Home
+				</Button>
+			</Container>
 		</Container>
 	);
 };
