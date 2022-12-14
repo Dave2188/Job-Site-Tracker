@@ -18,7 +18,7 @@ const Jobs = () => {
 	useEffect(() => {
 		dispatch(getJobs());
 		if (jobs.length) setLoading(false);
-	}, [jobs.length, dispatch]);
+	}, [dispatch, jobs]);
 
 	return (
 		<Container

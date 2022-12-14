@@ -20,7 +20,7 @@ const JobsComplete = () => {
 		dispatch(getJobs());
 
 		if (jobs.length) setLoading(false);
-	}, [jobs.length, deleteMode]);
+	}, [dispatch, jobs]);
 
 	const handleClick = (Boolean) => {
 		setDeleteMode(Boolean);

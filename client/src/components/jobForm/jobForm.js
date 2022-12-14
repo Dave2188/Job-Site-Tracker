@@ -65,7 +65,7 @@ const JobForm = () => {
 
 		if (_id) {
 			dispatch(updateJob(_id, jobData));
-			return navigate("/");
+			return navigate("/jobs");
 		}
 
 		if (!jobData.siteSections[0].sectionName) return alert("REQUIRED: Please fill out site section");
@@ -74,7 +74,7 @@ const JobForm = () => {
 
 		dispatch(createJob(jobData));
 
-		return navigate("/");
+		return navigate("/jobs");
 	};
 
 	const success = (position) => {
