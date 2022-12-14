@@ -8,7 +8,7 @@ const Section = (props) => {
 
 	const tempSection = {
 		sectionName: nameValue,
-		materials: [...materialNumber],
+		materials: materialNumber,
 	};
 
 	const handleClick = (e) => {
@@ -18,6 +18,14 @@ const Section = (props) => {
 		if (e.target.id === "remove") {
 			setMaterialNumber(materialNumber.slice(0, materialNumber.length - 1));
 		}
+	};
+
+	const handleSetMaterialNumber = (obj, i) => {
+		setMaterialNumber(() => {
+			let newArray = [...materialNumber];
+			newArray[i] = obj;
+			return newArray;
+		});
 	};
 
 	return (
@@ -46,9 +54,9 @@ const Section = (props) => {
 					return (
 						<Material
 							key={i}
-							materialSection={props.section ? props.section.materials[i] : null}
+							materialSection={materialNumber[i]}
 							handleData={(obj) => {
-								tempSection.materials[i] = obj;
+								handleSetMaterialNumber(obj, i);
 							}}
 						/>
 					);
