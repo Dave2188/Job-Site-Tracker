@@ -18,47 +18,63 @@ const PrintJob = () => {
 	console.log(currentJob);
 
 	return (
-		<Container>
-			<Container maxWidth={"100vw"} margin={"0"}>
+		<Container id="main">
+			<Container w={"100%"} margin={"0"}>
 				<Heading textAlign={"center"} as={"h1"} size={"xl"}>
 					{currentJob.companyName}
 				</Heading>
 				<Divider orientation={"horizontal"} />
-				<Box marginY={6} display={"flex"}>
-					<Text as={"b"} marginEnd={3}>
-						Job Site Name:
-					</Text>
-					<Text>{currentJob.jobSiteName}</Text>
-				</Box>
-				<Box mb={6} display={"flex"}>
-					<Text as={"b"} marginEnd={3}>
-						Created By:
-					</Text>
-					<Text>{currentJob.createdBy}</Text>
-				</Box>
-				<Box mb={6} display={"flex"}>
-					<Text as={"b"} marginEnd={3}>
-						Date:
-					</Text>
-					<Text>{new Date(currentJob.date).toLocaleDateString("en-ca")}</Text>
-				</Box>
-				<Box mb={6} display={"flex"} alignItems={"center"}>
-					<Text as={"b"} marginEnd={3}>
-						Directions:
-					</Text>
-					{_id ? (
-						<QRCodeSVG size={"60"} value={currentJob.directions} style={{ marginLeft: ".5rem" }} />
-					) : (
-						<Text>{currentJob.directions}</Text>
-					)}
-				</Box>
+				<Container
+					h={"20vh"}
+					display={"grid"}
+					gridTemplateRows={"repeat(2, 1fr)"}
+					gridTemplateColumns={"repeat(2, 1fr)"}
+				>
+					<Box marginY={6} display={"flex"} alignSelf={"center"}>
+						<Text as={"b"} marginEnd={3}>
+							Job Site Name:
+						</Text>
+						<Text>{currentJob.jobSiteName}</Text>
+					</Box>
+					<Box display={"flex"} alignSelf={"center"}>
+						<Text as={"b"} marginEnd={3}>
+							Created By:
+						</Text>
+						<Text>{currentJob.createdBy}</Text>
+					</Box>
+					<Box mb={6} display={"flex"} alignSelf={"center"}>
+						<Text as={"b"} marginEnd={3}>
+							Date:
+						</Text>
+						<Text>{new Date(currentJob.date).toLocaleDateString("en-ca")}</Text>
+					</Box>
+					<Box mb={6} display={"flex"} alignItems={"center"}>
+						<Text as={"b"} marginEnd={3}>
+							Directions:
+						</Text>
+						{_id ? (
+							<QRCodeSVG size={"60"} value={currentJob.directions} style={{ marginLeft: ".5rem", marginTop: "0" }} />
+						) : (
+							<Text>{currentJob.directions}</Text>
+						)}
+					</Box>
+				</Container>
 				<Heading as={"h2"} size={"lg"} textAlign={"center"}>
 					Sections
 				</Heading>
 				<Divider orientation={"horizontal"} />
-				{currentJob.siteSections.map((section, i) => {
-					return <PrintSection key={i} name={section.sectionName} material={section.materials} />;
-				})}
+				<Container
+					display="flex"
+					flexDir={"row"}
+					justifyContent={"space-around"}
+					flexWrap={"wrap"}
+					height={"70vh"}
+					gap={4}
+				>
+					{currentJob.siteSections.map((section, i) => {
+						return <PrintSection key={i} name={section.sectionName} material={section.materials} />;
+					})}
+				</Container>
 			</Container>
 
 			<Container display={"flex"} justifyContent={"space-evenly"} mt={5} id="buttons">
