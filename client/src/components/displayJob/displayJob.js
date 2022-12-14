@@ -8,7 +8,7 @@ import { QRCodeSVG } from "qrcode.react";
 const PrintJob = () => {
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
-
+	// eslint-disable-next-line
 	const [currentJob, setCurrentJob] = useState(
 		jobs.find((job) => {
 			return job._id === _id;
@@ -46,8 +46,11 @@ const PrintJob = () => {
 					<Text as={"b"} marginEnd={3}>
 						Directions:
 					</Text>
-					{_id ? <QRCodeSVG value={currentJob.directions} /> : <Text>{currentJob.directions}</Text>}
-					{/* <Text>{currentJob.directions}</Text> */}
+					{_id ? (
+						<QRCodeSVG size={"60"} value={currentJob.directions} style={{ marginLeft: ".5rem" }} />
+					) : (
+						<Text>{currentJob.directions}</Text>
+					)}
 				</Box>
 				<Heading as={"h2"} size={"lg"} textAlign={"center"}>
 					Sections
@@ -65,7 +68,10 @@ const PrintJob = () => {
 					onClick={() => {
 						document.getElementById("buttons").style.display = "none";
 						window.print();
-						document.getElementById("buttons").style.display = "";
+						window.onbeforeunload = () => {
+							document.getElementById("buttons").style.display = "";
+						};
+						window.onbeforeunload();
 					}}
 				>
 					Print

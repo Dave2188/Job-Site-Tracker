@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, FormControl, FormLabel, Select, Input } from "@chakra-ui/react";
 
 const Material = (props) => {
@@ -14,7 +14,7 @@ const Material = (props) => {
 		}
 	};
 
-	useMemo(() => {
+	useEffect(() => {
 		props.handleData(material);
 		// eslint-disable-next-line
 	}, [material]);
