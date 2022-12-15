@@ -15,17 +15,16 @@ const PrintJob = () => {
 		}),
 	);
 
-	console.log(currentJob);
-
 	return (
-		<Container id="main">
-			<Container w={"100%"} margin={"0"}>
+		<Container id="main" maxWidth={"100vw"}>
+			<Container maxWidth={"100vw"} margin={"0"}>
 				<Heading textAlign={"center"} as={"h1"} size={"xl"}>
 					{currentJob.companyName}
 				</Heading>
 				<Divider orientation={"horizontal"} />
 				<Container
-					h={"20vh"}
+					maxW={"100vw"}
+					justifyItems={"center"}
 					display={"grid"}
 					gridTemplateRows={"repeat(2, 1fr)"}
 					gridTemplateColumns={"repeat(2, 1fr)"}
@@ -63,7 +62,13 @@ const PrintJob = () => {
 					Sections
 				</Heading>
 				<Divider orientation={"horizontal"} />
-				<Container display="flex" flexDir={"row"} justifyContent={"space-around"} flexWrap={"wrap"} gap={4}>
+				<Container
+					display={"grid"}
+					maxW={"100vw"}
+					gap={8}
+					gridTemplateColumns={"repeat(2,1fr)"}
+					gridTemplateRows={"repeat (2,1fr)"}
+				>
 					{currentJob.siteSections.map((section, i) => {
 						return <PrintSection key={i} name={section.sectionName} material={section.materials} />;
 					})}
