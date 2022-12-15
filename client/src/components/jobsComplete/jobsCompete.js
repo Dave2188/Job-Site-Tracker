@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const JobsComplete = () => {
 	const [loading, setLoading] = useState(true);
 	const [deleteMode, setDeleteMode] = useState(false);
-	const [jobState, setJobState] = useState("");
+
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
