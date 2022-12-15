@@ -3,7 +3,7 @@ import { IoCloseCircle } from "react-icons/io5";
 import { Box, Text } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { deleteJob } from "../../actions/jobActions";
+import { deleteJob, getJobs } from "../../actions/jobActions";
 
 const FileTiles = (props) => {
 	const navigate = useNavigate();
@@ -11,6 +11,7 @@ const FileTiles = (props) => {
 
 	const handleClick = (id) => {
 		dispatch(deleteJob(props.id));
+		dispatch(getJobs());
 		props.handleDeleteMode(false);
 	};
 

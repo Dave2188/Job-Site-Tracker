@@ -7,9 +7,9 @@ import { useDispatch } from "react-redux";
 import { getJobs } from "../../actions/jobActions";
 
 const Jobs = () => {
+	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(true);
 
-	const dispatch = useDispatch();
 	let jobs = useSelector((state) => state.jobs);
 	jobs = jobs.filter((job) => {
 		return job.jobComplete !== true;
