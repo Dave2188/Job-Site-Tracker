@@ -30,8 +30,6 @@ const JobForm = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	console.log(jobData);
-
 	const joinData = (prevData, dataAdd) => {
 		const newObj = { ...jobData };
 		newObj.siteSections = jobSections;
@@ -252,7 +250,6 @@ const JobForm = () => {
 					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>
-			{console.log(jobData)}
 		</Container>
 	);
 };
