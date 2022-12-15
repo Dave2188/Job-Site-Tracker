@@ -15,7 +15,7 @@ import {
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
 import { useDispatch, useSelector } from "react-redux";
-import { createJob, updateJob } from "../../actions/jobActions";
+import { createJob, getJobs, updateJob } from "../../actions/jobActions";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 
 const JobForm = () => {
@@ -67,7 +67,9 @@ const JobForm = () => {
 
 		if (_id) {
 			dispatch(updateJob(_id, jobData));
-			return navigate("/");
+			dispatch(getJobs());
+			if (job.jobComplete === false) return navigate("/jobs");
+			if (job.jobComplete === true) return navigate("/JobsComplete");
 		}
 		dispatch(createJob(jobData));
 

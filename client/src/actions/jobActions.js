@@ -1,5 +1,5 @@
 import * as api from "../api";
-import { fetchAllJobs } from "../redux/features/jobsSlice";
+import { fetchAllJobs, createNewJob, updateCurrentJob } from "../redux/features/jobsSlice";
 
 export const getJobs = () => async (dispatch) => {
 	try {
@@ -17,7 +17,7 @@ export const createJob = (job) => async (dispatch) => {
 		console.log(job);
 		const { data } = await api.createJob(job);
 
-		dispatch({ type: "CREATE", payload: data });
+		dispatch(createNewJob(data));
 	} catch (error) {
 		console.log(error.message, "action");
 	}
@@ -26,10 +26,10 @@ export const createJob = (job) => async (dispatch) => {
 export const updateJob = (id, job) => async (dispatch) => {
 	try {
 		console.log("update");
-		console.log(id);
+
 		const { data } = await api.updateJob(id, job);
 
-		dispatch({ type: "UPDATE", payload: data });
+		dispatch(updateCurrentJob(data));
 	} catch (error) {
 		console.log(error.message, "action");
 	}

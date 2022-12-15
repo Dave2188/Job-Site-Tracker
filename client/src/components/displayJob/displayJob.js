@@ -29,26 +29,26 @@ const PrintJob = () => {
 					gridTemplateRows={"repeat(2, 1fr)"}
 					gridTemplateColumns={"repeat(2, 1fr)"}
 				>
-					<Box marginY={6} display={"flex"} alignSelf={"center"}>
-						<Text as={"b"} marginEnd={3}>
+					<Box marginY={6} display={"flex"} flexWrap={"wrap"} alignSelf={"center"}>
+						<Text as={"b"} marginEnd={2}>
 							Job Site Name:
 						</Text>
 						<Text>{currentJob.jobSiteName}</Text>
 					</Box>
-					<Box display={"flex"} alignSelf={"center"}>
-						<Text as={"b"} marginEnd={3}>
+					<Box display={"flex"} flexWrap={"wrap"} alignSelf={"center"}>
+						<Text as={"b"} marginEnd={2}>
 							Created By:
 						</Text>
 						<Text>{currentJob.createdBy}</Text>
 					</Box>
-					<Box mb={6} display={"flex"} alignSelf={"center"}>
-						<Text as={"b"} marginEnd={3}>
+					<Box mb={6} display={"flex"} flexWrap={"wrap"} alignSelf={"center"}>
+						<Text as={"b"} marginEnd={2}>
 							Date:
 						</Text>
 						<Text>{new Date(currentJob.date).toLocaleDateString("en-ca")}</Text>
 					</Box>
 					<Box mb={6} display={"flex"} alignItems={"center"}>
-						<Text as={"b"} marginEnd={3}>
+						<Text as={"b"} marginEnd={2}>
 							Directions:
 						</Text>
 						{_id ? (
