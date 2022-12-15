@@ -80,12 +80,12 @@ const PrintJob = () => {
 					paddingInline={"5"}
 					background={"green.400"}
 					onClick={() => {
-						document.getElementById("buttons").style.display = "none";
-						window.print();
-						window.onbeforeunload = () => {
-							document.getElementById("buttons").style.display = "";
+						window.onbeforeprint = (e) => {
+							document.getElementById("buttons").style.display = "none";
 						};
-						window.onbeforeunload();
+						window.print();
+
+						document.getElementById("buttons").style.display = "";
 					}}
 				>
 					Print
