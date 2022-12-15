@@ -84,8 +84,10 @@ const PrintJob = () => {
 							document.getElementById("buttons").style.display = "none";
 						};
 						window.print();
-
-						document.getElementById("buttons").style.display = "";
+						window.onbeforeunload = (e) => {
+							document.getElementById("buttons").style.display = "";
+						};
+						window.onbeforeunload();
 					}}
 				>
 					Print
