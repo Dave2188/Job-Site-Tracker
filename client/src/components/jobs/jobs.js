@@ -15,10 +15,12 @@ const Jobs = () => {
 		return job.jobComplete !== true;
 	});
 
+	const [jobState, setJobState] = useState(jobs);
+
 	useEffect(() => {
 		dispatch(getJobs());
-		if (jobs.length) setLoading(false);
-	}, [dispatch, jobs]);
+		if (jobs) return setLoading(false);
+	}, []);
 
 	return (
 		<Container
