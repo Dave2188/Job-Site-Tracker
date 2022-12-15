@@ -15,8 +15,6 @@ const Jobs = () => {
 		return job.jobComplete !== true;
 	});
 
-	const [jobState, setJobState] = useState(jobs);
-
 	useEffect(() => {
 		dispatch(getJobs());
 		if (jobs) return setLoading(false);

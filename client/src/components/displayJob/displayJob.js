@@ -63,14 +63,7 @@ const PrintJob = () => {
 					Sections
 				</Heading>
 				<Divider orientation={"horizontal"} />
-				<Container
-					display="flex"
-					flexDir={"row"}
-					justifyContent={"space-around"}
-					flexWrap={"wrap"}
-					height={"70vh"}
-					gap={4}
-				>
+				<Container display="flex" flexDir={"row"} justifyContent={"space-around"} flexWrap={"wrap"} gap={4}>
 					{currentJob.siteSections.map((section, i) => {
 						return <PrintSection key={i} name={section.sectionName} material={section.materials} />;
 					})}
