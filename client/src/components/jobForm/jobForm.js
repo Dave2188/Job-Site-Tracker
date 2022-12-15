@@ -63,15 +63,14 @@ const JobForm = () => {
 	const useHandleSubmit = (e) => {
 		e.preventDefault();
 
-		if (_id) {
-			dispatch(updateJob(_id, jobData));
-			return navigate("/jobs");
-		}
-
 		if (!jobData.siteSections[0].sectionName) return alert("REQUIRED: Please fill out site section");
 		if (!jobData.createdBy) return alert("REQUIRED: Please fill in name");
 		if (!jobData.jobSiteName) return alert("REQUIRED: Please fill in Job Site Name");
 
+		if (_id) {
+			dispatch(updateJob(_id, jobData));
+			return navigate("/");
+		}
 		dispatch(createJob(jobData));
 
 		return navigate("/jobs");

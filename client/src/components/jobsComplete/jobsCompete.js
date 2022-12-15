@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 import { Container, Heading, SimpleGrid, Spinner, Button, Divider } from "@chakra-ui/react";
 import FileTiles from "../jobs/fileTiles";
 import { useState } from "react";
@@ -10,8 +10,10 @@ import { useNavigate } from "react-router-dom";
 const JobsComplete = () => {
 	const [loading, setLoading] = useState(true);
 	const [deleteMode, setDeleteMode] = useState(false);
+	const [jobState, setJobState] = useState("");
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
 	let jobs = useSelector((state) => state.jobs);
 
 	jobs = jobs.filter((job) => {
@@ -20,9 +22,8 @@ const JobsComplete = () => {
 
 	useEffect(() => {
 		dispatch(getJobs());
-
-		if (jobs.length) setLoading(false);
-	}, [dispatch, jobs]);
+		if (jobs) return setLoading(false);
+	}, []);
 
 	const handleClick = (Boolean) => {
 		setDeleteMode(Boolean);
