@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 import jobSiteRoutes from "./routes/routes.js";
 import bodyParser from "body-parser";
+import userRoutes from "./routes/user.js";
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use("/jobs", jobSiteRoutes);
+app.use("/user", userRoutes);
 
 const PORT = process.env.PORT || 4000;
 
