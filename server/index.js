@@ -1,9 +1,12 @@
+import * as dotenv from "dotenv";
 import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import jobSiteRoutes from "./routes/routes.js";
 import bodyParser from "body-parser";
 import userRoutes from "./routes/user.js";
+
+dotenv.config();
 
 const app = express();
 
@@ -16,7 +19,7 @@ app.use("/user", userRoutes);
 
 const PORT = process.env.PORT || 4000;
 
-const URI = "mongodb+srv://johndoe:johndoe123@cluster0.pclssj1.mongodb.net/?retryWrites=true&w=majority";
+const URI = `mongodb+srv://${process.env.MONGO_URI}`;
 
 const connection = async () => {
 	try {
