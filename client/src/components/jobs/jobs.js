@@ -11,14 +11,18 @@ const Jobs = () => {
 	const [loading, setLoading] = useState(true);
 
 	let jobs = useSelector((state) => state.jobs);
+
 	jobs = jobs.filter((job) => {
 		return job.jobComplete !== true;
 	});
 
 	useEffect(() => {
 		dispatch(getJobs());
-		if (jobs) return setLoading(false);
-	}, []);
+	}, [dispatch]);
+
+	useEffect(() => {
+		jobs.length ? setLoading(false) : setLoading(true);
+	}, [jobs.length]);
 
 	return (
 		<Container
