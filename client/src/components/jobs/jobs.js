@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
-import { Container, Heading, SimpleGrid, Spinner, Divider } from "@chakra-ui/react";
+import { Container, Heading, SimpleGrid, Spinner, Divider, Button } from "@chakra-ui/react";
 import FileTiles from "./fileTiles";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getJobs } from "../../actions/jobActions";
+import { useNavigate } from "react-router-dom";
 
 const Jobs = () => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [loading, setLoading] = useState(true);
 
@@ -57,6 +59,18 @@ const Jobs = () => {
 					})}
 				</SimpleGrid>
 			)}
+			<Button
+				background={"blue.300"}
+				maxWidth={"24"}
+				alignSelf={"center"}
+				mt={"20"}
+				mb={"6"}
+				onClick={() => {
+					return navigate("/");
+				}}
+			>
+				Home
+			</Button>
 		</Container>
 	);
 };
