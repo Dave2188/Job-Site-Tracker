@@ -6,12 +6,14 @@ import BrowserError from "./components/browserError/browserError";
 import Jobs from "./components/jobs/jobs";
 import PrintJob from "./components/displayJob/displayJob";
 import JobsComplete from "./components/jobsComplete/jobsCompete";
+import Signup from "./components/signup/signup";
 
 function App() {
 	const router = createBrowserRouter([
 		{
 			path: "/",
-			element: <LandingPage />,
+			// element: <LandingPage />,
+			element: <Signup />,
 			errorElement: <BrowserError />,
 		},
 		{
