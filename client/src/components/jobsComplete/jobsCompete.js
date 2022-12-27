@@ -22,14 +22,11 @@ const JobsComplete = () => {
 
 	useEffect(() => {
 		dispatch(getJobs());
-		if (jobs) return setLoading(false);
 	}, [dispatch, deleteMode]);
 
-	// useEffect(() => {
-	// 	if (deleteMode === false) {
-	// 		dispatch(getJobs());
-	// 	}
-	// }, []);
+	useEffect(() => {
+		jobs.length ? setLoading(false) : setLoading(true);
+	}, [jobs.length]);
 
 	const handleClick = (Boolean) => {
 		setDeleteMode(Boolean);
