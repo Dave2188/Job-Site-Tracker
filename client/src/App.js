@@ -10,13 +10,17 @@ import JobsComplete from "./components/jobsComplete/jobsCompete";
 import Signup from "./components/signup/signup";
 
 function App() {
-	const [loggedIn, setLoggedIn] = useState(true);
+	const [loggedIn, setLoggedIn] = useState(false);
 
 	const router = createBrowserRouter([
 		{
 			path: "/",
 			element: loggedIn ? <LandingPage /> : <Signup />,
-
+			errorElement: <BrowserError />,
+		},
+		{
+			path: "Signin-up",
+			element: <Signup />,
 			errorElement: <BrowserError />,
 		},
 		{

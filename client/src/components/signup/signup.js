@@ -16,12 +16,17 @@ const Signup = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [show, setShow] = useState(false);
+	const [signup, setSignUp] = useState(false);
 
 	const handleClick = () => setShow(!show);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(email, password);
+	};
+
+	const handletoggle = () => {
+		signup === false ? setSignUp(true) : setSignUp(false);
 	};
 
 	return (
@@ -37,7 +42,7 @@ const Signup = () => {
 		>
 			<Box m={24}>
 				<Heading mb={8} fontFamily={"sans-serif"} textDecorationLine={"underline"}>
-					Sign Up
+					{signup === true ? "Sign up" : "Log In"}
 				</Heading>
 
 				<Stack>
@@ -70,7 +75,14 @@ const Signup = () => {
 						</InputGroup>
 					</FormControl>
 				</Stack>
-				<Button type="submit" onSubmit={handleSubmit} />
+				<Button mt={6} background={"blue.300"} type="submit" onClick={handleSubmit}>
+					Submit
+				</Button>
+			</Box>
+			<Box textAlign={"center"} mt={"-4"} mb={"3"}>
+				<Button onClick={handletoggle} background={"green.200"} fontSize={"sm"}>
+					{signup === false ? "Create account" : "Log In"}
+				</Button>
 			</Box>
 		</Container>
 	);
