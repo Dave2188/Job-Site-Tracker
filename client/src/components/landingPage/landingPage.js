@@ -3,6 +3,9 @@ import { Box, Container, Heading, Center, Text, Divider } from "@chakra-ui/react
 import { NavLink } from "react-router-dom";
 
 const LandingPage = () => {
+	// const [signedIn, setSignedIn] = useState("");
+	// const [signUp, setSignUp] = useState("");
+
 	return (
 		<Container
 			maxWidth="full"
@@ -14,6 +17,7 @@ const LandingPage = () => {
 			flexDir={"column"}
 			margin={"auto"}
 			mt={"5"}
+			background={"whiteAlpha.900"}
 		>
 			<Center flexDirection="column" m={4}>
 				<Heading padding={8}>Job Tracker</Heading>

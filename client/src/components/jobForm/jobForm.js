@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	FormControl,
 	FormLabel,
@@ -72,8 +72,6 @@ const JobForm = () => {
 			if (job.jobComplete === true) return navigate("/JobsComplete");
 		}
 		dispatch(createJob(jobData));
-
-		return navigate("/jobs");
 	};
 
 	const success = (position) => {
@@ -94,7 +92,15 @@ const JobForm = () => {
 	};
 
 	return (
-		<Container maxW="container.xl" h={"fit-content"} boxShadow="dark-lg" rounded="lg" margin={"auto"} mb={5}>
+		<Container
+			maxW="container.xl"
+			h={"fit-content"}
+			boxShadow="dark-lg"
+			rounded="lg"
+			margin={"auto"}
+			mb={5}
+			background={"whiteAlpha.900"}
+		>
 			<Container
 				mt={5}
 				mb={5}

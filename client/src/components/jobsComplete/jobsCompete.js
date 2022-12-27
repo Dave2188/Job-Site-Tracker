@@ -37,6 +37,7 @@ const JobsComplete = () => {
 			maxWidth="full"
 			width={"95vw"}
 			boxShadow="dark-lg"
+			background={"whiteAlpha.900"}
 			rounded="lg"
 			height={"fit-content"}
 			display={"flex"}

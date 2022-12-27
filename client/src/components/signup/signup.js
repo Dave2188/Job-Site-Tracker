@@ -33,7 +33,7 @@ const Signup = () => {
 			display={"flex"}
 			flexDir={"column"}
 			margin={"auto"}
-			mt={"5"}
+			mt={"24"}
 		>
 			<Box m={24}>
 				<Heading mb={8} fontFamily={"sans-serif"} textDecorationLine={"underline"}>
