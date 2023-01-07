@@ -1,10 +1,16 @@
 import React from "react";
-import { Box, Container, Heading, Center, Text, Divider } from "@chakra-ui/react";
+import { Container, Heading, Center, Divider, Button } from "@chakra-ui/react";
 import { NavLink } from "react-router-dom";
+import { useLogout } from "../../hooks/useLogout";
 
 const LandingPage = () => {
+	const { logoutUser } = useLogout();
 	// const [signedIn, setSignedIn] = useState("");
 	// const [signUp, setSignUp] = useState("");
+
+	const handleSignOut = () => {
+		logoutUser();
+	};
 
 	return (
 		<Container
@@ -24,50 +30,50 @@ const LandingPage = () => {
 
 				<Divider shadow={"dark-lg"} />
 
-				<Box bg="blue.400" w="100%" margin={6} borderRadius={10} cursor={"pointer"} shadow={"xl"} maxWidth="3xl">
-					<NavLink to="Jobs">
-						<Text textAlign="center" padding={5}>
-							JOBS
-						</Text>
-					</NavLink>
-				</Box>
+				<NavLink to="Jobs">
+					<Button bg="blue.400" w="container.lg" height={16} margin={6} borderRadius={10} shadow={"xl"} maxWidth="3xl">
+						JOBS
+					</Button>
+				</NavLink>
 
-				<Box bg="blue.400" w="100%" margin={6} cursor={"pointer"} shadow={"xl"} borderRadius={10} maxWidth="3xl">
-					<NavLink to="JobForm">
-						<Text p={5} textAlign="center">
-							ADD NEW JOB
-						</Text>
-					</NavLink>
-				</Box>
+				<NavLink to="JobForm">
+					<Button bg="blue.400" w="container.lg" margin={6} height={16} shadow={"xl"} borderRadius={10} maxWidth="3xl">
+						ADD NEW JOB
+					</Button>
+				</NavLink>
 
-				<Box bg="blue.400" w="100%" margin={6} cursor={"pointer"} shadow={"xl"} borderRadius={10} maxWidth="3xl">
-					<NavLink to="JobsComplete">
-						<Text p={5} textAlign="center">
-							COMPLETED JOBS
-						</Text>
-					</NavLink>
-				</Box>
+				<NavLink to="JobsComplete">
+					<Button
+						bg="blue.400"
+						w={"container.lg"}
+						height={16}
+						margin={6}
+						shadow={"xl"}
+						mb={6}
+						borderRadius={10}
+						maxWidth="3xl"
+					>
+						COMPLETED JOBS
+					</Button>
+				</NavLink>
 
-				<Box bg="blue.400" w="100%" margin={6} cursor={"pointer"} shadow={"xl"} borderRadius={10} maxWidth="3xl">
-					<Text p={5} textAlign="center">
-						BRANCH
-					</Text>
-				</Box>
+				<Button bg="blue.400" w="100%" height={16} margin={6} shadow={"xl"} mb={6} borderRadius={10} maxWidth="3xl">
+					BRANCH
+				</Button>
 
-				<Box
+				<Button
+					onClick={handleSignOut}
 					bg="blue.400"
 					w="100%"
+					height={16}
 					margin={6}
-					cursor={"pointer"}
 					shadow={"xl"}
 					mb={14}
 					borderRadius={10}
 					maxWidth="3xl"
 				>
-					<Text p={5} textAlign="center">
-						SIGN OUT
-					</Text>
-				</Box>
+					SIGN OUT
+				</Button>
 			</Center>
 		</Container>
 	);

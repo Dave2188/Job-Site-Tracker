@@ -10,7 +10,7 @@ import JobsComplete from "./components/jobsComplete/jobsCompete";
 import Signup from "./components/signup/signup";
 
 function App() {
-	const [loggedIn, setLoggedIn] = useState(false);
+	const [loggedIn, setLoggedIn] = useState(true);
 
 	const router = createBrowserRouter([
 		{
@@ -19,7 +19,7 @@ function App() {
 			errorElement: <BrowserError />,
 		},
 		{
-			path: "Signin-up",
+			path: "Sign-up",
 			element: <Signup />,
 			errorElement: <BrowserError />,
 		},
