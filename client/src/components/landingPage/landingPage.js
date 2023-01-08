@@ -41,7 +41,7 @@ const LandingPage = () => {
 				<Divider shadow={"dark-lg"} />
 
 				<Box
-					bg="blue.400"
+					bg="blue.300"
 					w="100%"
 					margin={6}
 					borderRadius={10}
@@ -59,7 +59,7 @@ const LandingPage = () => {
 				</Box>
 
 				<Box
-					bg="blue.400"
+					bg="blue.300"
 					w="100%"
 					margin={6}
 					cursor={"pointer"}
@@ -77,7 +77,7 @@ const LandingPage = () => {
 				</Box>
 
 				<Box
-					bg="blue.400"
+					bg="blue.300"
 					w="100%"
 					margin={6}
 					cursor={"pointer"}
@@ -95,7 +95,7 @@ const LandingPage = () => {
 				</Box>
 
 				<Box
-					bg="blue.400"
+					bg="blue.300"
 					w="100%"
 					margin={6}
 					cursor={"pointer"}
@@ -112,7 +112,7 @@ const LandingPage = () => {
 
 				<Button
 					onClick={handleSignOut}
-					bg="blue.400"
+					bg="red.400"
 					w="100%"
 					height={16}
 					margin={6}

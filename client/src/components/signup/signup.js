@@ -10,6 +10,7 @@ import {
 	Button,
 	InputRightElement,
 	InputGroup,
+	Text,
 } from "@chakra-ui/react";
 
 import { useSignup } from "../../hooks/useSignup";
@@ -57,7 +58,7 @@ const Signup = () => {
 			>
 				<Box m={"14"}>
 					<Heading mb={8} fontFamily={"sans-serif"} textDecorationLine={"underline"}>
-						{signingUp === true ? "Sign up" : "Log In"}
+						{signingUp === true ? "Create Account" : "Sign In"}
 					</Heading>
 					<Stack>
 						<FormControl>
@@ -95,7 +96,7 @@ const Signup = () => {
 						onClick={handleSubmit}
 						disabled={signingUp ? isLoading : loginIsLoading}
 					>
-						Submit
+						{signingUp ? "Create" : "Sign In"}
 					</Button>
 					{error === null ? null : (
 						<Box
@@ -123,9 +124,15 @@ const Signup = () => {
 					)}
 				</Box>
 				<Box textAlign={"center"} mt={"-4"} mb={"3"}>
-					<Button onClick={handleToggle} background={"green.200"} fontSize={"sm"}>
-						{signingUp === false ? "Create account" : "Log In"}
-					</Button>
+					<Text
+						onClick={handleToggle}
+						cursor={"pointer"}
+						color={"blue"}
+						fontSize={"md"}
+						_hover={{ textDecoration: "underline" }}
+					>
+						{signingUp === false ? "Create account?" : "Sign in?"}
+					</Text>
 				</Box>
 			</Container>
 		</Container>

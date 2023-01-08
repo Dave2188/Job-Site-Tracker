@@ -77,7 +77,7 @@ const JobsComplete = () => {
 						deleteMode === false ? setDeleteMode(true) : setDeleteMode(false);
 					}}
 				>
-					{deleteMode === false ? "Delete Jobs" : "done"}
+					{deleteMode === false ? "Delete Jobs" : "Done"}
 				</Button>
 				<Button
 					background={"blue.300"}

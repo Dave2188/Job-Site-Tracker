@@ -12,7 +12,7 @@ const PrintSection = (props) => {
 			{material.map((item, i) => {
 				return (
 					<Text key={i} margin={"0"} fontSize={"sm"}>
-						Material: {item.material} - {item.amount}'
+						{item.material} - {item.amount}'
 					</Text>
 				);
 			})}

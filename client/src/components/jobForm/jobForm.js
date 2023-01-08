@@ -22,7 +22,6 @@ const JobForm = () => {
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	const job = jobs.find((item) => item._id === _id);
-	console.log(job);
 	const [jobData, setJobData] = useState(_id ? job : { jobComplete: false });
 	const [jobSections, setJobSections] = useState(_id ? job.siteSections : [{}]);
 	const [isChecked, setIsChecked] = useState(_id ? job.gpsLocation : false);
@@ -72,6 +71,8 @@ const JobForm = () => {
 			if (job.jobComplete === true) return navigate("/JobsComplete");
 		}
 		dispatch(createJob(jobData));
+
+		return navigate("/jobs");
 	};
 
 	const success = (position) => {
@@ -113,8 +114,8 @@ const JobForm = () => {
 				<Button background="blue.300" borderRadius="md" shadow={"dark-lg"}>
 					<NavLink to="/">
 						<ArrowBackIcon boxSize={6} />
-						<Text ml={2} as={"b"}>
-							Back
+						<Text ml={2} as={"b"} top={"1.75px"} position={"relative"}>
+							Home
 						</Text>
 					</NavLink>
 				</Button>
@@ -227,28 +228,18 @@ const JobForm = () => {
 			</Box>
 
 			<Divider />
-			<Box display="flex" justifyContent="space-around" mt={10} paddingBottom={10}>
-				<Button id="add" background="blue.400" shadow={"dark-lg"} onClick={() => setJobSections([...jobSections, {}])}>
+			<Box display="flex" justifyContent="center" mt={10} paddingBottom={10}>
+				<Button
+					id="add"
+					background={"teal.300"}
+					shadow={"dark-lg"}
+					onClick={() => setJobSections([...jobSections, {}])}
+				>
 					<Text id="add" fontSize={25} position="relative" bottom={0.5}>
 						+
 					</Text>
 					<Text id="add" ml={2} fontWeight={"medium"}>
 						Add Section
-					</Text>
-				</Button>
-				<Button
-					id="remove"
-					shadow={"dark-lg"}
-					background="red.400"
-					onClick={() => {
-						setJobSections(jobSections.slice(0, jobSections.length - 1));
-					}}
-				>
-					<Box id="remove" fontSize={18} position="relative" bottom="1px" fontWeight="bold">
-						x
-					</Box>
-					<Text id="remove" ml={2} fontWeight={"medium"}>
-						Remove
 					</Text>
 				</Button>
 			</Box>
@@ -258,6 +249,7 @@ const JobForm = () => {
 					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>
+			{console.log(jobData)}
 		</Container>
 	);
 };
