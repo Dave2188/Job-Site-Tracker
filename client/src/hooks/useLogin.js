@@ -4,35 +4,35 @@ import * as api from "../api";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-export const useSignup = (email, password) => {
-	const [error, setError] = useState(null);
-	const [isLoading, setIsLoading] = useState(null);
+export const useLogin = (email, password) => {
+	const [loginError, setLoginError] = useState(null);
+	const [loginIsLoading, setLoginIsLoading] = useState(null);
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const signup = async (email, password) => {
-		setIsLoading(true);
-		setError(null);
+	const loginUser = async (email, password) => {
+		setLoginIsLoading(true);
+		setLoginError(null);
 
 		try {
-			const response = await api.signup(email, password);
+			const response = await api.login(email, password);
 			console.log(response.data);
 
 			localStorage.setItem("user", JSON.stringify(response.data));
 
 			dispatch(login(JSON.stringify(response.data)));
 
-			setIsLoading(false);
+			setLoginIsLoading(false);
 
 			navigate("/");
 		} catch (error) {
-			setIsLoading(false);
+			setLoginIsLoading(false);
 
-			setError(error.response.data.error);
+			setLoginError(error.response.data.error);
 
 			console.log("hook error:", error.response.data.error);
 		}
 	};
 
-	return { signup, isLoading, error };
+	return { loginUser, loginIsLoading, loginError };
 };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
 	Box,
 	Container,
@@ -11,24 +11,32 @@ import {
 	InputRightElement,
 	InputGroup,
 } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+
 import { useSignup } from "../../hooks/useSignup";
+import { useLogin } from "../../hooks/useLogin";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [show, setShow] = useState(false);
-	const [signingUp, setSigningUp] = useState(true);
+	const [signingUp, setSigningUp] = useState(false);
 	const { signup, error, isLoading } = useSignup();
-	// const isLoggedIn = useSelector((state) => state.user);
+	const { loginUser, loginError, loginIsLoading } = useLogin();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (localStorage.getItem("user")) {
+			navigate("/");
+		}
+	}, []);
 
 	const handleClick = () => setShow(!show);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		console.log(email, password);
-		// console.log(isLoggedIn);
-		await signup({ email, password });
+		signingUp ? await signup({ email, password }) : await loginUser({ email, password });
 	};
 
 	const handleToggle = () => {
@@ -38,7 +46,7 @@ const Signup = () => {
 	return (
 		<Container>
 			<Container
-				background={"white"}
+				background={"whiteAlpha.900"}
 				boxShadow="dark-lg"
 				rounded="lg"
 				height={"fit-content"}
@@ -80,7 +88,13 @@ const Signup = () => {
 							</InputGroup>
 						</FormControl>
 					</Stack>
-					<Button mt={6} background={"blue.300"} type="submit" onClick={handleSubmit} disabled={isLoading}>
+					<Button
+						mt={6}
+						background={"blue.300"}
+						type="submit"
+						onClick={handleSubmit}
+						disabled={signingUp ? isLoading : loginIsLoading}
+					>
 						Submit
 					</Button>
 					{error === null ? null : (
@@ -93,6 +107,18 @@ const Signup = () => {
 							borderRadius={"lg"}
 						>
 							{error}
+						</Box>
+					)}
+					{loginError === null ? null : (
+						<Box
+							mt={5}
+							color={"red.600"}
+							border={"1px"}
+							textAlign={"center"}
+							background={"red.100"}
+							borderRadius={"lg"}
+						>
+							{loginError}
 						</Box>
 					)}
 				</Box>
