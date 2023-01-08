@@ -68,3 +68,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+<a href="https://www.freepik.com/free-vector/abstract-banner-background-with-red-shapes_13810877.htm#query=app%20background&position=48&from_view=keyword">Image by BiZkettE1</a> on Freepik

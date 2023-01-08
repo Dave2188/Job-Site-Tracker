@@ -10,3 +10,13 @@ export const createJob = (newJob) => axios.post(url, newJob);
 export const updateJob = (_id, updatedJob) => axios.patch(`${url}/${_id}`, updatedJob);
 
 export const deleteJob = (_id) => axios.delete(`${url}/${_id}`);
+
+// user login and signup
+
+const userUrl = "http://localhost:4000/user/signup";
+
+export const signup = (userData) => axios.post(userUrl, userData);
+
+const logUserUrl = "http://localhost:4000/user/login";
+
+export const login = (userData) => axios.post(logUserUrl, userData);
