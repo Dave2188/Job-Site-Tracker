@@ -30,7 +30,7 @@ export const useLogin = (email, password) => {
 
 			setLoginError(error.response.data.error);
 
-			console.log("hook error:", error.response.data.error);
+			console.log("hook error:", error.message);
 		}
 	};
 
