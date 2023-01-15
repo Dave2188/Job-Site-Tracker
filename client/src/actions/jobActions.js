@@ -14,7 +14,7 @@ export const getJobs = () => async (dispatch) => {
 export const createJob = (job) => async (dispatch) => {
 	try {
 		console.log("create");
-		console.log(job);
+
 		const { data } = await api.createJob(job);
 
 		dispatch(createNewJob(data));

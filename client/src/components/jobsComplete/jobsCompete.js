@@ -37,6 +37,7 @@ const JobsComplete = () => {
 			maxWidth="full"
 			width={"95vw"}
 			boxShadow="dark-lg"
+			background={"whiteAlpha.900"}
 			rounded="lg"
 			height={"fit-content"}
 			display={"flex"}
@@ -76,7 +77,7 @@ const JobsComplete = () => {
 						deleteMode === false ? setDeleteMode(true) : setDeleteMode(false);
 					}}
 				>
-					{deleteMode === false ? "Delete Jobs" : "done"}
+					{deleteMode === false ? "Delete Jobs" : "Done"}
 				</Button>
 				<Button
 					background={"blue.300"}

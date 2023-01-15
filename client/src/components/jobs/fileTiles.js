@@ -42,7 +42,7 @@ const FileTiles = (props) => {
 				<Text fontSize="md" textAlign="center" as="b">
 					{props.company}
 				</Text>
-				<FaFolderOpen size="5em" color="burlyWood" />
+				<FaFolderOpen size="5em" color="rgb(90,179,237)" />
 				<Text fontSize="sm" textAlign="center" as="b">
 					{props.jobSiteName}
 				</Text>

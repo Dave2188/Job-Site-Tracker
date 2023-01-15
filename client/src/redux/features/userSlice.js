@@ -8,7 +8,7 @@ export const userSlice = createSlice({
 			return action.payload;
 		},
 		logout(state, action) {
-			return { ...state, user: null };
+			return { user: null };
 		},
 	},
 });

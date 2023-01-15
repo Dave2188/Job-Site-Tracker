@@ -16,7 +16,7 @@ const PrintJob = () => {
 	);
 
 	return (
-		<Container id="main" maxWidth={"100vw"}>
+		<Container id="main" maxWidth={"100vw"} background={"white"}>
 			<Container maxWidth={"100vw"} margin={"0"}>
 				<Heading textAlign={"center"} as={"h1"} size={"xl"}>
 					{currentJob.companyName}
@@ -77,6 +77,7 @@ const PrintJob = () => {
 
 			<Container display={"flex"} justifyContent={"space-evenly"} mt={5} id="buttons">
 				<Button
+					mb={5}
 					paddingInline={"5"}
 					background={"green.400"}
 					onClick={() => {
