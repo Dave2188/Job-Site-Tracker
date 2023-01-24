@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import PrintSection from "./printSection";
 import { QRCodeSVG } from "qrcode.react";
+import { useNavigate } from "react-router-dom";
 
 const PrintJob = () => {
+	const navigate = useNavigate();
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	// eslint-disable-next-line
@@ -18,9 +20,27 @@ const PrintJob = () => {
 	return (
 		<Container id="main" maxWidth={"100vw"} background={"white"}>
 			<Container maxWidth={"100vw"} margin={"0"}>
-				<Heading textAlign={"center"} as={"h1"} size={"xl"}>
-					{currentJob.companyName}
-				</Heading>
+				<Container display={"flex"} justifyContent={"space-between"}>
+					<Button
+						mb={5}
+						paddingInline={"5"}
+						border={"1px"}
+						background={"white"}
+						onClick={() => {
+							window.print();
+						}}
+					>
+						Print
+					</Button>
+					<Heading textAlign={"center"} as={"h1"} size={"xl"}>
+						{currentJob.companyName}
+					</Heading>
+					<NavLink to="/">
+						<Button border={"1px"} background={"white"}>
+							Home
+						</Button>
+					</NavLink>
+				</Container>
 				<Divider orientation={"horizontal"} />
 				<Container
 					maxW={"100vw"}
@@ -73,29 +93,6 @@ const PrintJob = () => {
 						return <PrintSection key={i} name={section.sectionName} material={section.materials} />;
 					})}
 				</Container>
-			</Container>
-
-			<Container display={"flex"} justifyContent={"space-evenly"} mt={5} id="buttons">
-				<Button
-					mb={5}
-					paddingInline={"5"}
-					background={"green.400"}
-					onClick={() => {
-						window.onbeforeprint = (e) => {
-							document.getElementById("buttons").style.display = "none";
-						};
-						window.print();
-						window.onbeforeunload = (e) => {
-							document.getElementById("buttons").style.display = "";
-						};
-						window.onbeforeunload();
-					}}
-				>
-					Print
-				</Button>
-				<NavLink to="/">
-					<Button background={"blue.400"}>Home</Button>
-				</NavLink>
 			</Container>
 		</Container>
 	);
