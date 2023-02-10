@@ -20,7 +20,7 @@ const Jobs = () => {
 
 	useEffect(() => {
 		dispatch(getJobs());
-	}, [dispatch]);
+	}, [dispatch, jobs]);
 
 	useEffect(() => {
 		jobs.length ? setLoading(false) : setLoading(true);

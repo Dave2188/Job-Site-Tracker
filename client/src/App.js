@@ -17,7 +17,7 @@ function App() {
 		if (localStorage.getItem("user")) {
 			dispatch(login(localStorage.getItem("user")));
 		}
-	}, []);
+	}, [dispatch]);
 
 	const router = createBrowserRouter([
 		{

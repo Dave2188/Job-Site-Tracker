@@ -28,7 +28,7 @@ export const updateJob = (id, job) => async (dispatch) => {
 		console.log("update");
 
 		const { data } = await api.updateJob(id, job);
-
+		console.log(data);
 		dispatch(updateCurrentJob(data));
 	} catch (error) {
 		console.log(error.message, "action");
