@@ -66,7 +66,7 @@ const JobForm = () => {
 
 		if (_id) {
 			dispatch(updateJob(_id, jobData));
-			dispatch(getJobs());
+			// dispatch(getJobs());
 			if (job.jobComplete === false) return navigate("/jobs");
 			if (job.jobComplete === true) return navigate("/JobsComplete");
 		}
@@ -249,7 +249,7 @@ const JobForm = () => {
 					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>
-			{console.log(jobData)}
+			{/* {console.log(jobData)} */}
 		</Container>
 	);
 };

@@ -43,10 +43,9 @@ export const updateJob = async (req, res) => {
 
 	try {
 		const updatedJob = await JobSite.findByIdAndUpdate(_id, { ..._id, ...job });
-
-		let newUpdatedJob = await JobSite.findById(_id);
-
-		res.json(newUpdatedJob);
+		console.log(updatedJob);
+		// let newUpdatedJob = await JobSite.findById(_id);
+		res.json(updatedJob);
 	} catch (error) {
 		console.log(error.message);
 	}
