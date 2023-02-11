@@ -18,27 +18,10 @@ const PrintJob = () => {
 	return (
 		<Container id="main" maxWidth={"100vw"} background={"white"}>
 			<Container maxWidth={"100vw"} margin={"0"}>
-				<Container display={"flex"} justifyContent={"space-between"}>
-					<Button
-						mb={5}
-						paddingInline={"5"}
-						border={"1px"}
-						background={"white"}
-						onClick={() => {
-							window.print();
-						}}
-					>
-						Print
-					</Button>
-					<Heading textAlign={"center"} as={"h1"} size={"xl"}>
-						{currentJob.companyName}
-					</Heading>
-					<NavLink to="/">
-						<Button border={"1px"} background={"white"}>
-							Home
-						</Button>
-					</NavLink>
-				</Container>
+				<Heading textAlign={"center"} as={"h1"} size={"xl"}>
+					{currentJob.companyName}
+				</Heading>
+
 				<Divider orientation={"horizontal"} />
 				<Container
 					maxW={"100vw"}
@@ -90,6 +73,36 @@ const PrintJob = () => {
 					{currentJob.siteSections.map((section, i) => {
 						return <PrintSection key={i} name={section.sectionName} material={section.materials} />;
 					})}
+				</Container>
+
+				<Container display={"flex"} justifyContent={"space-evenly"} mt={5} id="buttons">
+					<Button
+						sx={{
+							"@media print": {
+								display: "none",
+							},
+						}}
+						mb={5}
+						paddingInline={"5"}
+						background={"green.400"}
+						onClick={() => {
+							window.print();
+						}}
+					>
+						Print
+					</Button>
+					<NavLink to="/">
+						<Button
+							sx={{
+								"@media print": {
+									display: "none",
+								},
+							}}
+							background={"blue.400"}
+						>
+							Home
+						</Button>
+					</NavLink>
 				</Container>
 			</Container>
 		</Container>

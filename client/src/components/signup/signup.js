@@ -47,7 +47,7 @@ const Signup = () => {
 	return (
 		<Container>
 			<Container
-				background={"whiteAlpha.900"}
+				background={"gray.50"}
 				boxShadow="dark-lg"
 				rounded="lg"
 				height={"fit-content"}

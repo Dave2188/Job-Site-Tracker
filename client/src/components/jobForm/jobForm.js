@@ -100,7 +100,7 @@ const JobForm = () => {
 			rounded="lg"
 			margin={"auto"}
 			mb={5}
-			background={"whiteAlpha.900"}
+			background={"gray.50"}
 		>
 			<Container
 				mt={5}
