@@ -28,12 +28,12 @@ const FileTiles = (props) => {
 			) : null}
 
 			<Box
-				boxShadow="dark-lg"
+				background={"gray.50"}
+				boxShadow={"dark-lg"}
 				rounded="lg"
 				display="flex"
 				justifyContent="center"
 				alignItems="center"
-				bg="#fcfafa"
 				flexDir="column"
 				maxH="28"
 				onClick={() => navigate(`/jobs/${props.id}`)}

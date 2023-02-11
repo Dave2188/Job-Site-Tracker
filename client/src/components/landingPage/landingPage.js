@@ -33,7 +33,7 @@ const LandingPage = () => {
 			flexDir={"column"}
 			margin={"auto"}
 			mt={"5"}
-			background={"whiteAlpha.900"}
+			background={"gray.50"}
 		>
 			<Center flexDirection="column" m={4}>
 				<Heading padding={8}>Job Tracker</Heading>

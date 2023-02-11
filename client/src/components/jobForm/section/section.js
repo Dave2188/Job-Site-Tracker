@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { FormControl, FormLabel, Box, Button, Text, Input } from "@chakra-ui/react";
 import Material from "../material/material";
 
@@ -10,6 +10,10 @@ const Section = (props) => {
 		sectionName: nameValue,
 		materials: materialNumber,
 	};
+
+	useEffect(() => {
+		props.setTempSectionData(tempSection);
+	}, [materialNumber]);
 
 	const handleClick = (e) => {
 		if (e.target.id === "add") {
