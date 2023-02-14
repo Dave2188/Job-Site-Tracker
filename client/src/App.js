@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import JobForm from "./components/jobForm/jobForm";
 import LandingPage from "./components/landingPage/landingPage";
 import { Container } from "@chakra-ui/react";
-import { createBrowserRouter, RouterProvider, useNavigate } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import BrowserError from "./components/browserError/browserError";
 import Jobs from "./components/jobs/jobs";
 import PrintJob from "./components/displayJob/displayJob";
@@ -10,6 +10,7 @@ import JobsComplete from "./components/jobsComplete/jobsCompete";
 import Signup from "./components/signup/signup";
 import { useDispatch } from "react-redux";
 import { login } from "./redux/features/userSlice";
+import DailyListView from "./components/dailyList/dailyMaterialView";
 
 function App() {
 	const dispatch = useDispatch();
@@ -17,7 +18,7 @@ function App() {
 		if (localStorage.getItem("user")) {
 			dispatch(login(localStorage.getItem("user")));
 		}
-	}, [dispatch]);
+	}, []);
 
 	const router = createBrowserRouter([
 		{
@@ -53,6 +54,11 @@ function App() {
 		{
 			path: "/jobs/:_id",
 			element: <JobForm />,
+			errorElement: <BrowserError />,
+		},
+		{
+			path: "/Daily",
+			element: <DailyListView />,
 			errorElement: <BrowserError />,
 		},
 	]);
