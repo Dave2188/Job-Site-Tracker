@@ -3,9 +3,12 @@ import { Container, Heading, FormControl, Button, ButtonGroup } from "@chakra-ui
 import React, { useContext, useEffect, useState } from "react";
 import DailyMaterial from "./dailyMaterial";
 import { DailyListContext } from "../../../context/dailyListContext";
+import { useNavigate } from "react-router-dom";
 
 const DailyList = () => {
 	const { materialList, setMaterialList, isLoading } = useContext(DailyListContext);
+
+	const navigate = useNavigate();
 
 	const [currentList, setCurrentList] = useState(materialList);
 
@@ -52,13 +55,18 @@ const DailyList = () => {
 					})}
 					<ButtonGroup margin={7} display={"flex"} justifyContent={"center"} spacing={20}>
 						<Button onClick={addMaterial}>Add Material</Button>
-						<Button isLoading={isLoading} loadingText="Submitting">
+						<Button
+							isLoading={isLoading}
+							loadingText="Submitting"
+							onClick={() => {
+								navigate("/");
+							}}
+						>
 							Submit
 						</Button>
 					</ButtonGroup>
 				</FormControl>
 			</Container>
-			{console.log(materialList)}
 		</>
 	);
 };
