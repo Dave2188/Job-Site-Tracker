@@ -4,8 +4,10 @@ import { useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import PrintSection from "./printSection";
 import { QRCodeSVG } from "qrcode.react";
+import { useNavigate } from "react-router-dom";
 
 const PrintJob = () => {
+	const navigate = useNavigate();
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	// eslint-disable-next-line

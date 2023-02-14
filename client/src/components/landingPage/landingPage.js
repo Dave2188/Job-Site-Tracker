@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Container, Heading, Center, Divider, Button, Text, Box, background } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Container, Heading, Center, Divider, Button, Text, Box } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
 import { useSelector } from "react-redux";
@@ -12,7 +12,7 @@ const LandingPage = () => {
 		if (user === null) {
 			navigate("/SignUp");
 		}
-	}, []);
+	}, [user, navigate]);
 
 	console.log(user);
 	const { logoutUser } = useLogout();
@@ -105,9 +105,11 @@ const LandingPage = () => {
 					transition={".25s"}
 					_hover={{ background: "#e2e8f0" }}
 				>
-					<Text p={5} textAlign="center">
-						BRANCH
-					</Text>
+					<NavLink to="Daily">
+						<Text p={5} textAlign="center">
+							DAILY MATERIAL LIST
+						</Text>
+					</NavLink>
 				</Box>
 
 				<Button
