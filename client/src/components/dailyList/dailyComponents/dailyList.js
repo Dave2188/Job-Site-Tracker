@@ -45,7 +45,7 @@ const DailyList = () => {
 								key={index}
 								display={"flex"}
 								alignItems={"center"}
-								width={"full"}
+								sx={{ maxW: "100%" }}
 								padding={"0px"}
 								margin={"0px"}
 							>
@@ -53,6 +53,7 @@ const DailyList = () => {
 							</Container>
 						);
 					})}
+
 					<ButtonGroup margin={7} display={"flex"} justifyContent={"center"} spacing={20}>
 						<Button onClick={addMaterial}>Add Material</Button>
 						<Button

@@ -1,18 +1,23 @@
-import React, { useContext, useEffect } from "react";
-import { Box, FormControl, FormLabel, Select, Input } from "@chakra-ui/react";
-import { TiDelete } from "react-icons/ti";
+import React, { useContext, useEffect, useState } from "react";
+import { Box, FormControl, FormLabel, Select, Input, Text } from "@chakra-ui/react";
+import { TiTrash } from "react-icons/ti";
 import { DailyListContext } from "../../../context/dailyListContext";
 
 const DailyMaterial = (props) => {
 	const thisIndex = props.index;
 	const { materialList, setMaterialList } = useContext(DailyListContext);
+	const [returned, setReturned] = useState(null);
+	const [used, setUsed] = useState(null);
 	const material = props.currentList.material;
 	const amount = props.currentList.amount;
 
-	useEffect((amount) => {
-		amount = props.currentList.amount;
-		console.log(amount);
-	});
+	const handleReturn = (event) => {
+		setReturned(event.target.value);
+	};
+
+	useEffect(() => {
+		setUsed(props.currentList.amount - returned);
+	}, [returned, props.currentList.amount]);
 
 	const materialHandleChange = (event) => {
 		const index = thisIndex;
@@ -38,11 +43,21 @@ const DailyMaterial = (props) => {
 		setMaterialList(updatedArr);
 	};
 
+	const packsMetalNeeded = () => {
+		const packs = Math.floor(props.currentList.amount / 30);
+		return packs;
+	};
+
+	// const materialReturnedAmount = () => {
+	// 	const returnedAmount = props.currentList.amount - returned;
+	// 	return returnedAmount;
+	// };
+
 	return (
 		<>
-			<Box display="flex" justifyContent="space-between" mb={10} alignItems={"center"} width={"full"}>
-				<TiDelete size={25} color="red" onClick={deleteMaterial} />
-				<FormControl w="60%">
+			<Box display="flex" justifyContent="space-between" mb={10} flexDir={"column"} w={"100%"}>
+				<TiTrash style={{ alignSelf: "end" }} size={25} color="red" onClick={deleteMaterial} />
+				<FormControl w={"100%"}>
 					<FormLabel>Material</FormLabel>
 					<Select
 						id="material"
@@ -120,16 +135,39 @@ const DailyMaterial = (props) => {
 						<option>pads</option>
 					</Select>
 				</FormControl>
-				<FormControl w="30%">
+				<FormControl w={"100%"}>
 					<FormLabel>Amount</FormLabel>
-					<Input
-						value={amount}
-						type="number"
-						id="amount"
-						variant="filled"
-						placeholder="0"
-						onChange={materialHandleChange}
-					/>
+					<Box display={"flex"} alignContent={"center"} justifyContent={"space-between"}>
+						<Input
+							value={amount}
+							type="number"
+							id="amount"
+							variant="filled"
+							placeholder="0"
+							onChange={materialHandleChange}
+						/>
+						<Text alignSelf={"center"} mx={8}>
+							<span style={{ margin: "5px" }}>Packs:</span>
+							<span>{packsMetalNeeded()}</span>
+						</Text>
+					</Box>
+				</FormControl>
+				<FormControl w={"100%"}>
+					<FormLabel>Returned</FormLabel>
+					<Box display={"flex"} alignContent={"center"} justifyContent={"space-between"}>
+						<Input
+							type="text"
+							id="returned"
+							variant="filled"
+							placeholder="Amount Returned"
+							defaultvalue={returned}
+							onChange={handleReturn}
+						/>
+						<Text alignSelf={"center"} mx={8}>
+							<span style={{ margin: "5px" }}>Used:</span>
+							<span>{used}</span>
+						</Text>
+					</Box>
 				</FormControl>
 			</Box>
 		</>
