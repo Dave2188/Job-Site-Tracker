@@ -6,8 +6,8 @@ import { DailyListContext } from "../../../context/dailyListContext";
 const DailyMaterial = (props) => {
 	const thisIndex = props.index;
 	const { materialList, setMaterialList } = useContext(DailyListContext);
-	const [returned, setReturned] = useState(null);
-	const [used, setUsed] = useState(null);
+	const [returned, setReturned] = useState(0);
+	const [used, setUsed] = useState(0);
 	const material = props.currentList.material;
 	const amount = props.currentList.amount;
 
@@ -16,7 +16,7 @@ const DailyMaterial = (props) => {
 	};
 
 	useEffect(() => {
-		setUsed(props.currentList.amount - returned);
+		setUsed(props.currentList.amount - returned ? returned : 0);
 	}, [returned, props.currentList.amount]);
 
 	const materialHandleChange = (event) => {
@@ -56,7 +56,10 @@ const DailyMaterial = (props) => {
 	return (
 		<>
 			<Box display="flex" justifyContent="space-between" mb={10} flexDir={"column"} w={"100%"}>
-				<TiTrash style={{ alignSelf: "end" }} size={25} color="red" onClick={deleteMaterial} />
+				<Box display={"flex"} justifyContent={"end"}>
+					<Text>Delete</Text>
+					<TiTrash size={25} color="red" onClick={deleteMaterial} />
+				</Box>
 				<FormControl w={"100%"}>
 					<FormLabel>Material</FormLabel>
 					<Select
@@ -146,27 +149,28 @@ const DailyMaterial = (props) => {
 							placeholder="0"
 							onChange={materialHandleChange}
 						/>
-						<Text alignSelf={"center"} mx={8}>
-							<span style={{ margin: "5px" }}>Packs:</span>
-							<span>{packsMetalNeeded()}</span>
-						</Text>
+						<Box display={"flex"} alignSelf={"center"} mx={8}>
+							<Text mr={2}>Packs:</Text>
+							<Text>{packsMetalNeeded()}</Text>
+						</Box>
 					</Box>
 				</FormControl>
 				<FormControl w={"100%"}>
 					<FormLabel>Returned</FormLabel>
 					<Box display={"flex"} alignContent={"center"} justifyContent={"space-between"}>
 						<Input
-							type="text"
+							onc
+							type="number"
 							id="returned"
 							variant="filled"
-							placeholder="Amount Returned"
-							defaultvalue={returned}
+							placeholder="Returned"
+							defaultValue={returned}
 							onChange={handleReturn}
 						/>
-						<Text alignSelf={"center"} mx={8}>
-							<span style={{ margin: "5px" }}>Used:</span>
-							<span>{used}</span>
-						</Text>
+						<Box display={"flex"} alignSelf={"center"} mx={8}>
+							<Text mr={2}>Used:</Text>
+							<Text>{used}</Text>
+						</Box>
 					</Box>
 				</FormControl>
 			</Box>

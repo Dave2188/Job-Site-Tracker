@@ -13,7 +13,11 @@ const DailyList = () => {
 	const [currentList, setCurrentList] = useState(materialList);
 
 	const addMaterial = () => {
-		setMaterialList([...materialList, { material: "", amount: "" }]);
+		setMaterialList([...materialList, { material: " ", amount: " " }]);
+	};
+
+	const clearList = () => {
+		setMaterialList([{ material: " ", amount: " " }]);
 	};
 
 	useEffect(() => {
@@ -63,10 +67,13 @@ const DailyList = () => {
 								navigate("/");
 							}}
 						>
-							Submit
+							Save
 						</Button>
 					</ButtonGroup>
 				</FormControl>
+				<Button onClick={clearList} my={"3"}>
+					Clear List
+				</Button>
 			</Container>
 		</>
 	);
