@@ -15,7 +15,7 @@ import {
 import { ArrowBackIcon, ExternalLinkIcon } from "@chakra-ui/icons";
 import Section from "./section/section";
 import { useDispatch, useSelector } from "react-redux";
-import { createJob, getJobs, updateJob } from "../../actions/jobActions";
+import { createJob, updateJob } from "../../actions/jobActions";
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 
 const JobForm = () => {
