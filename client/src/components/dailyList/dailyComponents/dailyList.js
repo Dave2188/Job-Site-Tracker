@@ -7,13 +7,15 @@ import { useNavigate } from "react-router-dom";
 
 const DailyList = () => {
 	const { materialList, setMaterialList, isLoading } = useContext(DailyListContext);
-
 	const navigate = useNavigate();
-
 	const [currentList, setCurrentList] = useState(materialList);
 
 	const addMaterial = () => {
-		setMaterialList([...materialList, { material: "", amount: "" }]);
+		setMaterialList([...materialList, { material: "", amount: "", returned: "" }]);
+	};
+
+	const clearList = () => {
+		setMaterialList([{ material: "", amount: "", returned: "" }]);
 	};
 
 	useEffect(() => {
@@ -45,27 +47,43 @@ const DailyList = () => {
 								key={index}
 								display={"flex"}
 								alignItems={"center"}
-								width={"full"}
+								sx={{ maxW: "100%" }}
 								padding={"0px"}
 								margin={"0px"}
 							>
-								<DailyMaterial index={index} currentList={currentList[index]} />
+								<DailyMaterial index={index} currentList={currentList[index]} clear={clearList} />
 							</Container>
 						);
 					})}
+
 					<ButtonGroup margin={7} display={"flex"} justifyContent={"center"} spacing={20}>
-						<Button onClick={addMaterial}>Add Material</Button>
+						<Button background={"green.100"} onClick={addMaterial}>
+							Add Material
+						</Button>
 						<Button
+							background={"green.300"}
 							isLoading={isLoading}
 							loadingText="Submitting"
 							onClick={() => {
 								navigate("/");
 							}}
 						>
-							Submit
+							Save
 						</Button>
 					</ButtonGroup>
 				</FormControl>
+				<Button background={"red.300"} onClick={clearList} my={"3"}>
+					Clear List
+				</Button>
+				<Button
+					background={"blue.300"}
+					onClick={() => {
+						navigate("/");
+					}}
+					my={"3"}
+				>
+					Home
+				</Button>
 			</Container>
 		</>
 	);
