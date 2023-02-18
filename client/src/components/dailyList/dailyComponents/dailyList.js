@@ -11,11 +11,11 @@ const DailyList = () => {
 	const [currentList, setCurrentList] = useState(materialList);
 
 	const addMaterial = () => {
-		setMaterialList([...materialList, { material: "", amount: "" }]);
+		setMaterialList([...materialList, { material: "", amount: "", returned: "" }]);
 	};
 
 	const clearList = () => {
-		setMaterialList([{ material: "", amount: "" }]);
+		setMaterialList([{ material: "", amount: "", returned: "" }]);
 	};
 
 	useEffect(() => {
@@ -57,8 +57,11 @@ const DailyList = () => {
 					})}
 
 					<ButtonGroup margin={7} display={"flex"} justifyContent={"center"} spacing={20}>
-						<Button onClick={addMaterial}>Add Material</Button>
+						<Button background={"green.100"} onClick={addMaterial}>
+							Add Material
+						</Button>
 						<Button
+							background={"green.300"}
 							isLoading={isLoading}
 							loadingText="Submitting"
 							onClick={() => {
@@ -69,8 +72,17 @@ const DailyList = () => {
 						</Button>
 					</ButtonGroup>
 				</FormControl>
-				<Button onClick={clearList} my={"3"}>
+				<Button background={"red.300"} onClick={clearList} my={"3"}>
 					Clear List
+				</Button>
+				<Button
+					background={"blue.300"}
+					onClick={() => {
+						navigate("/");
+					}}
+					my={"3"}
+				>
+					Home
 				</Button>
 			</Container>
 		</>

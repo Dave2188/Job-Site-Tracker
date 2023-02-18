@@ -6,20 +6,21 @@ import { DailyListContext } from "../../../context/dailyListContext";
 const DailyMaterial = (props) => {
 	const thisIndex = props.index;
 	const { materialList, setMaterialList } = useContext(DailyListContext);
-	const [returned, setReturned] = useState("");
 	const [used, setUsed] = useState(0);
+	// const [returned, setReturned] = useState("");
+	const returned = props.currentList.returned;
 	const material = props.currentList.material;
 	const amount = props.currentList.amount;
 
-	const handleReturn = (event) => {
-		setReturned(event.target.value);
-	};
+	// const handleReturn = (event) => {
+	// 	setReturned(event.target.value);
+	// };
 
 	useEffect(() => {
 		if (props.currentList.amount > 0) {
 			setUsed(props.currentList.amount > 0 ? props.currentList.amount - returned : 0);
 		} else {
-			setReturned("");
+			// setReturned("");
 		}
 	}, [returned, props.currentList.amount]);
 
@@ -28,10 +29,14 @@ const DailyMaterial = (props) => {
 
 		const updatedArr = [...materialList];
 
-		updatedArr[index] =
-			event.target.id === "material"
-				? { ...updatedArr[index], material: event.target.value }
-				: { ...updatedArr[index], amount: event.target.value };
+		if (event.target.id === "material") {
+			updatedArr[index] = { ...updatedArr[index], material: event.target.value };
+		} else if (event.target.id === "amount") {
+			updatedArr[index] = { ...updatedArr[index], amount: event.target.value };
+		} else if (event.target.id === "returned") {
+			updatedArr[index] = { ...updatedArr[index], returned: event.target.value };
+		}
+
 		setMaterialList(updatedArr);
 	};
 
@@ -163,7 +168,7 @@ const DailyMaterial = (props) => {
 							variant="filled"
 							placeholder="Returned"
 							value={returned}
-							onChange={handleReturn}
+							onChange={materialHandleChange}
 						/>
 						<Box display={"flex"} alignSelf={"center"} mx={8}>
 							<Text mr={2}>Used:</Text>
