@@ -12,21 +12,16 @@ const DailyMaterial = (props) => {
 	const material = props.currentList.material;
 	const amount = props.currentList.amount;
 
-	// const handleReturn = (event) => {
-	// 	setReturned(event.target.value);
-	// };
-
 	useEffect(() => {
 		if (props.currentList.amount > 0) {
 			setUsed(props.currentList.amount > 0 ? props.currentList.amount - returned : 0);
 		} else {
-			// setReturned("");
+			setUsed(0);
 		}
 	}, [returned, props.currentList.amount]);
 
 	const materialHandleChange = (event) => {
 		const index = thisIndex;
-
 		const updatedArr = [...materialList];
 
 		if (event.target.id === "material") {
@@ -42,7 +37,6 @@ const DailyMaterial = (props) => {
 
 	const deleteMaterial = () => {
 		const index = thisIndex;
-
 		const Arr = [...materialList];
 
 		const updatedArr = Arr.filter((material, i) => {
