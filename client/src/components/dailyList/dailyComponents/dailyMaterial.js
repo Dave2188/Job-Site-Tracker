@@ -6,7 +6,7 @@ import { DailyListContext } from "../../../context/dailyListContext";
 const DailyMaterial = (props) => {
 	const thisIndex = props.index;
 	const { materialList, setMaterialList } = useContext(DailyListContext);
-	const [returned, setReturned] = useState(0);
+	const [returned, setReturned] = useState("");
 	const [used, setUsed] = useState(0);
 	const material = props.currentList.material;
 	const amount = props.currentList.amount;
@@ -16,7 +16,11 @@ const DailyMaterial = (props) => {
 	};
 
 	useEffect(() => {
-		setUsed(props.currentList.amount - returned ? returned : 0);
+		if (props.currentList.amount > 0) {
+			setUsed(props.currentList.amount > 0 ? props.currentList.amount - returned : 0);
+		} else {
+			setReturned("");
+		}
 	}, [returned, props.currentList.amount]);
 
 	const materialHandleChange = (event) => {
@@ -47,11 +51,6 @@ const DailyMaterial = (props) => {
 		const packs = Math.floor(props.currentList.amount / 30);
 		return packs;
 	};
-
-	// const materialReturnedAmount = () => {
-	// 	const returnedAmount = props.currentList.amount - returned;
-	// 	return returnedAmount;
-	// };
 
 	return (
 		<>
@@ -159,12 +158,11 @@ const DailyMaterial = (props) => {
 					<FormLabel>Returned</FormLabel>
 					<Box display={"flex"} alignContent={"center"} justifyContent={"space-between"}>
 						<Input
-							onc
 							type="number"
 							id="returned"
 							variant="filled"
 							placeholder="Returned"
-							defaultValue={returned}
+							value={returned}
 							onChange={handleReturn}
 						/>
 						<Box display={"flex"} alignSelf={"center"} mx={8}>

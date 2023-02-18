@@ -7,17 +7,15 @@ import { useNavigate } from "react-router-dom";
 
 const DailyList = () => {
 	const { materialList, setMaterialList, isLoading } = useContext(DailyListContext);
-
 	const navigate = useNavigate();
-
 	const [currentList, setCurrentList] = useState(materialList);
 
 	const addMaterial = () => {
-		setMaterialList([...materialList, { material: " ", amount: " " }]);
+		setMaterialList([...materialList, { material: "", amount: "" }]);
 	};
 
 	const clearList = () => {
-		setMaterialList([{ material: " ", amount: " " }]);
+		setMaterialList([{ material: "", amount: "" }]);
 	};
 
 	useEffect(() => {
@@ -53,7 +51,7 @@ const DailyList = () => {
 								padding={"0px"}
 								margin={"0px"}
 							>
-								<DailyMaterial index={index} currentList={currentList[index]} />
+								<DailyMaterial index={index} currentList={currentList[index]} clear={clearList} />
 							</Container>
 						);
 					})}
