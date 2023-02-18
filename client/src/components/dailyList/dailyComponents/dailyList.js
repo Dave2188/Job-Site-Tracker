@@ -4,11 +4,13 @@ import React, { useContext, useEffect, useState } from "react";
 import DailyMaterial from "./dailyMaterial";
 import { DailyListContext } from "../../../context/dailyListContext";
 import { useNavigate } from "react-router-dom";
+import { useDailySave } from "../../../hooks/useDailySave";
 
 const DailyList = () => {
 	const { materialList, setMaterialList, isLoading } = useContext(DailyListContext);
-	const navigate = useNavigate();
 	const [currentList, setCurrentList] = useState(materialList);
+	const { loading, setLoading, dailySave } = useDailySave();
+	const navigate = useNavigate();
 
 	const addMaterial = () => {
 		setMaterialList([...materialList, { material: "", amount: "", returned: "" }]);
@@ -16,6 +18,7 @@ const DailyList = () => {
 
 	const clearList = () => {
 		setMaterialList([{ material: "", amount: "", returned: "" }]);
+		localStorage.clear("dailyList");
 	};
 
 	useEffect(() => {
@@ -41,7 +44,6 @@ const DailyList = () => {
 						Daily Material List
 					</Heading>
 					{currentList.map((obj, index) => {
-						console.log(materialList[index]);
 						return (
 							<Container
 								key={index}
@@ -56,34 +58,38 @@ const DailyList = () => {
 						);
 					})}
 
-					<ButtonGroup margin={7} display={"flex"} justifyContent={"center"} spacing={20}>
-						<Button background={"green.100"} onClick={addMaterial}>
+					<ButtonGroup margin={7} display={"flex"} justifyContent={"center"} spacing={12}>
+						<Button background={"teal.300"} onClick={addMaterial}>
 							Add Material
 						</Button>
 						<Button
+							px={10}
 							background={"green.300"}
-							isLoading={isLoading}
+							isLoading={loading}
 							loadingText="Submitting"
 							onClick={() => {
-								navigate("/");
+								dailySave(currentList);
 							}}
 						>
 							Save
 						</Button>
 					</ButtonGroup>
 				</FormControl>
-				<Button background={"red.300"} onClick={clearList} my={"3"}>
-					Clear List
-				</Button>
-				<Button
-					background={"blue.300"}
-					onClick={() => {
-						navigate("/");
-					}}
-					my={"3"}
-				>
-					Home
-				</Button>
+				<Container display={"flex"} flexDir={"column"}>
+					<Button background={"red.300"} onClick={clearList} my={"3"} maxW={"2xl"}>
+						Clear List
+					</Button>
+					<Button
+						maxW={"2xl"}
+						background={"blue.300"}
+						onClick={() => {
+							navigate("/");
+						}}
+						my={"3"}
+					>
+						Home
+					</Button>
+				</Container>
 			</Container>
 		</>
 	);

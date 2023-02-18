@@ -7,7 +7,6 @@ const DailyMaterial = (props) => {
 	const thisIndex = props.index;
 	const { materialList, setMaterialList } = useContext(DailyListContext);
 	const [used, setUsed] = useState(0);
-	// const [returned, setReturned] = useState("");
 	const returned = props.currentList.returned;
 	const material = props.currentList.material;
 	const amount = props.currentList.amount;
@@ -47,7 +46,7 @@ const DailyMaterial = (props) => {
 	};
 
 	const packsMetalNeeded = () => {
-		const packs = Math.floor(props.currentList.amount / 30);
+		const packs = Math.floor(props.currentList.amount / 30 + 1);
 		return packs;
 	};
 
