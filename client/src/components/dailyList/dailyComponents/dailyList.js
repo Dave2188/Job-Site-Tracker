@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { Container, Heading, FormControl, Button, ButtonGroup } from "@chakra-ui/react";
+import { Container, Heading, FormControl, Button, ButtonGroup, Divider } from "@chakra-ui/react";
 import React, { useContext, useEffect, useState } from "react";
 import DailyMaterial from "./dailyMaterial";
 import { DailyListContext } from "../../../context/dailyListContext";
@@ -43,6 +43,7 @@ const DailyList = () => {
 					<Heading my={"5"} textAlign={"center"}>
 						Daily Material List
 					</Heading>
+					<Divider shadow={"dark-lg"} mb={3} />
 					{currentList.map((obj, index) => {
 						return (
 							<Container

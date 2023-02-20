@@ -11,6 +11,7 @@ import Signup from "./components/signup/signup";
 import { useDispatch } from "react-redux";
 import { login } from "./redux/features/userSlice";
 import DailyListView from "./components/dailyList/dailyMaterialView";
+import Weather from "./components/weather/weather";
 
 function App() {
 	const dispatch = useDispatch();
@@ -18,7 +19,7 @@ function App() {
 		if (localStorage.getItem("user")) {
 			dispatch(login(localStorage.getItem("user")));
 		}
-	}, []);
+	}, [dispatch]);
 
 	const router = createBrowserRouter([
 		{
@@ -59,6 +60,11 @@ function App() {
 		{
 			path: "/Daily",
 			element: <DailyListView />,
+			errorElement: <BrowserError />,
+		},
+		{
+			path: "/Weather",
+			element: <Weather />,
 			errorElement: <BrowserError />,
 		},
 	]);

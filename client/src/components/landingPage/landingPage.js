@@ -3,6 +3,7 @@ import { Container, Heading, Center, Divider, Button, Text, Box } from "@chakra-
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
 import { useSelector } from "react-redux";
+// import { useGetWeather } from "../../hooks/useWeather";
 
 const LandingPage = () => {
 	const user = useSelector((state) => state.user);
@@ -14,7 +15,6 @@ const LandingPage = () => {
 		}
 	}, [user, navigate]);
 
-	console.log(user);
 	const { logoutUser } = useLogout();
 
 	const handleSignOut = () => {
@@ -110,6 +110,27 @@ const LandingPage = () => {
 							DAILY MATERIAL LIST
 						</Text>
 					</NavLink>
+				</Box>
+				<Box
+					bg="blue.300"
+					w="100%"
+					margin={6}
+					cursor={"pointer"}
+					shadow={"xl"}
+					borderRadius={10}
+					maxWidth="3xl"
+					transition={".25s"}
+					_hover={{ background: "#e2e8f0" }}
+					display={"flex"}
+					justifyContent={"center"}
+					alignItems={"center"}
+				>
+					<NavLink to="/Weather">
+						<Box>
+							<Text p={5}>DAILY WEATHER</Text>
+						</Box>
+					</NavLink>
+					{/* {loading && <Spinner size={"md"} />} */}
 				</Box>
 
 				<Button
