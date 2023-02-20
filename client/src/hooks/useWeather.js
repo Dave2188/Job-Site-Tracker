@@ -33,7 +33,7 @@ export const useGetWeather = () => {
 
 			const URL = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${key}&q=${cityQuery}&language=en-us&details=false&toplevel=false`;
 
-			const response = await fetch(URL, { method: "GET", mode: "no-cors" });
+			const response = await fetch(URL, { method: "GET" });
 			const data = await response.json();
 
 			locationKey.current = data.Key;
@@ -50,7 +50,7 @@ export const useGetWeather = () => {
 			await getLocationKey();
 			const URL = `https://dataservice.accuweather.com/forecasts/v1/daily/1day/${locationKey.current}?&apikey=${secret}`;
 
-			const response = await fetch(URL, { method: "GET", mode: "no-cors", details: true, metric: false });
+			const response = await fetch(URL, { method: "GET", details: true, metric: false });
 			const data = await response.json();
 			setWeather(data);
 			setLoadingWeather(false);
