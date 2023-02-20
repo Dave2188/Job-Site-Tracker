@@ -7,8 +7,22 @@ import { useSelector } from "react-redux";
 
 const LandingPage = () => {
 	const user = useSelector((state) => state.user);
-
 	const navigate = useNavigate();
+
+	if (navigator.permissions) {
+		navigator.permissions.query({ name: "geolocation" }).then(function (result) {
+			if (result.state === "granted") {
+				console.log("Location access granted");
+			} else if (result.state === "prompt") {
+				console.log("Location access prompt");
+				navigator.geolocation.getCurrentPosition(() => {});
+			} else {
+				console.log("Location access denied");
+			}
+		});
+	} else {
+		alert("Geolocation is not supported by this browser.");
+	}
 
 	useEffect(() => {
 		if (user === null) {
