@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 
 import { useRef, useState, useMemo, useEffect } from "react";
-const secret = process.env.REACT_APP_WEATHER_KEY;
 
 export const useGetWeather = () => {
+	const secret = process.env.REACT_APP_WEATHER_KEY;
 	const lat = useRef("");
 	const long = useRef("");
 	const locationKey = useRef("");
