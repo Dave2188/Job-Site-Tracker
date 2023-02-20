@@ -56,7 +56,19 @@ const Weather = () => {
 
 						<Container flexDir={"column"} display={"flex"} alignItems={"center"} justifyContent={"center"}>
 							{forecast === "" ? (
-								<Spinner size={"xl"} alignSelf={"center"} my={10} />
+								<>
+									<Spinner size={"xl"} alignSelf={"center"} my={10} />
+									<Button
+										maxW={"2xl"}
+										background={"blue.200"}
+										onClick={() => {
+											navigate("/");
+										}}
+										my={"3"}
+									>
+										Home
+									</Button>
+								</>
 							) : (
 								<Container display={"flex"} flexDir={"column"}>
 									<Container textAlign={"center"} my={4} background={"red.100"} rounded={"3xl"}>
