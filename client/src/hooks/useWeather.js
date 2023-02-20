@@ -7,12 +7,13 @@ export const useGetWeather = () => {
 	const lat = useRef("");
 	const long = useRef("");
 	const locationKey = useRef("");
-	const [loading, setLoading] = useState(true);
+	const [loading, setLoading] = useState(null);
 	const [weather, setWeather] = useState(null);
 	const [loadingWeather, setLoadingWeather] = useState(null);
 	const key = `${secret}`;
 
 	useMemo(() => {
+		setLoading(true);
 		navigator.geolocation.getCurrentPosition(
 			(position) => {
 				lat.current = position.coords.latitude.toString().slice(0, 5);
