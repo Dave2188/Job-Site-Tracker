@@ -53,9 +53,11 @@ const DailyMaterial = (props) => {
 	return (
 		<>
 			<Box display="flex" justifyContent="space-between" mb={10} flexDir={"column"} w={"100%"}>
-				<Box display={"flex"} justifyContent={"end"}>
-					<Text>Delete</Text>
-					<TiTrash size={25} color="red" onClick={deleteMaterial} />
+				<Box display={"flex"} justifyContent={"end"} onClick={deleteMaterial} cursor={"pointer"}>
+					<Text fontSize={"xs"} alignSelf={"center"}>
+						Delete
+					</Text>
+					<TiTrash size={25} color="red" />
 				</Box>
 				<FormControl w={"100%"}>
 					<FormLabel>Material</FormLabel>
