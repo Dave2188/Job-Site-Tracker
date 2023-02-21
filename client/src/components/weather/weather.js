@@ -22,6 +22,7 @@ const Weather = () => {
 
 	useEffect(() => {
 		if (weather !== null && weather !== forecast) {
+			setForecast(weather);
 		}
 	}, [setForecast, weather, forecast]);
 
