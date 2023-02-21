@@ -104,6 +104,7 @@ const Material = (props) => {
 					<FormLabel>Amount</FormLabel>
 					<Input
 						defaultValue={material.amount}
+						inputMode="numeric"
 						type="number"
 						id="amount"
 						variant="filled"

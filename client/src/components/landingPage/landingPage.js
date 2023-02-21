@@ -1,20 +1,35 @@
-import React, { useState, useEffect } from "react";
-import { Container, Heading, Center, Divider, Button, Text, Box, background } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Container, Heading, Center, Divider, Button, Text, Box } from "@chakra-ui/react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
 import { useSelector } from "react-redux";
+// import { useGetWeather } from "../../hooks/useWeather";
 
 const LandingPage = () => {
 	const user = useSelector((state) => state.user);
 	const navigate = useNavigate();
 
+	if (navigator.permissions) {
+		navigator.permissions.query({ name: "geolocation" }).then(function (result) {
+			if (result.state === "granted") {
+				console.log("Location access granted");
+			} else if (result.state === "prompt") {
+				console.log("Location access prompt");
+				navigator.geolocation.getCurrentPosition(() => {});
+			} else {
+				console.log("Location access denied");
+			}
+		});
+	} else {
+		alert("Geolocation is not supported by this browser.");
+	}
+
 	useEffect(() => {
 		if (user === null) {
 			navigate("/SignUp");
 		}
-	}, []);
+	}, [user, navigate]);
 
-	console.log(user);
 	const { logoutUser } = useLogout();
 
 	const handleSignOut = () => {
@@ -33,7 +48,7 @@ const LandingPage = () => {
 			flexDir={"column"}
 			margin={"auto"}
 			mt={"5"}
-			background={"whiteAlpha.900"}
+			background={"gray.50"}
 		>
 			<Center flexDirection="column" m={4}>
 				<Heading padding={8}>Job Tracker</Heading>
@@ -105,9 +120,32 @@ const LandingPage = () => {
 					transition={".25s"}
 					_hover={{ background: "#e2e8f0" }}
 				>
-					<Text p={5} textAlign="center">
-						BRANCH
-					</Text>
+					<NavLink to="Daily">
+						<Text p={5} textAlign="center">
+							DAILY MATERIAL LIST
+						</Text>
+					</NavLink>
+				</Box>
+				<Box
+					bg="blue.300"
+					w="100%"
+					margin={6}
+					cursor={"pointer"}
+					shadow={"xl"}
+					borderRadius={10}
+					maxWidth="3xl"
+					transition={".25s"}
+					_hover={{ background: "#e2e8f0" }}
+					display={"flex"}
+					justifyContent={"center"}
+					alignItems={"center"}
+				>
+					<NavLink to="/Weather">
+						<Box>
+							<Text p={5}>DAILY WEATHER</Text>
+						</Box>
+					</NavLink>
+					{/* {loading && <Spinner size={"md"} />} */}
 				</Box>
 
 				<Button

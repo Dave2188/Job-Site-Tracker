@@ -20,7 +20,7 @@ const Jobs = () => {
 
 	useEffect(() => {
 		dispatch(getJobs());
-	}, [dispatch, jobs]);
+	}, [dispatch]);
 
 	useEffect(() => {
 		jobs.length ? setLoading(false) : setLoading(true);
@@ -31,13 +31,13 @@ const Jobs = () => {
 			maxWidth="full"
 			width={"95vw"}
 			boxShadow="dark-lg"
-			background={"whiteAlpha.900"}
+			background={"gray.50"}
 			rounded="lg"
 			height={"fit-content"}
 			display={"flex"}
 			flexDir={"column"}
 			margin={"auto"}
-			mt={"5"}
+			marginY={"7"}
 		>
 			<Heading marginBottom={6} marginTop={2} paddingTop={5} textAlign="center">
 				Jobs
@@ -54,7 +54,7 @@ const Jobs = () => {
 					mb={6}
 				/>
 			) : (
-				<SimpleGrid minChildWidth="130px" spacing="40px" mb={"5"}>
+				<SimpleGrid minChildWidth="130px" spacing="40px" mb={"2"}>
 					{jobs.map((job) => {
 						return <FileTiles company={job.companyName} jobSiteName={job.jobSiteName} key={job._id} id={job._id} />;
 					})}
