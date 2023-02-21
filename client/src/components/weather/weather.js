@@ -146,7 +146,7 @@ const Weather = () => {
 											Temps
 										</Heading>
 										<Text>
-											HI-{forecast.DailyForecasts[0].Temperature.Maximum.Value}º / LO-
+											HI:{forecast.DailyForecasts[0].Temperature.Maximum.Value}º / LO:
 											{forecast.DailyForecasts[0].Temperature.Maximum.Value}º
 										</Text>
 									</Container>
