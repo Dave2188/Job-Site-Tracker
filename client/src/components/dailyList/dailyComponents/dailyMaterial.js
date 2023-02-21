@@ -134,7 +134,20 @@ const DailyMaterial = (props) => {
 						<option>#12 45º</option>
 						<option>#13 45º</option>
 						<option>#14 45º</option>
-						<option>pads</option>
+						<option>1" metal</option>
+						<option>2" metal</option>
+						<option>3" metal</option>
+						<option>4" metal</option>
+						<option>5" metal</option>
+						<option>6" metal</option>
+						<option>7" metal</option>
+						<option>8" metal</option>
+						<option>9" metal</option>
+						<option>10" metal</option>
+						<option>11" metal</option>
+						<option>12" metal</option>
+						<option>13" metal</option>
+						<option>14" metal</option>
 					</Select>
 				</FormControl>
 				<FormControl w={"100%"}>
@@ -158,6 +171,7 @@ const DailyMaterial = (props) => {
 					<FormLabel>Returned</FormLabel>
 					<Box display={"flex"} alignContent={"center"} justifyContent={"space-between"}>
 						<Input
+							inputMode="numeric"
 							type="number"
 							id="returned"
 							variant="filled"

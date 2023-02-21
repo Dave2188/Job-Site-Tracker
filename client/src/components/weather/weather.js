@@ -4,27 +4,23 @@ import { useGetWeather } from "../../hooks/useWeather";
 import { useNavigate } from "react-router-dom";
 
 const Weather = () => {
-	const { weather, getWeather, locationKey, loading, getLocationKey, lat } = useGetWeather();
+	const { weather, getWeather, locationKey, loading, getLocationKey, lat, refresh, locationDetails } = useGetWeather();
 	const [forecast, setForecast] = useState("");
 	const navigate = useNavigate();
 
 	useEffect(() => {
 		if (lat.current !== "" && locationKey.current === "") {
 			getLocationKey();
-			console.log("hi");
 		}
 	});
 
 	useEffect(() => {
-		console.log(weather);
 		if (weather === null && locationKey.current !== "") {
-			console.log("yo");
 			getWeather();
 		}
 	});
 
 	useEffect(() => {
-		console.log(forecast);
 		if (weather !== null && weather !== forecast) {
 			setForecast(weather);
 		}
@@ -80,6 +76,9 @@ const Weather = () => {
 										<Heading size={"md"}> Todays Date: {forecast.DailyForecasts[0].Date.slice(0, 10)}</Heading>
 									</Container>
 									<Divider shadow={"dark-lg"} />
+									<Heading mt={4} textAlign={"center"} size={"md"}>
+										{locationDetails.current.city},{locationDetails.current.state}
+									</Heading>
 									<Container
 										my={10}
 										display={"flex"}
@@ -163,6 +162,17 @@ const Weather = () => {
 										my={"3"}
 									>
 										Home
+									</Button>
+									<Button
+										maxW={"2xl"}
+										background={"teal.200"}
+										onClick={() => {
+											refresh();
+											setForecast("");
+										}}
+										my={"3"}
+									>
+										Refresh
 									</Button>
 								</Container>
 							)}

@@ -7,6 +7,7 @@ export const useGetWeather = () => {
 	const lat = useRef("");
 	const long = useRef("");
 	const locationKey = useRef("");
+	const locationDetails = useRef({});
 	const [loading, setLoading] = useState(null);
 	const [weather, setWeather] = useState(null);
 	const [loadingWeather, setLoadingWeather] = useState(null);
@@ -18,7 +19,7 @@ export const useGetWeather = () => {
 			(position) => {
 				lat.current = position.coords.latitude.toString().slice(0, 5);
 				long.current = position.coords.longitude.toString().slice(0, 7);
-				// console.log(lat.current, long.current);
+				console.log(lat.current, long.current);
 				setLoading(false);
 			},
 			(error) => {
@@ -30,13 +31,11 @@ export const useGetWeather = () => {
 	const getLocationKey = async () => {
 		try {
 			const cityQuery = `${lat.current},${long.current}`;
-
 			const URL = `https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=${key}&q=${cityQuery}&language=en-us&details=false&toplevel=false`;
-
 			const response = await fetch(URL, { method: "GET" });
 			const data = await response.json();
-
 			locationKey.current = data.Key;
+			locationDetails.current = { city: data.LocalizedName, state: data.AdministrativeArea.ID };
 			setLoadingWeather(true);
 		} catch (error) {
 			console.log(error.message);
@@ -49,7 +48,6 @@ export const useGetWeather = () => {
 		try {
 			await getLocationKey();
 			const URL = `https://dataservice.accuweather.com/forecasts/v1/daily/1day/${locationKey.current}?&apikey=${secret}`;
-
 			const response = await fetch(URL, { method: "GET", details: true, metric: false });
 			const data = await response.json();
 			setWeather(data);
@@ -59,5 +57,12 @@ export const useGetWeather = () => {
 		}
 	};
 
-	return { getWeather, loading, weather, locationKey, lat, getLocationKey };
+	const refresh = () => {
+		locationDetails.current = {};
+		locationKey.current = "";
+		setWeather(null);
+		return getWeather;
+	};
+
+	return { getWeather, loading, weather, locationKey, lat, getLocationKey, locationDetails, refresh };
 };
