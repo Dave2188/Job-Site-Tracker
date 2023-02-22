@@ -42,7 +42,18 @@ const Weather = () => {
 				mt={"5"}
 			>
 				{loading ? (
-					<Heading>Getting location...</Heading>
+					<>
+						<Heading textAlign={"center"}>Getting location...</Heading>
+						<Spinner
+							size={"xl"}
+							alignSelf={"center"}
+							my={10}
+							thickness="5px"
+							speed="0.5s"
+							emptyColor="blue.100"
+							color="blue.500"
+						/>
+					</>
 				) : (
 					<>
 						<Heading textAlign={"center"} mt={6} size={"2xl"}>
@@ -53,7 +64,15 @@ const Weather = () => {
 						<Container flexDir={"column"} display={"flex"} alignItems={"center"} justifyContent={"center"}>
 							{forecast === "" ? (
 								<>
-									<Spinner size={"xl"} alignSelf={"center"} my={10} />
+									<Spinner
+										size={"xl"}
+										alignSelf={"center"}
+										my={10}
+										thickness="5px"
+										speed="0.5s"
+										emptyColor="blue.100"
+										color="blue.500"
+									/>
 									<Button
 										maxW={"2xl"}
 										background={"blue.200"}
