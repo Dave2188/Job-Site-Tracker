@@ -18,6 +18,8 @@ const Jobs = () => {
 		return job.jobComplete !== true;
 	});
 
+	//maybe usememo here to get updated data after update
+
 	useEffect(() => {
 		dispatch(getJobs());
 	}, [dispatch]);
