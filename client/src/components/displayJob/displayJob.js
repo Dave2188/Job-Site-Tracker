@@ -4,10 +4,8 @@ import { useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import PrintSection from "./printSection";
 import { QRCodeSVG } from "qrcode.react";
-import { useNavigate } from "react-router-dom";
 
 const PrintJob = () => {
-	const navigate = useNavigate();
 	const { _id } = useParams();
 	const jobs = useSelector((state) => state.jobs);
 	// eslint-disable-next-line
@@ -54,7 +52,7 @@ const PrintJob = () => {
 						<Text as={"b"} marginEnd={2}>
 							Directions:
 						</Text>
-						{_id ? (
+						{_id && currentJob.gpsLocation === true ? (
 							<QRCodeSVG size={"60"} value={currentJob.directions} style={{ marginLeft: ".5rem", marginTop: "0" }} />
 						) : (
 							<Text>{currentJob.directions}</Text>
