@@ -1,4 +1,4 @@
-import * as api from "../api";
+import * as api from "../api/index.js";
 import { login } from "../redux/features/userSlice";
 
 export const createUser = async (dispatch) => {
