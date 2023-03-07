@@ -17,7 +17,8 @@ const RoadConditions = () => {
 			flexDir={"column"}
 			alignItems={"center"}
 			justifyContent={"center"}
-			margin={"auto"}
+			overflow={"hidden"}
+			// margin={"auto"}
 			my={"5"}
 		>
 			{isLoading && (
@@ -36,7 +37,7 @@ const RoadConditions = () => {
 			<iframe
 				src="https://travel.dot.nd.gov/?expand=weather&layers=closed-blocked,event-orange,incident-red,informational-grey,radar,roads,travelalerts,warning-blue,warning-yellow"
 				title="ndroads iframe"
-				width="100%"
+				width="110%"
 				height="100%"
 				onLoad={() => setIsLoading(false)}
 			></iframe>
