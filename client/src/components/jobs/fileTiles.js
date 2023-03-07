@@ -28,6 +28,7 @@ const FileTiles = (props) => {
 			) : null}
 
 			<Box
+				data-testid="tileTest"
 				background={"gray.50"}
 				boxShadow={"dark-lg"}
 				rounded="lg"

@@ -1,19 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// const initialState = [
-// 	{
-// 		jobSiteName: "",
-// 		location: "",
-// 		directions: "",
-// 		isReady: false,
-// 		createdBy: "",
-// 		createdAt: "",
-// 		updatedAt: "",
-// 		siteSection: {},
-// 		isLoading: true,
-// 	},
-// ];
-
 export const jobsSlice = createSlice({
 	name: "jobs",
 	initialState: [],
@@ -27,13 +13,10 @@ export const jobsSlice = createSlice({
 		},
 
 		updateCurrentJob(state, action) {
-			console.log(action);
 			return state.map((job) => (job._id === action.payload ? action.payload : job));
 		},
 	},
 });
-
-// console.log(jobsSlice);
 
 export const { fetchAllJobs, createNewJob, updateCurrentJob } = jobsSlice.actions;
 

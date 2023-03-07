@@ -10,19 +10,18 @@ import { useNavigate } from "react-router-dom";
 const JobsComplete = () => {
 	const [loading, setLoading] = useState(true);
 	const [deleteMode, setDeleteMode] = useState(false);
-
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		dispatch(getJobs());
+	}, [dispatch, deleteMode]);
 
 	let jobs = useSelector((state) => state.jobs);
 
 	jobs = jobs.filter((job) => {
 		return job.jobComplete === true;
 	});
-
-	useEffect(() => {
-		dispatch(getJobs());
-	}, [dispatch, deleteMode]);
 
 	useEffect(() => {
 		jobs.length ? setLoading(false) : setLoading(true);

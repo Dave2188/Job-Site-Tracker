@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import {
 	FormControl,
@@ -51,26 +52,29 @@ const JobForm = () => {
 	}, [jobSections]);
 
 	useEffect(() => {
-		if (isChecked === true && !_id) {
+		if ((isChecked === true && !_id) || (isChecked === true && jobData.directions === "")) {
 			document.getElementById("location").value = "Finding your location...";
 			navigator.geolocation.getCurrentPosition(success);
 		}
 	}, [isChecked]);
 
-	const useHandleSubmit = (e) => {
+	const useHandleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (!jobData.siteSections[0].sectionName) return alert("REQUIRED: Please fill out site section");
+		for (let section of jobData.siteSections) {
+			if (section.sectionName === "") {
+				return alert("REQUIRED: Please fill out site section");
+			}
+		}
 		if (!jobData.createdBy) return alert("REQUIRED: Please fill in name");
 		if (!jobData.jobSiteName) return alert("REQUIRED: Please fill in Job Site Name");
 
 		if (_id) {
-			dispatch(updateJob(_id, jobData));
-			// dispatch(getJobs());
+			await dispatch(updateJob(_id, jobData));
 			if (job.jobComplete === false) return navigate("/jobs");
 			if (job.jobComplete === true) return navigate("/JobsComplete");
 		}
-		dispatch(createJob(jobData));
+		await dispatch(createJob(jobData));
 
 		return navigate("/jobs");
 	};
@@ -83,13 +87,13 @@ const JobForm = () => {
 	};
 
 	const handleSwitch = () => {
-		if (isSelected === false) return setIsSelected(true), setJobData({ ...jobData, jobComplete: true });
-		if (isSelected === true) return setIsSelected(false), setJobData({ ...jobData, jobComplete: false });
+		if (isSelected === false) return setIsSelected(true) & setJobData({ ...jobData, jobComplete: true });
+		if (isSelected === true) return setIsSelected(false) & setJobData({ ...jobData, jobComplete: false });
 	};
 
 	const handleCheckBox = () => {
-		if (isChecked === false) return setIsChecked(true), setJobData({ ...jobData, gpsLocation: true });
-		if (isChecked === true) return setIsChecked(false), setJobData({ ...jobData, gpsLocation: false });
+		if (isChecked === false) return setIsChecked(true) & setJobData({ ...jobData, gpsLocation: true });
+		if (isChecked === true) return setIsChecked(false) & setJobData({ ...jobData, gpsLocation: false });
 	};
 
 	return (
@@ -174,7 +178,7 @@ const JobForm = () => {
 			</FormControl>
 
 			<FormControl mb={14}>
-				<FormLabel>Date</FormLabel>
+				<FormLabel>Date{_id ? " created" : ""}</FormLabel>
 				<Input
 					defaultValue={_id ? new Date(job.date).toLocaleDateString("en-ca") : null}
 					type="date"
@@ -249,7 +253,7 @@ const JobForm = () => {
 					{_id ? "Update" : "Submit"}
 				</Button>
 			</Box>
-			{/* {console.log(jobData)} */}
+			{console.log(jobData)}
 		</Container>
 	);
 };
