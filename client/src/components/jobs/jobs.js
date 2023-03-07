@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getJobs } from "../../actions/jobActions";
-import { useNavigate, history } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Jobs = () => {
 	const navigate = useNavigate();
