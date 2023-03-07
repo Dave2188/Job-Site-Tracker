@@ -146,6 +146,27 @@ const LandingPage = () => {
 					</NavLink>
 					{/* {loading && <Spinner size={"md"} />} */}
 				</Box>
+				<Box
+					bg="blue.300"
+					w="100%"
+					margin={6}
+					cursor={"pointer"}
+					shadow={"xl"}
+					borderRadius={10}
+					maxWidth="3xl"
+					transition={".25s"}
+					_hover={{ background: "#e2e8f0" }}
+					display={"flex"}
+					justifyContent={"center"}
+					alignItems={"center"}
+				>
+					<NavLink to="/RoadConditions">
+						<Box>
+							<Text p={5}>ROAD CONDITIONS</Text>
+						</Box>
+					</NavLink>
+					{/* {loading && <Spinner size={"md"} />} */}
+				</Box>
 
 				<Button
 					onClick={handleSignOut}

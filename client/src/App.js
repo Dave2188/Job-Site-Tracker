@@ -1,17 +1,18 @@
 import { useEffect } from "react";
-import JobForm from "./components/jobForm/jobForm";
-import LandingPage from "./components/landingPage/landingPage";
+import { useDispatch } from "react-redux";
+import { login } from "./redux/features/userSlice";
 import { Container } from "@chakra-ui/react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import JobForm from "./components/jobForm/jobForm";
+import LandingPage from "./components/landingPage/landingPage";
 import BrowserError from "./components/browserError/browserError";
 import Jobs from "./components/jobs/jobs";
 import PrintJob from "./components/displayJob/displayJob";
 import JobsComplete from "./components/jobsComplete/jobsCompete";
 import Signup from "./components/signup/signup";
-import { useDispatch } from "react-redux";
-import { login } from "./redux/features/userSlice";
 import DailyListView from "./components/dailyList/dailyMaterialView";
 import Weather from "./components/weather/weather";
+import RoadConditions from "./components/roadConditions/roadConditions";
 import ErrorBoundary from "./components/errorBoundary/errorBoundary";
 
 function App() {
@@ -66,6 +67,11 @@ function App() {
 		{
 			path: "/Weather",
 			element: <Weather />,
+			errorElement: <BrowserError />,
+		},
+		{
+			path: "/RoadConditions",
+			element: <RoadConditions />,
 			errorElement: <BrowserError />,
 		},
 	]);
