@@ -12,6 +12,7 @@ import { useDispatch } from "react-redux";
 import { login } from "./redux/features/userSlice";
 import DailyListView from "./components/dailyList/dailyMaterialView";
 import Weather from "./components/weather/weather";
+import ErrorBoundary from "./components/errorBoundary/errorBoundary";
 
 function App() {
 	const dispatch = useDispatch();
@@ -71,7 +72,9 @@ function App() {
 
 	return (
 		<Container maxWidth="100vw" padding={0}>
-			<RouterProvider router={router} baseName="/" />
+			<ErrorBoundary>
+				<RouterProvider router={router} baseName="/" />
+			</ErrorBoundary>
 		</Container>
 	);
 }

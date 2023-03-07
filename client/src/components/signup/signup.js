@@ -30,7 +30,7 @@ const Signup = () => {
 		if (localStorage.getItem("user")) {
 			navigate("/");
 		}
-	}, []);
+	});
 
 	const handleClick = () => setShow(!show);
 

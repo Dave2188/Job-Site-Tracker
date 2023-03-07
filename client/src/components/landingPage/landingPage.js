@@ -3,7 +3,6 @@ import { Container, Heading, Center, Divider, Button, Text, Box } from "@chakra-
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLogout } from "../../hooks/useLogout";
 import { useSelector } from "react-redux";
-// import { useGetWeather } from "../../hooks/useWeather";
 
 const LandingPage = () => {
 	const user = useSelector((state) => state.user);
@@ -39,7 +38,7 @@ const LandingPage = () => {
 
 	return (
 		<Container
-			maxWidth="full"
+			maxWidth="container.lg"
 			width={"95vw"}
 			boxShadow="dark-lg"
 			rounded="lg"

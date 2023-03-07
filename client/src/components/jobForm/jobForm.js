@@ -58,24 +58,23 @@ const JobForm = () => {
 		}
 	}, [isChecked]);
 
-	const useHandleSubmit = (e) => {
+	const useHandleSubmit = async (e) => {
 		e.preventDefault();
+
 		for (let section of jobData.siteSections) {
 			if (section.sectionName === "") {
 				return alert("REQUIRED: Please fill out site section");
 			}
 		}
-		// if (!jobData.siteSections[0].sectionName) return alert("REQUIRED: Please fill out site section");
 		if (!jobData.createdBy) return alert("REQUIRED: Please fill in name");
 		if (!jobData.jobSiteName) return alert("REQUIRED: Please fill in Job Site Name");
 
 		if (_id) {
-			dispatch(updateJob(_id, jobData));
-			// dispatch(getJobs());
+			await dispatch(updateJob(_id, jobData));
 			if (job.jobComplete === false) return navigate("/jobs");
 			if (job.jobComplete === true) return navigate("/JobsComplete");
 		}
-		dispatch(createJob(jobData));
+		await dispatch(createJob(jobData));
 
 		return navigate("/jobs");
 	};
