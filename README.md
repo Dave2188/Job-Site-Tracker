@@ -25,7 +25,7 @@ Follow these steps to set up your development environment:
    Clone the project repository to your local machine using:
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Dave2188/Job-Site-Tracker
    ```
 
 2. **Install Client Dependencies**
@@ -64,7 +64,7 @@ After installing the dependencies, here's how you can start both the client and 
   npm start
   ```
 
-Now, your application should be running, and you can access it through the URLs provided by the start scripts (usually http://localhost:3000 for the client and http://localhost:8080 for the server, but this may vary depending on your configuration).
+Now, your application should be running, and you can access it through the URLs provided by the start scripts (usually http://localhost:3000 for the client and http://localhost:4000 for the server, but this may vary depending on your configuration).
 
 ## Contributing
 
