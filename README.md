@@ -71,7 +71,7 @@ After installing the dependencies, here's how you can start both the client and 
 - **Alt Start Full App**: Navigate to the client directory and run the start script:
 
   ```bash
-  cd ../client 
+  cd client 
   npm start-full
   ```
 
