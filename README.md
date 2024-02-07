@@ -1,6 +1,6 @@
 # Application Name
 
-Briefly describe your application here. Include any pertinent information about its functionality or its purpose.
+The application was created to help crews out in the field to better keep track of materials and progress. Features include site wide material tracking, daily material lists, Location tracking and Qr print out for site details directions, local weather, and Driving conditions. 
 
 ## Getting Started
 
@@ -46,6 +46,10 @@ Follow these steps to set up your development environment:
    npm install
    ```
 
+4. **Create Env Files**
+
+    Create env files for both client and server directories. (Examples available)
+
 ### Starting the Application
 
 After installing the dependencies, here's how you can start both the client and server:
@@ -64,12 +68,13 @@ After installing the dependencies, here's how you can start both the client and 
   npm start
   ```
 
+- **Alt Start Full App**: Navigate to the client directory and run the start script:
+
+  ```bash
+  cd ../client 
+  npm start-full
+  ```
+
 Now, your application should be running, and you can access it through the URLs provided by the start scripts (usually http://localhost:3000 for the client and http://localhost:4000 for the server, but this may vary depending on your configuration).
 
-## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
